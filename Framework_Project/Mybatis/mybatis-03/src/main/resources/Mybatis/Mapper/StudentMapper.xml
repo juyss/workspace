@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的DAO接口-->
+<!--id:接口方法名; resultType:返回值类型实体类-->
+<mapper namespace="com.juyss.mapper.StudentMapper">
+
+<!--    多对一查询:按照查询嵌套处理-->
+    <select id="getStudentList" resultMap="StudentAndTeacher">
+        select * from mybatis.student
+    </select>
+    <resultMap id="StudentAndTeacher" type="Student">
+        <association property="teacher" column="tid" javaType="Teacher" select="getTeacherById"/>
+    </resultMap>
+    <select id="getTeacherById" resultType="Teacher">
+        select * from mybatis.teacher where id=#{tid}
+    </select>
+
+<!--    多对一查询:按照查询嵌套处理-->
+<!--    <select id="getStudentList" resultMap="StudentAndTeacher">-->
+<!--        select s.id s_id,s.name s_name,t.id t_id,t.name t_name-->
+<!--        from mybatis.student s ,mybatis.teacher t-->
+<!--        where s.tid = t.id-->
+<!--    </select>-->
+<!--    <resultMap id="StudentAndTeacher" type="Student">-->
+<!--        <result property="id" column="s_id"/>-->
+<!--        <result property="name" column="s_name"/>-->
+<!--        <association property="teacher" javaType="Teacher">-->
+<!--            <result property="id" column="t_id"/>-->
+<!--            <result property="name" column="t_name"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
+</mapper>

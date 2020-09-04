@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DAODemo/DAODemo.iml" filepath="$PROJECT_DIR$/DAODemo/DAODemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DAO_Origin/DAO_Origin.iml" filepath="$PROJECT_DIR$/DAO_Origin/DAO_Origin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDBC_Example.iml" filepath="$PROJECT_DIR$/JDBC_Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/getConnection/getConnection.iml" filepath="$PROJECT_DIR$/getConnection/getConnection.iml" />
+    </modules>
+  </component>
+</project>

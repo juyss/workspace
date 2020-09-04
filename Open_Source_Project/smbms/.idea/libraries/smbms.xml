@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="smbms">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/fastjson-1.2.62.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jsp-api-2.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jsp-api-2.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsp-api-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jstl-api-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junit-4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/protobuf-java-3.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/standard-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jsp-api-2.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-2.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

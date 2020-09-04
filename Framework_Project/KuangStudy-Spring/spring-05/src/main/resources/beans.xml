@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans>
+        <bean id="address" class="Address">
+            <property name="location" value="家庭住址"/>
+        </bean>
+        <bean id="student" class="Student">
+<!--            基本数据类型和String类型-->
+            <property name="id" value="001"/>
+            <property name="name" value="小明"/>
+<!--            引用类-->
+            <property name="address" ref="address"/>
+<!--            数组-->
+            <property name="hobbies">
+                <array value-type="java.lang.String">
+                    <value type="java.lang.String">唱歌</value>
+                    <value type="java.lang.String">跳舞</value>
+                    <value type="java.lang.String">RAP</value>
+                    <value type="java.lang.String">打篮球</value>
+                </array>
+            </property>
+<!--            List集合-->
+            <property name="subject">
+                <list value-type="java.lang.String">
+                    <value>语文</value>
+                    <value>数学</value>
+                    <value>英语</value>
+                    <value>政治</value>
+                </list>
+            </property>
+<!--            Set集合-->
+            <property name="games">
+                <set value-type="java.lang.String">
+                    <value>LOL</value>
+                    <value>DNF</value>
+                    <value>CF</value>
+                </set>
+            </property>
+<!--            Map集合-->
+            <property name="score">
+                <map key-type="java.lang.String" value-type="java.lang.String">
+                    <entry key="一" value="第一"/>
+                    <entry key="二" value="第二"/>
+                    <entry key="三" value="第三"/>
+                </map>
+            </property>
+<!--            Properties-->
+            <property name="info">
+                <props>
+                    <prop key="prop01">属性01</prop>
+                    <prop key="prop02">属性02</prop>
+                    <prop key="prop03">属性03</prop>
+                </props>
+            </property>
+<!--            空字符串-->
+            <property name="wife" value=""/>
+<!--            null-->
+            <property name="children">
+                <null/>
+            </property>
+        </bean>
+    </beans>
+</beans>

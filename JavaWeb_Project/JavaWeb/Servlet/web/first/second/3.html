@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3</title>
+</head>
+<body>
+    <!--
+    相对路径:
+        相对于当前访问地址,后加上自己要访问的地址 (../可以用于删除一级目录,即返回上层目录)
+    绝对路径:
+        相对于在http://ip:port/,后加上自己要访问的地址
+    -->
+
+
+    <!--  原地址: http://localhost:8080/Servlet/first/second/3.html-->
+
+    <!--  点击后: http://localhost:8080/Servlet/index.jsp-->
+    相对路径地址跳转:<a href="../../index.jsp">返回首页</a>
+    <br>
+    <!--  点击后: http://localhost:8080/Servlet/first/second/index.jsp-->
+    相对路径地址跳转:<a href="index.jsp">返回首页</a>
+    <br>
+    <!--  点击后:http://localhost:8080/Servlet/index.jsp-->
+    绝对路径地址跳转:<a href="/Servlet/index.jsp">返回首页</a>
+    <br>
+    <hr>
+    转发跳转:<a href="dispatch02">返回首页</a>
+    <br>
+    转发跳转:<a href="/dispatch02">返回首页</a>
+    <br>
+    转发跳转:<a href="/Servlet/dispatch02">返回首页</a>
+    <br>
+</body>
+</html>

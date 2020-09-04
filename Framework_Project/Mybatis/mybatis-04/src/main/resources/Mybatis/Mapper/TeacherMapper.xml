@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的DAO接口-->
+<!--id:接口方法名; resultType:返回值类型实体类-->
+<mapper namespace="com.juyss.mapper.TeacherMapper">
+    <select id="getTeacherList" resultMap="TeacherWithStudents">
+        select t.id t_id, t.name t_name,s.id s_id, s.name s_name
+        from mybatis.teacher t,mybatis.student s
+        where t.id=s.tid
+    </select>
+    <resultMap id="TeacherWithStudents" type="teacher" >
+        <result property="id" column="t_id"/>
+        <result property="name" column="t_name"/>
+        <collection property="students" javaType="list" ofType="student">
+            <result property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+            <result property="tid" column="t_id"/>
+        </collection>
+    </resultMap>
+</mapper>

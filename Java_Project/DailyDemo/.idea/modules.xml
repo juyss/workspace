@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DailyDemo.iml" filepath="$PROJECT_DIR$/DailyDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DesignMode/DesignMode.iml" filepath="$PROJECT_DIR$/DesignMode/DesignMode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDBC/JDBC.iml" filepath="$PROJECT_DIR$/JDBC/JDBC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mybatis/Mybatis.iml" filepath="$PROJECT_DIR$/Mybatis/Mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thread/Thread.iml" filepath="$PROJECT_DIR$/Thread/Thread.iml" />
+    </modules>
+  </component>
+</project>

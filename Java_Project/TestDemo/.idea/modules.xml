@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AbstractClass/AbstractClass.iml" filepath="$PROJECT_DIR$/AbstractClass/AbstractClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InputStream/InputStream.iml" filepath="$PROJECT_DIR$/InputStream/InputStream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoginPage/LoginPage.iml" filepath="$PROJECT_DIR$/LoginPage/LoginPage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mybatis/Mybatis.iml" filepath="$PROJECT_DIR$/Mybatis/Mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Singleton/Singleton.iml" filepath="$PROJECT_DIR$/Singleton/Singleton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestDemo.iml" filepath="$PROJECT_DIR$/TestDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToString/ToString.iml" filepath="$PROJECT_DIR$/ToString/ToString.iml" />
+    </modules>
+  </component>
+</project>

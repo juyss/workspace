@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module relativePaths="false" type="J2EE_WEB_MODULE" version="4"> 
+  <component name="WebModuleBuildComponent"> 
+    <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/target/javaweb-filter"/> 
+  </component>  
+  <component name="WebModuleProperties"> 
+    <containerElement type="library" level="module"> 
+      <attribute name="method" value="0"/>  
+      <attribute name="URI" value="/WEB-INF/lib/junit-4.11.jar"/>  
+      <url>jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/</url> 
+    </containerElement>  
+    <containerElement type="library" level="module"> 
+      <attribute name="method" value="0"/>  
+      <attribute name="URI" value="/WEB-INF/lib/hamcrest-core-1.3.jar"/>  
+      <url>jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/</url> 
+    </containerElement>  
+    <containerElement type="library" level="module"> 
+      <attribute name="method" value="0"/>  
+      <attribute name="URI" value="/WEB-INF/lib/servlet-api-2.5.jar"/>  
+      <url>jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/</url> 
+    </containerElement>  
+    <containerElement type="library" level="module"> 
+      <attribute name="method" value="0"/>  
+      <attribute name="URI" value="/WEB-INF/lib/jsp-api-2.0.jar"/>  
+      <url>jar://$MAVEN_REPOSITORY$/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar!/</url> 
+    </containerElement>  
+    <deploymentDescriptor version="2.3" name="web.xml" optional="false" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml"/>  
+    <webroots> 
+      <root relative="/" url="file://$MODULE_DIR$/src/main/webapp"/> 
+    </webroots> 
+  </component>  
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/target/classes"/>
+    <output-test url="file://$MODULE_DIR$/target/test-classes"/>
+    <content>
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false"/>
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false"/>
+      <excludeFolder url="file://$MODULE_DIR$/target"/>
+    </content>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://G:/Java/Maven/apache-maven-3.6.3/meavn-repo/junit/junit/4.11/junit-4.11.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://G:/Java/Maven/apache-maven-3.6.3/meavn-repo/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://G:/Java/Maven/apache-maven-3.6.3/meavn-repo/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://G:/Java/Maven/apache-maven-3.6.3/meavn-repo/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar!/"/>
+        </CLASSES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

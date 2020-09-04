@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../script/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+        /**
+         * 原生JavaScript单击事件
+         */
+        window.onload = function(){
+            let btn01 = document.getElementById(`btn01`);
+            alert("JavaScript:"+btn01); //弹出[object HTMLButtonElement]
+            btn01.onclick = function () {
+                alert("js原生单击事件")
+            }
+        }
+
+        /**
+         * JQuery单击事件(需导入jquery文件)
+         */
+        $(function () {
+            alert("JQuery:"+$("#btn01")); //弹出[object Object]
+            $("#btn01").click(function () {
+                alert("JQuery!")
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="btn01">click</button>
+</body>
+</html>
