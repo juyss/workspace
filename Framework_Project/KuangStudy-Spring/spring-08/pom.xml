@@ -12,4 +12,12 @@
     <artifactId>spring-08</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.6</version>
+        </dependency>
+    </dependencies>
+
 </project>
