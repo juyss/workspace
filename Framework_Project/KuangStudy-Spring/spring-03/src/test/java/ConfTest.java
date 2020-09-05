@@ -1,6 +1,5 @@
-import com.juyss.config.SpringConfig;
-import com.juyss.pojo.Admin;
-import com.juyss.pojo.User;
+import com.springAPI.config.SpringConfig;
+import com.springAPI.pojo.Admin;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

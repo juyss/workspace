@@ -27,7 +27,7 @@ public class User {
 ### SpringConfig.java
 ```java
 @Configuration
-@ComponentScan("com.juyss.pojo")
+@ComponentScan("com.springAPIgAPI.pojo")
 public class SpringConfig {
 
     @Bean
@@ -123,7 +123,7 @@ public class User {
 ### SpringConfig.java
 ```java
 @Configuration //表明为Spring配置类
-@ComponentScan("com.juyss.pojo") //扫描此包下的所有已注册的Bean
+@ComponentScan("com.springAPIgAPI.pojo") //扫描此包下的所有已注册的Bean
 public class SpringConfig {
 }
 ```

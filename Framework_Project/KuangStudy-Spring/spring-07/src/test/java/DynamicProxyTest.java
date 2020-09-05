@@ -1,9 +1,9 @@
-import com.juyss.demo01.Rent;
-import com.juyss.demo01.DynamicProxyHandler01;
-import com.juyss.demo01.Host;
-import com.juyss.demo02.DynamicProxyHandler02;
-import com.juyss.demo02.Husband;
-import com.juyss.demo02.WeddingCompany;
+import com.springAPI.demo01.Rent;
+import com.springAPI.demo01.DynamicProxyHandler01;
+import com.springAPI.demo01.Host;
+import com.springAPI.demo02.DynamicProxyHandler02;
+import com.springAPI.demo02.Husband;
+import com.springAPI.demo02.WeddingCompany;
 import org.junit.Test;
 
 /**

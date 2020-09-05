@@ -11,9 +11,9 @@
 
 
     <context:annotation-config/>
-    <bean id="cat" class="com.juyss.pojo.Cat" p:name="CAT"/>
-    <bean id="dog" class="com.juyss.pojo.Dog" c:name="DOG"/>
-    <bean id="person" class="com.juyss.pojo.Person" autowire="byName">
+    <bean id="cat" class="com.springAPI.pojo.Cat" p:name="CAT"/>
+    <bean id="dog" class="com.springAPI.pojo.Dog" c:name="DOG"/>
+    <bean id="person" class="com.springAPI.pojo.Person" autowire="byName">
         <property name="name" value="NAME"/>
     </bean>
 </beans>
