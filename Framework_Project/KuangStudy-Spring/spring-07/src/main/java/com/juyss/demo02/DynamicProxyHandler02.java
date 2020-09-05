@@ -1,6 +1,5 @@
 package com.juyss.demo02;
 
-import com.juyss.demo01.Rent;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
