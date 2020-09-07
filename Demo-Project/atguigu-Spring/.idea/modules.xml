@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/atguigu-Spring.iml" filepath="$PROJECT_DIR$/.idea/atguigu-Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day01_Spring/day01_Spring.iml" filepath="$PROJECT_DIR$/day01_Spring/day01_Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day02_Spring/day02_Spring.iml" filepath="$PROJECT_DIR$/day02_Spring/day02_Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day03_Spring/day03_Spring.iml" filepath="$PROJECT_DIR$/day03_Spring/day03_Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day03_Spring_JdbcTemplate/day03_Spring_JdbcTemplate.iml" filepath="$PROJECT_DIR$/day03_Spring_JdbcTemplate/day03_Spring_JdbcTemplate.iml" />
+    </modules>
+  </component>
+</project>

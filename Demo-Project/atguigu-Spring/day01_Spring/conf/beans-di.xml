@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<bean id="s1" class="com.atguigu.spring.di.Student">
+		<property name="id">
+			<value>10010</value>
+		</property>
+		<property name="name" value="张三"></property>
+		<property name="age" value="23"></property>
+		<property name="sex" value="男"></property>
+	</bean>
+	
+	<bean id="s2" class="com.atguigu.spring.di.Student">
+		<constructor-arg value="10086"></constructor-arg>
+		<constructor-arg value="李四"></constructor-arg>
+		<constructor-arg value="24"></constructor-arg>
+		<constructor-arg value="女"></constructor-arg>
+	</bean>
+	
+	<bean id="s3" class="com.atguigu.spring.di.Student">
+		<constructor-arg value="10022"></constructor-arg>
+		<constructor-arg value="王五"></constructor-arg>
+		<constructor-arg value="90" index="2" type="java.lang.Double"></constructor-arg>
+		<constructor-arg value="女"></constructor-arg>
+	</bean>
+	
+	<bean id="s4" class="com.atguigu.spring.di.Student" p:id="10033" p:name="赵六" p:age="26" p:sex="男" p:teacher-ref="teacher"></bean>
+
+	<bean id="s5" class="com.atguigu.spring.di.Student">
+		<property name="id" value="10055"></property>
+		<property name="name" value="张三三"></property>
+		<property name="age" value="23"></property>
+		<property name="sex" value="男"></property>
+		<property name="teacher" ref="teacher"></property>
+		<property name="teacher.tname" value="小红"></property>
+	</bean>
+	
+	<bean id="teacher" class="com.atguigu.spring.di.Teacher">
+		<property name="tid" value="10000"></property>
+		<property name="tname" value="小明"></property>
+	</bean>
+	
+	<bean id="s6" class="com.atguigu.spring.di.Student">
+		<property name="id" value="10066"></property>
+		<property name="name" value="崔八"></property>
+		<property name="age" value="18"></property>
+		<property name="sex" value="男"></property>
+		<property name="teacher">
+			<bean id="tt" class="com.atguigu.spring.di.Teacher">
+				<property name="tid" value="2222"></property>
+				<property name="tname" value="admin"></property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 定义在某个bean内部的bean，只能在当前bean中使用 -->
+	<!-- <bean id="s7" class="com.atguigu.spring.di.Student">
+		<property name="id" value="10066"></property>
+		<property name="name" value="崔八"></property>
+		<property name="age" value="18"></property>
+		<property name="sex" value="男"></property>
+		<property name="teacher" ref="tt"></property>
+	</bean> -->
+	
+	<bean id="t1" class="com.atguigu.spring.di.Teacher">
+		<property name="tid" value="10001"></property>
+		<property name="tname" value="佟刚"></property>
+		<property name="cls">
+			<list>
+				<value>A</value>
+				<value>B</value>
+				<value>C</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="t2" class="com.atguigu.spring.di.Teacher">
+		<property name="tid" value="10002"></property>
+		<property name="tname" value="婷姐"></property>
+		<property name="students">
+			<list>
+				<ref bean="s1"/>
+				<ref bean="s2"/>
+				<ref bean="s3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="t3" class="com.atguigu.spring.di.Teacher">
+		<property name="tid" value="10003"></property>
+		<property name="tname" value="admin"></property>
+		<property name="bossMap">
+			<map>
+				<entry>
+					<key>
+						<value>10001</value>
+					</key>
+					<value>佟老师</value>
+				</entry>
+				<entry>
+					<key>
+						<value>10002</value>
+					</key>
+					<value>陈老师</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="t4" class="com.atguigu.spring.di.Teacher">
+		<property name="tid" value="10004"></property>
+		<property name="tname" value="root"></property>
+		<property name="students" ref="students"></property>
+	</bean>
+	
+	<util:list id="students">
+		<ref bean="s4"/>
+		<ref bean="s5"/>
+		<ref bean="s6"/>
+	</util:list>
+	
+	<util:map id="map">
+		<entry>
+			<key>
+				<value>1</value>
+			</key>
+			<value>张三</value>
+		</entry>
+	</util:map>
+</beans>
