@@ -20,6 +20,17 @@
       <src_folder value="file://$MODULE_DIR$/conf" expected_position="2" />
     </src_description>
   </component>
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/conf/book.xml</file>
+          <file>file://$MODULE_DIR$/conf/book_xml.xml</file>
+          <file>file://$MODULE_DIR$/conf/jdbc.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
