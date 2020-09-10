@@ -6,14 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="02-Annotation" />
-        <module name="06-Autowired" />
-        <module name="05-DI" />
-        <module name="03-JavaConfig" />
-        <module name="01-HelloSpring" />
-        <module name="08-AOP" />
-        <module name="04-IoC" />
-        <module name="07-DynamicProxy" />
+        <module name="SqlSessionDaoSupport" />
+        <module name="Transaction_Manager" />
       </profile>
     </annotationProcessing>
   </component>
