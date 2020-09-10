@@ -7,7 +7,7 @@
         <bean id="beforeLog" class="com.springAPI.log.BeforeLog"/>
         <bean id="afterLog" class="com.springAPI.log.AfterLog"/>
 
-<!--    方式一: 使用原生Spring API接口-->
+<!--    方式一: 使用原生Spring API接口,实现对应接口-->
     <aop:config>
         <aop:pointcut id="pointCut" expression="execution(* com.service.UserServiceImpl.*(..))"/>
         <aop:advisor advice-ref="beforeLog" pointcut-ref="pointCut"/>
