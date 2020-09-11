@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Started" />
-        <module name="Annotation" />
+        <module name="AnnotationStarted" />
+        <module name="SpringMVC-03" />
+        <module name="XMLConfigStarted" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Annotation" target="1.8" />
+      <module name="AnnotationStarted" target="1.8" />
       <module name="SprignMVC-02" target="1.8" />
     </bytecodeTargetLevel>
   </component>

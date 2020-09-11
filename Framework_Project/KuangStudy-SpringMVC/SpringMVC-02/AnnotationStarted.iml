@@ -20,9 +20,6 @@
         <fileset id="web dispatcherServlet servlet context" name="MVC dispatcherServlet servlet context" removed="true">
           <file>file://$MODULE_DIR$/src/main/resources/springmvc-servlet.xml</file>
         </fileset>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/springmvc-servlet.xml</file>
-        </fileset>
       </configuration>
     </facet>
   </component>

@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="Annotation" />
+          <element id="module-output" name="AnnotationStarted" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
@@ -18,7 +18,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.2.6.RELEASE" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="Annotation/web/Web" />
+      <element id="javaee-facet-resources" facet="AnnotationStarted/web/Web" />
     </root>
   </artifact>
 </component>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SpringMVC-02/Annotation.iml" filepath="$PROJECT_DIR$/SpringMVC-02/Annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringMVC-02/AnnotationStarted.iml" filepath="$PROJECT_DIR$/SpringMVC-02/AnnotationStarted.iml" />
     </modules>
   </component>
 </project>

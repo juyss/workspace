@@ -11,6 +11,7 @@
     <modules>
         <module>SpringMVC-01</module>
         <module>SpringMVC-02</module>
+        <module>SpringMVC-03</module>
     </modules>
 
 
