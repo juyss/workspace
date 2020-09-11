@@ -43,6 +43,7 @@ public class BookServiceImpl implements BookService {
 	 * rollbackFor|rollbackForClassName|noRollbackFor|noRollbackForClassName:设置事务回滚的条件
 	 */
 	
+	@Override
 	@Transactional(propagation=Propagation.REQUIRES_NEW, timeout=3, noRollbackFor= {NullPointerException.class, MyException.class})
 	public void buyBook(String bid, String uid) {
 		/*try {

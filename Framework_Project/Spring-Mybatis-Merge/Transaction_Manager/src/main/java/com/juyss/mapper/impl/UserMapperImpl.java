@@ -2,7 +2,11 @@ package com.juyss.mapper.impl;
 
 import com.juyss.mapper.UserMapper;
 import com.juyss.pojo.User;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +19,20 @@ import java.util.List;
  * @project Spring-Mybatis-Merge
  * @date 2020/9/10 19:41
  */
+@Repository("userMapper")
 public class UserMapperImpl extends SqlSessionDaoSupport implements UserMapper {
+
+
+    /*
+     * 从 SqlSessionDaoSupport 这个类的源码中可以看出，原因是mybatis-spring-1.2.0中取消了自动注入SqlSessionFactory 和 SqlSessionTemplate
+     * 所以这里手动配置自动注入其中一个属性
+     */
+    @Override
+    @Autowired
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        super.setSqlSessionFactory(sqlSessionFactory);
+    }
+
     /**
      * 获取User表所有数据
      *

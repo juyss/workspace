@@ -1,5 +1,7 @@
 package com.juyss.pojo;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author ShmeBluk
  * @version 1.0
@@ -9,6 +11,7 @@ package com.juyss.pojo;
  * @project Spring-Mybatis-Merge
  * @date 2020/9/10 18:41
  */
+@Component
 public class User {
 
     private int id;
