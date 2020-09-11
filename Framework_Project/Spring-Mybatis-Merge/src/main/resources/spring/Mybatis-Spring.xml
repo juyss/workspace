@@ -24,7 +24,7 @@
 
     <!-- SqlSessionTemplate等同于SqlSession -->
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <!--     此类没有set方法,只能用构造器注入参数 -->
+        <!-- 此类没有set方法,只能用构造器注入参数 -->
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
