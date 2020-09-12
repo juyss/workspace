@@ -28,11 +28,6 @@
         <property name="mapperLocations" value="mybatis/mapper/*.xml"/>
     </bean>
 
-    <!-- 注册继承了SqlSessionDaoSupport的类 -->
-<!--    <bean id="userMapper" class="com.juyss.mapper.impl.UserMapperImpl">-->
-<!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
-<!--    </bean>-->
-
     <!-- 注册声明式事务 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="datasource"/>
