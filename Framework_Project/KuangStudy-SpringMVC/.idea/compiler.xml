@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AnnotationStarted" />
-        <module name="SpringMVC-03" />
         <module name="XMLConfigStarted" />
+        <module name="SpringMVC-04" />
+        <module name="Practice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

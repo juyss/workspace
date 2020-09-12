@@ -22,7 +22,7 @@ public class UserController {
     @RequestMapping("/show")
     private String showMessage(Model model){
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("springmvc-servlet.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-web.xml");
         User user = context.getBean("user", User.class);
         user.setName("Rick");
         user.setId(1);
