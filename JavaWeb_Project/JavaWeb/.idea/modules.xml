@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HtmlAndCss/HtmlAndCss.iml" filepath="$PROJECT_DIR$/HtmlAndCss/HtmlAndCss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JSON/JSON.iml" filepath="$PROJECT_DIR$/JSON/JSON.iml" />
       <module fileurl="file://$PROJECT_DIR$/Jsp/Jsp.iml" filepath="$PROJECT_DIR$/Jsp/Jsp.iml" />
       <module fileurl="file://$PROJECT_DIR$/Servlet/Servlet.iml" filepath="$PROJECT_DIR$/Servlet/Servlet.iml" />
       <module fileurl="file://$PROJECT_DIR$/jQuery/jQuery.iml" filepath="$PROJECT_DIR$/jQuery/jQuery.iml" />

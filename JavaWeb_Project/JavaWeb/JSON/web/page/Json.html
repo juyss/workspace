@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Json</title>
+</head>
+<body>
+    <script>
+        /**
+         * 前端JSON与js对象的相互转换,使用JSON类实现
+         * @type {{name: string, age: number}}
+         */
+
+        // 定义js对象
+        let obj = {
+            age : 12,
+            name: "Rick"
+        }
+
+        //将js对象转换为JSON字符串
+        let s = JSON.stringify(obj);
+        //将JSON字符串转换为js对象
+        let object = JSON.parse(s);
+
+        console.log("JSON字符串-->"+s);
+        console.log("js对象-->"+object);
+
+    </script>
+</body>
+</html>
