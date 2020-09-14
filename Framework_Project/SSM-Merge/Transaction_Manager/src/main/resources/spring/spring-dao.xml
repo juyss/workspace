@@ -34,21 +34,21 @@
     </bean>
 
 <!--    方式一: xml文件配置-->
-<!--    &lt;!&ndash;结合AOP实现事务织入&ndash;&gt;-->
-<!--    &lt;!&ndash;配置事务通知&ndash;&gt;-->
-<!--    <tx:advice id="transaction" transaction-manager="transactionManager">-->
-<!--        <tx:attributes>-->
-<!--            <tx:method name="*" propagation="REQUIRED"/>-->
-<!--        </tx:attributes>-->
-<!--    </tx:advice>-->
+    <!--结合AOP实现事务织入-->
+    <!--配置事务通知-->
+    <tx:advice id="transaction" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
 
-<!--    &lt;!&ndash;配置事务切入&ndash;&gt;-->
-<!--    <aop:config>-->
-<!--        &lt;!&ndash;切入点&ndash;&gt;-->
-<!--        <aop:pointcut id="txPointCut" expression="execution(* com.juyss.mapper.*.*(..))"/>-->
-<!--        &lt;!&ndash;通知&ndash;&gt;-->
-<!--        <aop:advisor advice-ref="transaction" pointcut-ref="txPointCut"/>-->
-<!--    </aop:config>-->
+    <!--配置事务切入-->
+    <aop:config>
+        <!--切入点-->
+        <aop:pointcut id="txPointCut" expression="execution(* com.juyss.mapper.*.*(..))"/>
+        <!--通知-->
+        <aop:advisor advice-ref="transaction" pointcut-ref="txPointCut"/>
+    </aop:config>
 
 
     <!-- 方式二: 通过注解配置管理事务 -->

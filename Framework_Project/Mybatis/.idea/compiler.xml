@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="4.collection" />
-        <module name="5.dynamic SQL" />
+        <module name="3.association" />
         <module name="1.Started" />
         <module name="2.Alias" />
-        <module name="3.association" />
+        <module name="4.collection" />
+        <module name="5.dynamic SQL" />
       </profile>
     </annotationProcessing>
   </component>

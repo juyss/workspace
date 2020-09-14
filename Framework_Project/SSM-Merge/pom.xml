@@ -12,6 +12,7 @@
         <module>Spring-Mybatis-Merge</module>
         <module>SqlSessionDaoSupport</module>
         <module>Transaction_Manager</module>
+        <module>SSM-BookManagerSystem</module>
     </modules>
 
     <dependencies>
