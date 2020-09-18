@@ -1,11 +1,9 @@
 package com.juyss.service.impl;
 
 import com.juyss.mapper.BookMapper;
-import com.juyss.mapper.impl.BookMapperImpl;
 import com.juyss.pojo.Book;
 import com.juyss.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
