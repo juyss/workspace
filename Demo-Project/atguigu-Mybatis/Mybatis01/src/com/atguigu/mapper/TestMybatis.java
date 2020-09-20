@@ -1,7 +1,5 @@
 package com.atguigu.mapper;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 

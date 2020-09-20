@@ -16,7 +16,7 @@
 		resource:在类路径下访问资源文件
 		url:在网络路径或磁盘路径下访问资源文件
 	 -->
-	<properties resource="jdbc.properties"></properties>
+	<properties resource="jdbc.properties"/>
 	
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
