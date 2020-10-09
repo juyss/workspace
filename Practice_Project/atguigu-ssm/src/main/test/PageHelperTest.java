@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml","classpath:spring/spring-mvc.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml", "classpath:spring/springMVC.xml"})
 public class PageHelperTest {
     @Autowired
     private WebApplicationContext context;
