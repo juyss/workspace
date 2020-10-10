@@ -36,4 +36,25 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDepts() {
         return null;
     }
+
+    /**
+     * 添加部门信息
+     *
+     * @param department 封装部门信息对象
+     * @return Boolean 是否添加成功
+     */
+    @Override
+    public Boolean addDept(Department department) {
+        boolean flag = false;
+
+        int result = departmentMapper.insert(department);
+
+        if (result==1){
+            flag = true;
+        }
+
+        return flag;
+    }
+
+
 }

@@ -16,4 +16,9 @@ public class Constant {
      */
     public static final Integer PAGE_SIZE=5;
 
+    /**
+     * 信息载体
+     */
+    public static final String MSG="msg";
+
 }

@@ -1,6 +1,14 @@
 package com.juyss.controller;
 
+import com.juyss.pojo.Department;
+import com.juyss.service.DepartmentService;
+import com.juyss.util.Constant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 /**
  * @author ShmeBluk
@@ -14,5 +22,21 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class DepartmentController {
 
+    private DepartmentService departmentService;
 
+    @Autowired
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    @RequestMapping(value = "/addDept",method = RequestMethod.POST)
+    public String addDept(Department department, RedirectAttributes reatt){
+        Boolean flag = departmentService.addDept(department);
+        if (flag){
+            reatt.addAttribute(Constant.MSG, "部门添加成功");
+        }else {
+            reatt.addAttribute(Constant.MSG, "部门添加失败");
+        }
+        return "redirect:/emps";
+    }
 }

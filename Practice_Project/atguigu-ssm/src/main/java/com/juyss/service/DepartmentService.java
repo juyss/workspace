@@ -15,6 +15,18 @@ import java.util.List;
  */
 public interface DepartmentService {
 
+    /**
+     * 获取所有部门信息
+     *
+     * @return 部门信息集合
+     */
     List<Department> getDepts();
+
+    /**
+     * 添加部门信息
+     * @param department 封装部门信息对象
+     * @return Boolean 是否添加成功
+     */
+    Boolean addDept(Department department);
 
 }

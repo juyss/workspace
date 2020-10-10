@@ -25,11 +25,15 @@
     </div>
     <!-- 按钮 -->
     <div class="row">
-        <div class="col-md-4 col-md-offset-7">
-            <button class="btn btn-primary">新增</button>
-            <button class="btn btn-danger">删除</button>
+        <div class="col-md-4 col-md-offset-6">
+            <div>${msg}</div>
+            <button class="btn btn-primary">新增员工</button>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/dept_add.jsp">新增部门</a>
+            <button class="btn btn-danger">删除部门</button>
         </div>
     </div>
+    <p></p>
+    <p></p>
     <!-- 显示表格数据 -->
     <div class="row">
         <div class="col-md-12">
@@ -48,11 +52,11 @@
                         <th>${emp.empEmail }</th>
                         <th>${emp.department.deptName }</th>
                         <th>
-                            <button class="btn btn-primary btn-sm">
+                            <button id="update_btn" class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 编辑
                             </button>
-                            <button class="btn btn-danger btn-sm">
+                            <button id="delete_btn" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 删除
                             </button>
