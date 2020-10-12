@@ -42,10 +42,16 @@ public class EmployeeServiceImpl implements EmployeeService {
      * 员工保存
      *
      * @param employee 保存的员工对象
+     * @return Boolean 是否插入成功
      */
     @Override
-    public void saveEmp(Employee employee) {
-
+    public Boolean saveEmp(Employee employee) {
+        boolean flag = false;
+        int i = employeeMapper.insert(employee);
+        if (i == 1) {
+            flag = true;
+        }
+        return flag;
     }
 
     /**
@@ -67,27 +73,39 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee getEmp(Integer id) {
-        return null;
+        return employeeMapper.selectByPrimaryKeyWithDept(id);
     }
 
     /**
      * 员工更新
      *
      * @param employee 要更新的Employee对象
+     * @return Boolean 是否更新成功
      */
     @Override
-    public void updateEmp(Employee employee) {
-
+    public Boolean updateEmp(Employee employee) {
+        boolean flag = false;
+        int i = employeeMapper.updateByPrimaryKey(employee);
+        if (i == 1) {
+            flag = true;
+        }
+        return flag;
     }
 
     /**
      * 员工删除
      *
      * @param id 要删除的员工ID
+     * @return Boolean 是否删除成功
      */
     @Override
-    public void deleteEmp(Integer id) {
-
+    public Boolean deleteEmp(Integer id) {
+        boolean flag = false;
+        int i = employeeMapper.deleteByPrimaryKey(id);
+        if (i == 1) {
+            flag = true;
+        }
+        return flag;
     }
 
     /**

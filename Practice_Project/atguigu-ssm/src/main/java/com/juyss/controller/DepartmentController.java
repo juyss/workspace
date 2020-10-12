@@ -5,6 +5,7 @@ import com.juyss.service.DepartmentService;
 import com.juyss.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,6 +30,12 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
+    /**
+     * 添加部门信息
+     * @param department 部门信息封装对象
+     * @param reatt 重定向属性
+     * @return 携带提示信息,重定向到部门编辑页面:dept_edit.jsp
+     */
     @RequestMapping(value = "/addDept",method = RequestMethod.POST)
     public String addDept(Department department, RedirectAttributes reatt){
         Boolean flag = departmentService.addDept(department);
@@ -37,6 +44,23 @@ public class DepartmentController {
         }else {
             reatt.addAttribute(Constant.MSG, "部门添加失败");
         }
-        return "redirect:/emps";
+        return "redirect:/toDeptEdit";
+    }
+
+    /**
+     * 删除部门信息
+     * @param deptId 要删除的部门id
+     * @return 携带提示信息,重定向到部门编辑页面:dept_edit.jsp
+     */
+    @RequestMapping("/deleteDept/{deptId}")
+    public String deleteDept(@PathVariable("deptId")Integer deptId,
+                             RedirectAttributes reatt){
+        Boolean flag = departmentService.deleteDept(deptId);
+        if (flag){
+            reatt.addAttribute(Constant.MSG, "部门删除成功");
+        }else {
+            reatt.addAttribute(Constant.MSG, "部门删除失败");
+        }
+        return "redirect:/toDeptEdit";
     }
 }

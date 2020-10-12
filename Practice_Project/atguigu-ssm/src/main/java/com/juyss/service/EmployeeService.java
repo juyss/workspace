@@ -23,8 +23,9 @@ public interface EmployeeService {
     /**
      * 员工保存
      * @param employee 保存的员工对象
+     * @return
      */
-    void saveEmp(Employee employee);
+    Boolean saveEmp(Employee employee);
 
     /**
      * 检验用户名是否可用
@@ -44,14 +45,16 @@ public interface EmployeeService {
     /**
      * 员工更新
      * @param employee 要更新的Employee对象
+     * @return
      */
-    void updateEmp(Employee employee);
+    Boolean updateEmp(Employee employee);
 
     /**
      * 员工删除
      * @param id 要删除的员工ID
+     * @return
      */
-    void deleteEmp(Integer id);
+    Boolean deleteEmp(Integer id);
 
     /**
      * 批量删除员工

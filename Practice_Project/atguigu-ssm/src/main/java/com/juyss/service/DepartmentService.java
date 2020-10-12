@@ -29,4 +29,11 @@ public interface DepartmentService {
      */
     Boolean addDept(Department department);
 
+    /**
+     * 删除部门信息
+     * @param deptId 要删除的部门id
+     * @return Boolean 是否删除成功
+     */
+    Boolean deleteDept(Integer deptId);
+
 }

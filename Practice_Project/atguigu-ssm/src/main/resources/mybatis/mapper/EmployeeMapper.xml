@@ -147,9 +147,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.juyss.pojo.Employee">
-    insert into ssm_emp (emp_id, emp_name, emp_gender, 
+    insert into ssm_emp (emp_name, emp_gender,
       emp_email, d_id)
-    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{empGender,jdbcType=VARCHAR}, 
+    values (#{empName,jdbcType=VARCHAR}, #{empGender,jdbcType=VARCHAR},
       #{empEmail,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.juyss.pojo.Employee">

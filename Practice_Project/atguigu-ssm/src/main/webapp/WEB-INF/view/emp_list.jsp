@@ -9,10 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>员工信息</title>
-    <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title>员工列表</title>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.12.4.min.js"></script>
+    <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+
+
+
 </head>
 <body>
 <!-- 搭建显示页面 -->
@@ -22,14 +26,13 @@
         <div class="col-md-12">
             <h1>SSM-CRUD</h1>
         </div>
+        <div class="col-md-12 col-md-offset-1" style="color: red">${msg}</div>
     </div>
     <!-- 按钮 -->
     <div class="row">
-        <div class="col-md-4 col-md-offset-6">
-            <div>${msg}</div>
-            <button class="btn btn-primary">新增员工</button>
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/dept_add.jsp">新增部门</a>
-            <button class="btn btn-danger">删除部门</button>
+        <div class="col-md-4 col-md-offset-8">
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/toEmpEdit">添加员工</a>
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/toDeptEdit/${pageInfo.pageNum}">编辑部门</a>
         </div>
     </div>
     <p></p>
@@ -52,14 +55,14 @@
                         <th>${emp.empEmail }</th>
                         <th>${emp.department.deptName }</th>
                         <th>
-                            <button id="update_btn" class="btn btn-primary btn-sm">
+                            <a id="update_btn" class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/toEmpEdit?empId=${emp.empId}&page_num=${pageInfo.pageNum}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 编辑
-                            </button>
-                            <button id="delete_btn" class="btn btn-danger btn-sm">
+                            </a>
+                            <a id="delete_btn" class="btn btn-danger btn-sm" href="${pageContext.request.contextPath}/deleteEmp/${emp.empId}/${pageInfo.pageNum}">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 删除
-                            </button>
+                            </a>
                         </th>
                     </tr>
                 </c:forEach>
@@ -67,10 +70,16 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        $(document).on("click","#delete_btn",function () {
+            return confirm("确定删除[ "+$(this).parent().parent().find("th:first").text()+" ]吗?")
+        });
+    </script>
+
     <!-- 显示分页信息 -->
     <div class="row">
         <!--分页文字信息  -->
-        <div class="col-md-6">当前 ${pageInfo.pageNum }页,总${pageInfo.pages }
+        <div class="col-md-6">当前第 ${pageInfo.pageNum }页,总${pageInfo.pages }
             页,总 ${pageInfo.total } 条记录</div>
         <!-- 分页条信息 -->
         <div class="col-md-6">

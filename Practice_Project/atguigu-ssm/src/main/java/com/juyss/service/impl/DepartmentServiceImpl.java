@@ -2,6 +2,7 @@ package com.juyss.service.impl;
 
 import com.juyss.mapper.DepartmentMapper;
 import com.juyss.pojo.Department;
+import com.juyss.pojo.DepartmentExample;
 import com.juyss.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,11 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     @Override
     public List<Department> getDepts() {
-        return null;
+        DepartmentExample example = new DepartmentExample();
+        example.createCriteria();
+        List<Department> departments = departmentMapper.selectByExample(example);
+        System.out.println("查询部门结果==>"+departments);
+        return departments;
     }
 
     /**
@@ -48,6 +53,25 @@ public class DepartmentServiceImpl implements DepartmentService {
         boolean flag = false;
 
         int result = departmentMapper.insert(department);
+
+        if (result==1){
+            flag = true;
+        }
+
+        return flag;
+    }
+
+    /**
+     * 删除部门信息
+     *
+     * @param deptId 要删除的部门id
+     * @return Boolean 是否删除成功
+     */
+    @Override
+    public Boolean deleteDept(Integer deptId) {
+        boolean flag = false;
+
+        int result = departmentMapper.deleteByPrimaryKey(deptId);
 
         if (result==1){
             flag = true;
