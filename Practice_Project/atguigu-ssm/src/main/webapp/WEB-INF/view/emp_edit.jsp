@@ -30,6 +30,7 @@
         <c:if test="${not empty emp_info}">
             <input hidden name="_method" value="PUT">
             <input hidden name="empId" value="${emp_info.empId}">
+            <input hidden name="page_num" value="${page_num}">
         </c:if>
 
         <div class="form-group has-success has-feedback">
@@ -52,14 +53,7 @@
             <p></p>
         <div class="form-group has-success has-feedback">
             <select class="form-control" name="dId">
-                <c:choose>
-                    <c:when test="${not empty emp_info}">
-                        <option disabled selected>${emp_info.department.deptName}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option disabled selected>请选择部门</option>
-                    </c:otherwise>
-                </c:choose>
+                <option disabled selected>请选择部门</option>
                 <c:forEach items="${dept_list}" var="dept">
                     <option value="${dept.deptId}">${dept.deptName}</option>
                 </c:forEach>

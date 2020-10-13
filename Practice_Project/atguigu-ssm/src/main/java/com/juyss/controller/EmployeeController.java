@@ -48,7 +48,7 @@ public class EmployeeController {
                           Model model) {
         PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
         List<Employee> list = employeeService.getAll();
-        PageInfo<Employee> pageInfo = new PageInfo<>(list, 5);
+        PageInfo<Employee> pageInfo = new PageInfo<>(list, Constant.NAVIGATE_PAGES);
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute(Constant.MSG, msg);
         return "emp_list";
@@ -58,14 +58,17 @@ public class EmployeeController {
      * PUT方法执行更新操作
      */
     @RequestMapping(value = "/addEmp", method = RequestMethod.PUT)
-    public String updateEmp(Employee employee, RedirectAttributes reatt) {
+    public String updateEmp(@RequestParam("page_num")Integer pageNum,
+                            Employee employee,
+                            RedirectAttributes reatt) {
+        System.out.println("更新后的员工对象信息"+employee);
         Boolean flag = employeeService.updateEmp(employee);
         if (flag) {
-            reatt.addAttribute(Constant.MSG, "员工信息修改成功");
+            reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]修改成功");
         } else {
-            reatt.addAttribute(Constant.MSG, "员工信息修改失败");
+            reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]修改失败");
         }
-        return "redirect:/toEmpEdit";
+        return "redirect:/emps?page_num="+pageNum;
     }
 
     /**
@@ -75,23 +78,30 @@ public class EmployeeController {
     public String insertEmp(Employee employee, RedirectAttributes reatt) {
         Boolean flag = employeeService.saveEmp(employee);
         if (flag) {
-            reatt.addAttribute(Constant.MSG, "员工信息添加成功");
+            reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]添加成功");
+            reatt.addAttribute("pageNum", Integer.MAX_VALUE);
         } else {
-            reatt.addAttribute(Constant.MSG, "员工信息添加失败");
+            reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]添加失败");
+            reatt.addAttribute("pagNum", Integer.MAX_VALUE);
         }
         return "redirect:/toEmpEdit";
     }
 
-
+    /**
+     * 删除员工操作
+     * @param deptId 要删除的员工id
+     * @param pageNum 跳转的页码
+     * @return 返回员工列表页面
+     */
     @RequestMapping("/deleteEmp/{deptId}/{pageNum}")
     public String deleteEmp(@PathVariable("deptId") Integer deptId,
                             @PathVariable("pageNum") Integer pageNum,
                             RedirectAttributes reatt) {
         Boolean flag = employeeService.deleteEmp(deptId);
         if (flag) {
-            reatt.addAttribute(Constant.MSG, "员工信息删除成功");
+            reatt.addAttribute(Constant.MSG, "删除成功");
         } else {
-            reatt.addAttribute(Constant.MSG, "员工信息删除失败");
+            reatt.addAttribute(Constant.MSG, "删除失败");
         }
         return "redirect:/emps?page_num="+pageNum;
     }

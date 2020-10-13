@@ -17,6 +17,11 @@ public class Constant {
     public static final Integer PAGE_SIZE=5;
 
     /**
+     * 定义分页条总共展示页码数
+     */
+    public static final Integer NAVIGATE_PAGES=3;
+
+    /**
      * 信息载体
      */
     public static final String MSG="msg";

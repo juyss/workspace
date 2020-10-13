@@ -71,11 +71,16 @@ public class PageController {
     @RequestMapping("/toEmpEdit")
     public String toEmpEdit(@RequestParam(value = "msg", required = false) String msg,
                             @RequestParam(value = "empId", required = false) String empId,
-                            @RequestParam(value = "page_num", required = false) String pageNum,
+                            @RequestParam(value = "pageNum", required = false) String pageNum,
                             Model model) {
 
         List<Department> deptList = departmentService.getDepts();
         model.addAttribute("dept_list", deptList);
+
+        if (pageNum!=null){  //如果有pageNum就放到请求域中
+            System.out.println("获取到跳转前的页码====>"+pageNum);
+            model.addAttribute("page_num", pageNum);
+        }
 
         if (msg != null) {   //如果有信息就设置到请求域中,说明已经对信息操作过
             model.addAttribute(Constant.MSG, msg);
@@ -87,12 +92,9 @@ public class PageController {
             Employee emp = employeeService.getEmp(id);
             System.out.println("查询到的用户信息===>" + emp);
             model.addAttribute("emp_info", emp);
-            return "emp_edit";
         }
 
-        if (pageNum!=null){  //如果有pageNum就放到请求域中
-            model.addAttribute("page_num", pageNum);
-        }
+
 
         return "emp_edit";
     }
