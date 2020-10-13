@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.ViewTableUsageMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.ViewTableUsage" >
+    <result column="VIEW_CATALOG" property="viewCatalog" jdbcType="VARCHAR" />
+    <result column="VIEW_SCHEMA" property="viewSchema" jdbcType="VARCHAR" />
+    <result column="VIEW_NAME" property="viewName" jdbcType="VARCHAR" />
+    <result column="TABLE_CATALOG" property="tableCatalog" jdbcType="VARCHAR" />
+    <result column="TABLE_SCHEMA" property="tableSchema" jdbcType="VARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VIEW_CATALOG, VIEW_SCHEMA, VIEW_NAME, TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.ViewTableUsageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from VIEW_TABLE_USAGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.ViewTableUsageExample" >
+    delete from VIEW_TABLE_USAGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.ViewTableUsage" >
+    insert into VIEW_TABLE_USAGE (VIEW_CATALOG, VIEW_SCHEMA, VIEW_NAME, 
+      TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME
+      )
+    values (#{viewCatalog,jdbcType=VARCHAR}, #{viewSchema,jdbcType=VARCHAR}, #{viewName,jdbcType=VARCHAR}, 
+      #{tableCatalog,jdbcType=VARCHAR}, #{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.ViewTableUsage" >
+    insert into VIEW_TABLE_USAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="viewCatalog != null" >
+        VIEW_CATALOG,
+      </if>
+      <if test="viewSchema != null" >
+        VIEW_SCHEMA,
+      </if>
+      <if test="viewName != null" >
+        VIEW_NAME,
+      </if>
+      <if test="tableCatalog != null" >
+        TABLE_CATALOG,
+      </if>
+      <if test="tableSchema != null" >
+        TABLE_SCHEMA,
+      </if>
+      <if test="tableName != null" >
+        TABLE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="viewCatalog != null" >
+        #{viewCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="viewSchema != null" >
+        #{viewSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="viewName != null" >
+        #{viewName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCatalog != null" >
+        #{tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="tableSchema != null" >
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.ViewTableUsageExample" resultType="java.lang.Integer" >
+    select count(*) from VIEW_TABLE_USAGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update VIEW_TABLE_USAGE
+    <set >
+      <if test="record.viewCatalog != null" >
+        VIEW_CATALOG = #{record.viewCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewSchema != null" >
+        VIEW_SCHEMA = #{record.viewSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewName != null" >
+        VIEW_NAME = #{record.viewName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableCatalog != null" >
+        TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableSchema != null" >
+        TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null" >
+        TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update VIEW_TABLE_USAGE
+    set VIEW_CATALOG = #{record.viewCatalog,jdbcType=VARCHAR},
+      VIEW_SCHEMA = #{record.viewSchema,jdbcType=VARCHAR},
+      VIEW_NAME = #{record.viewName,jdbcType=VARCHAR},
+      TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      TABLE_NAME = #{record.tableName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

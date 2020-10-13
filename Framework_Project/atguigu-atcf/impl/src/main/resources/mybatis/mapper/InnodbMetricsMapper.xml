@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbMetricsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbMetrics" >
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SUBSYSTEM" property="subsystem" jdbcType="VARCHAR" />
+    <result column="COUNT" property="count" jdbcType="BIGINT" />
+    <result column="MAX_COUNT" property="maxCount" jdbcType="BIGINT" />
+    <result column="MIN_COUNT" property="minCount" jdbcType="BIGINT" />
+    <result column="AVG_COUNT" property="avgCount" jdbcType="REAL" />
+    <result column="COUNT_RESET" property="countReset" jdbcType="BIGINT" />
+    <result column="MAX_COUNT_RESET" property="maxCountReset" jdbcType="BIGINT" />
+    <result column="MIN_COUNT_RESET" property="minCountReset" jdbcType="BIGINT" />
+    <result column="AVG_COUNT_RESET" property="avgCountReset" jdbcType="REAL" />
+    <result column="TIME_ENABLED" property="timeEnabled" jdbcType="TIMESTAMP" />
+    <result column="TIME_DISABLED" property="timeDisabled" jdbcType="TIMESTAMP" />
+    <result column="TIME_ELAPSED" property="timeElapsed" jdbcType="BIGINT" />
+    <result column="TIME_RESET" property="timeReset" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NAME, SUBSYSTEM, COUNT, MAX_COUNT, MIN_COUNT, AVG_COUNT, COUNT_RESET, MAX_COUNT_RESET, 
+    MIN_COUNT_RESET, AVG_COUNT_RESET, TIME_ENABLED, TIME_DISABLED, TIME_ELAPSED, TIME_RESET, 
+    STATUS, TYPE, COMMENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbMetricsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_METRICS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbMetricsExample" >
+    delete from INNODB_METRICS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbMetrics" >
+    insert into INNODB_METRICS (NAME, SUBSYSTEM, COUNT, 
+      MAX_COUNT, MIN_COUNT, AVG_COUNT, 
+      COUNT_RESET, MAX_COUNT_RESET, MIN_COUNT_RESET, 
+      AVG_COUNT_RESET, TIME_ENABLED, TIME_DISABLED, 
+      TIME_ELAPSED, TIME_RESET, STATUS, 
+      TYPE, COMMENT)
+    values (#{name,jdbcType=VARCHAR}, #{subsystem,jdbcType=VARCHAR}, #{count,jdbcType=BIGINT}, 
+      #{maxCount,jdbcType=BIGINT}, #{minCount,jdbcType=BIGINT}, #{avgCount,jdbcType=REAL}, 
+      #{countReset,jdbcType=BIGINT}, #{maxCountReset,jdbcType=BIGINT}, #{minCountReset,jdbcType=BIGINT}, 
+      #{avgCountReset,jdbcType=REAL}, #{timeEnabled,jdbcType=TIMESTAMP}, #{timeDisabled,jdbcType=TIMESTAMP}, 
+      #{timeElapsed,jdbcType=BIGINT}, #{timeReset,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbMetrics" >
+    insert into INNODB_METRICS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="subsystem != null" >
+        SUBSYSTEM,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="maxCount != null" >
+        MAX_COUNT,
+      </if>
+      <if test="minCount != null" >
+        MIN_COUNT,
+      </if>
+      <if test="avgCount != null" >
+        AVG_COUNT,
+      </if>
+      <if test="countReset != null" >
+        COUNT_RESET,
+      </if>
+      <if test="maxCountReset != null" >
+        MAX_COUNT_RESET,
+      </if>
+      <if test="minCountReset != null" >
+        MIN_COUNT_RESET,
+      </if>
+      <if test="avgCountReset != null" >
+        AVG_COUNT_RESET,
+      </if>
+      <if test="timeEnabled != null" >
+        TIME_ENABLED,
+      </if>
+      <if test="timeDisabled != null" >
+        TIME_DISABLED,
+      </if>
+      <if test="timeElapsed != null" >
+        TIME_ELAPSED,
+      </if>
+      <if test="timeReset != null" >
+        TIME_RESET,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subsystem != null" >
+        #{subsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=BIGINT},
+      </if>
+      <if test="maxCount != null" >
+        #{maxCount,jdbcType=BIGINT},
+      </if>
+      <if test="minCount != null" >
+        #{minCount,jdbcType=BIGINT},
+      </if>
+      <if test="avgCount != null" >
+        #{avgCount,jdbcType=REAL},
+      </if>
+      <if test="countReset != null" >
+        #{countReset,jdbcType=BIGINT},
+      </if>
+      <if test="maxCountReset != null" >
+        #{maxCountReset,jdbcType=BIGINT},
+      </if>
+      <if test="minCountReset != null" >
+        #{minCountReset,jdbcType=BIGINT},
+      </if>
+      <if test="avgCountReset != null" >
+        #{avgCountReset,jdbcType=REAL},
+      </if>
+      <if test="timeEnabled != null" >
+        #{timeEnabled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeDisabled != null" >
+        #{timeDisabled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeElapsed != null" >
+        #{timeElapsed,jdbcType=BIGINT},
+      </if>
+      <if test="timeReset != null" >
+        #{timeReset,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbMetricsExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_METRICS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_METRICS
+    <set >
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subsystem != null" >
+        SUBSYSTEM = #{record.subsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null" >
+        COUNT = #{record.count,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxCount != null" >
+        MAX_COUNT = #{record.maxCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.minCount != null" >
+        MIN_COUNT = #{record.minCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.avgCount != null" >
+        AVG_COUNT = #{record.avgCount,jdbcType=REAL},
+      </if>
+      <if test="record.countReset != null" >
+        COUNT_RESET = #{record.countReset,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxCountReset != null" >
+        MAX_COUNT_RESET = #{record.maxCountReset,jdbcType=BIGINT},
+      </if>
+      <if test="record.minCountReset != null" >
+        MIN_COUNT_RESET = #{record.minCountReset,jdbcType=BIGINT},
+      </if>
+      <if test="record.avgCountReset != null" >
+        AVG_COUNT_RESET = #{record.avgCountReset,jdbcType=REAL},
+      </if>
+      <if test="record.timeEnabled != null" >
+        TIME_ENABLED = #{record.timeEnabled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeDisabled != null" >
+        TIME_DISABLED = #{record.timeDisabled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeElapsed != null" >
+        TIME_ELAPSED = #{record.timeElapsed,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeReset != null" >
+        TIME_RESET = #{record.timeReset,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        COMMENT = #{record.comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_METRICS
+    set NAME = #{record.name,jdbcType=VARCHAR},
+      SUBSYSTEM = #{record.subsystem,jdbcType=VARCHAR},
+      COUNT = #{record.count,jdbcType=BIGINT},
+      MAX_COUNT = #{record.maxCount,jdbcType=BIGINT},
+      MIN_COUNT = #{record.minCount,jdbcType=BIGINT},
+      AVG_COUNT = #{record.avgCount,jdbcType=REAL},
+      COUNT_RESET = #{record.countReset,jdbcType=BIGINT},
+      MAX_COUNT_RESET = #{record.maxCountReset,jdbcType=BIGINT},
+      MIN_COUNT_RESET = #{record.minCountReset,jdbcType=BIGINT},
+      AVG_COUNT_RESET = #{record.avgCountReset,jdbcType=REAL},
+      TIME_ENABLED = #{record.timeEnabled,jdbcType=TIMESTAMP},
+      TIME_DISABLED = #{record.timeDisabled,jdbcType=TIMESTAMP},
+      TIME_ELAPSED = #{record.timeElapsed,jdbcType=BIGINT},
+      TIME_RESET = #{record.timeReset,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      COMMENT = #{record.comment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

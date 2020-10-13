@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbTablespacesMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbTablespaces" >
+    <result column="SPACE" property="space" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="INTEGER" />
+    <result column="ROW_FORMAT" property="rowFormat" jdbcType="VARCHAR" />
+    <result column="PAGE_SIZE" property="pageSize" jdbcType="INTEGER" />
+    <result column="ZIP_PAGE_SIZE" property="zipPageSize" jdbcType="INTEGER" />
+    <result column="SPACE_TYPE" property="spaceType" jdbcType="VARCHAR" />
+    <result column="FS_BLOCK_SIZE" property="fsBlockSize" jdbcType="INTEGER" />
+    <result column="FILE_SIZE" property="fileSize" jdbcType="BIGINT" />
+    <result column="ALLOCATED_SIZE" property="allocatedSize" jdbcType="BIGINT" />
+    <result column="SERVER_VERSION" property="serverVersion" jdbcType="VARCHAR" />
+    <result column="SPACE_VERSION" property="spaceVersion" jdbcType="INTEGER" />
+    <result column="ENCRYPTION" property="encryption" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SPACE, NAME, FLAG, ROW_FORMAT, PAGE_SIZE, ZIP_PAGE_SIZE, SPACE_TYPE, FS_BLOCK_SIZE, 
+    FILE_SIZE, ALLOCATED_SIZE, SERVER_VERSION, SPACE_VERSION, ENCRYPTION, STATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbTablespacesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbTablespacesExample" >
+    delete from INNODB_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbTablespaces" >
+    insert into INNODB_TABLESPACES (SPACE, NAME, FLAG, 
+      ROW_FORMAT, PAGE_SIZE, ZIP_PAGE_SIZE, 
+      SPACE_TYPE, FS_BLOCK_SIZE, FILE_SIZE, 
+      ALLOCATED_SIZE, SERVER_VERSION, SPACE_VERSION, 
+      ENCRYPTION, STATE)
+    values (#{space,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, 
+      #{rowFormat,jdbcType=VARCHAR}, #{pageSize,jdbcType=INTEGER}, #{zipPageSize,jdbcType=INTEGER}, 
+      #{spaceType,jdbcType=VARCHAR}, #{fsBlockSize,jdbcType=INTEGER}, #{fileSize,jdbcType=BIGINT}, 
+      #{allocatedSize,jdbcType=BIGINT}, #{serverVersion,jdbcType=VARCHAR}, #{spaceVersion,jdbcType=INTEGER}, 
+      #{encryption,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbTablespaces" >
+    insert into INNODB_TABLESPACES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="space != null" >
+        SPACE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="flag != null" >
+        FLAG,
+      </if>
+      <if test="rowFormat != null" >
+        ROW_FORMAT,
+      </if>
+      <if test="pageSize != null" >
+        PAGE_SIZE,
+      </if>
+      <if test="zipPageSize != null" >
+        ZIP_PAGE_SIZE,
+      </if>
+      <if test="spaceType != null" >
+        SPACE_TYPE,
+      </if>
+      <if test="fsBlockSize != null" >
+        FS_BLOCK_SIZE,
+      </if>
+      <if test="fileSize != null" >
+        FILE_SIZE,
+      </if>
+      <if test="allocatedSize != null" >
+        ALLOCATED_SIZE,
+      </if>
+      <if test="serverVersion != null" >
+        SERVER_VERSION,
+      </if>
+      <if test="spaceVersion != null" >
+        SPACE_VERSION,
+      </if>
+      <if test="encryption != null" >
+        ENCRYPTION,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="space != null" >
+        #{space,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="rowFormat != null" >
+        #{rowFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="pageSize != null" >
+        #{pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="zipPageSize != null" >
+        #{zipPageSize,jdbcType=INTEGER},
+      </if>
+      <if test="spaceType != null" >
+        #{spaceType,jdbcType=VARCHAR},
+      </if>
+      <if test="fsBlockSize != null" >
+        #{fsBlockSize,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="allocatedSize != null" >
+        #{allocatedSize,jdbcType=BIGINT},
+      </if>
+      <if test="serverVersion != null" >
+        #{serverVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceVersion != null" >
+        #{spaceVersion,jdbcType=INTEGER},
+      </if>
+      <if test="encryption != null" >
+        #{encryption,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbTablespacesExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_TABLESPACES
+    <set >
+      <if test="record.space != null" >
+        SPACE = #{record.space,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        FLAG = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.rowFormat != null" >
+        ROW_FORMAT = #{record.rowFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageSize != null" >
+        PAGE_SIZE = #{record.pageSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.zipPageSize != null" >
+        ZIP_PAGE_SIZE = #{record.zipPageSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.spaceType != null" >
+        SPACE_TYPE = #{record.spaceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsBlockSize != null" >
+        FS_BLOCK_SIZE = #{record.fsBlockSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileSize != null" >
+        FILE_SIZE = #{record.fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.allocatedSize != null" >
+        ALLOCATED_SIZE = #{record.allocatedSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.serverVersion != null" >
+        SERVER_VERSION = #{record.serverVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaceVersion != null" >
+        SPACE_VERSION = #{record.spaceVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.encryption != null" >
+        ENCRYPTION = #{record.encryption,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_TABLESPACES
+    set SPACE = #{record.space,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      FLAG = #{record.flag,jdbcType=INTEGER},
+      ROW_FORMAT = #{record.rowFormat,jdbcType=VARCHAR},
+      PAGE_SIZE = #{record.pageSize,jdbcType=INTEGER},
+      ZIP_PAGE_SIZE = #{record.zipPageSize,jdbcType=INTEGER},
+      SPACE_TYPE = #{record.spaceType,jdbcType=VARCHAR},
+      FS_BLOCK_SIZE = #{record.fsBlockSize,jdbcType=INTEGER},
+      FILE_SIZE = #{record.fileSize,jdbcType=BIGINT},
+      ALLOCATED_SIZE = #{record.allocatedSize,jdbcType=BIGINT},
+      SERVER_VERSION = #{record.serverVersion,jdbcType=VARCHAR},
+      SPACE_VERSION = #{record.spaceVersion,jdbcType=INTEGER},
+      ENCRYPTION = #{record.encryption,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

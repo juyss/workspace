@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.OptimizerTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.OptimizerTrace" >
+    <result column="QUERY" property="query" jdbcType="VARCHAR" />
+    <result column="TRACE" property="trace" jdbcType="VARCHAR" />
+    <result column="MISSING_BYTES_BEYOND_MAX_MEM_SIZE" property="missingBytesBeyondMaxMemSize" jdbcType="INTEGER" />
+    <result column="INSUFFICIENT_PRIVILEGES" property="insufficientPrivileges" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    QUERY, TRACE, MISSING_BYTES_BEYOND_MAX_MEM_SIZE, INSUFFICIENT_PRIVILEGES
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.OptimizerTraceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OPTIMIZER_TRACE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.OptimizerTraceExample" >
+    delete from OPTIMIZER_TRACE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.OptimizerTrace" >
+    insert into OPTIMIZER_TRACE (QUERY, TRACE, MISSING_BYTES_BEYOND_MAX_MEM_SIZE, 
+      INSUFFICIENT_PRIVILEGES)
+    values (#{query,jdbcType=VARCHAR}, #{trace,jdbcType=VARCHAR}, #{missingBytesBeyondMaxMemSize,jdbcType=INTEGER}, 
+      #{insufficientPrivileges,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.OptimizerTrace" >
+    insert into OPTIMIZER_TRACE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="query != null" >
+        QUERY,
+      </if>
+      <if test="trace != null" >
+        TRACE,
+      </if>
+      <if test="missingBytesBeyondMaxMemSize != null" >
+        MISSING_BYTES_BEYOND_MAX_MEM_SIZE,
+      </if>
+      <if test="insufficientPrivileges != null" >
+        INSUFFICIENT_PRIVILEGES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="query != null" >
+        #{query,jdbcType=VARCHAR},
+      </if>
+      <if test="trace != null" >
+        #{trace,jdbcType=VARCHAR},
+      </if>
+      <if test="missingBytesBeyondMaxMemSize != null" >
+        #{missingBytesBeyondMaxMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="insufficientPrivileges != null" >
+        #{insufficientPrivileges,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.OptimizerTraceExample" resultType="java.lang.Integer" >
+    select count(*) from OPTIMIZER_TRACE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OPTIMIZER_TRACE
+    <set >
+      <if test="record.query != null" >
+        QUERY = #{record.query,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trace != null" >
+        TRACE = #{record.trace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.missingBytesBeyondMaxMemSize != null" >
+        MISSING_BYTES_BEYOND_MAX_MEM_SIZE = #{record.missingBytesBeyondMaxMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.insufficientPrivileges != null" >
+        INSUFFICIENT_PRIVILEGES = #{record.insufficientPrivileges,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OPTIMIZER_TRACE
+    set QUERY = #{record.query,jdbcType=VARCHAR},
+      TRACE = #{record.trace,jdbcType=VARCHAR},
+      MISSING_BYTES_BEYOND_MAX_MEM_SIZE = #{record.missingBytesBeyondMaxMemSize,jdbcType=INTEGER},
+      INSUFFICIENT_PRIVILEGES = #{record.insufficientPrivileges,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

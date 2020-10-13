@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbBufferPageLruMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbBufferPageLru" >
+    <result column="POOL_ID" property="poolId" jdbcType="BIGINT" />
+    <result column="LRU_POSITION" property="lruPosition" jdbcType="BIGINT" />
+    <result column="SPACE" property="space" jdbcType="BIGINT" />
+    <result column="PAGE_NUMBER" property="pageNumber" jdbcType="BIGINT" />
+    <result column="PAGE_TYPE" property="pageType" jdbcType="VARCHAR" />
+    <result column="FLUSH_TYPE" property="flushType" jdbcType="BIGINT" />
+    <result column="FIX_COUNT" property="fixCount" jdbcType="BIGINT" />
+    <result column="IS_HASHED" property="isHashed" jdbcType="VARCHAR" />
+    <result column="NEWEST_MODIFICATION" property="newestModification" jdbcType="BIGINT" />
+    <result column="OLDEST_MODIFICATION" property="oldestModification" jdbcType="BIGINT" />
+    <result column="ACCESS_TIME" property="accessTime" jdbcType="BIGINT" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+    <result column="INDEX_NAME" property="indexName" jdbcType="VARCHAR" />
+    <result column="NUMBER_RECORDS" property="numberRecords" jdbcType="BIGINT" />
+    <result column="DATA_SIZE" property="dataSize" jdbcType="BIGINT" />
+    <result column="COMPRESSED_SIZE" property="compressedSize" jdbcType="BIGINT" />
+    <result column="COMPRESSED" property="compressed" jdbcType="VARCHAR" />
+    <result column="IO_FIX" property="ioFix" jdbcType="VARCHAR" />
+    <result column="IS_OLD" property="isOld" jdbcType="VARCHAR" />
+    <result column="FREE_PAGE_CLOCK" property="freePageClock" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    POOL_ID, LRU_POSITION, SPACE, PAGE_NUMBER, PAGE_TYPE, FLUSH_TYPE, FIX_COUNT, IS_HASHED, 
+    NEWEST_MODIFICATION, OLDEST_MODIFICATION, ACCESS_TIME, TABLE_NAME, INDEX_NAME, NUMBER_RECORDS, 
+    DATA_SIZE, COMPRESSED_SIZE, COMPRESSED, IO_FIX, IS_OLD, FREE_PAGE_CLOCK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbBufferPageLruExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_BUFFER_PAGE_LRU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbBufferPageLruExample" >
+    delete from INNODB_BUFFER_PAGE_LRU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbBufferPageLru" >
+    insert into INNODB_BUFFER_PAGE_LRU (POOL_ID, LRU_POSITION, SPACE, 
+      PAGE_NUMBER, PAGE_TYPE, FLUSH_TYPE, 
+      FIX_COUNT, IS_HASHED, NEWEST_MODIFICATION, 
+      OLDEST_MODIFICATION, ACCESS_TIME, TABLE_NAME, 
+      INDEX_NAME, NUMBER_RECORDS, DATA_SIZE, 
+      COMPRESSED_SIZE, COMPRESSED, IO_FIX, 
+      IS_OLD, FREE_PAGE_CLOCK)
+    values (#{poolId,jdbcType=BIGINT}, #{lruPosition,jdbcType=BIGINT}, #{space,jdbcType=BIGINT}, 
+      #{pageNumber,jdbcType=BIGINT}, #{pageType,jdbcType=VARCHAR}, #{flushType,jdbcType=BIGINT}, 
+      #{fixCount,jdbcType=BIGINT}, #{isHashed,jdbcType=VARCHAR}, #{newestModification,jdbcType=BIGINT}, 
+      #{oldestModification,jdbcType=BIGINT}, #{accessTime,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, 
+      #{indexName,jdbcType=VARCHAR}, #{numberRecords,jdbcType=BIGINT}, #{dataSize,jdbcType=BIGINT}, 
+      #{compressedSize,jdbcType=BIGINT}, #{compressed,jdbcType=VARCHAR}, #{ioFix,jdbcType=VARCHAR}, 
+      #{isOld,jdbcType=VARCHAR}, #{freePageClock,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbBufferPageLru" >
+    insert into INNODB_BUFFER_PAGE_LRU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="poolId != null" >
+        POOL_ID,
+      </if>
+      <if test="lruPosition != null" >
+        LRU_POSITION,
+      </if>
+      <if test="space != null" >
+        SPACE,
+      </if>
+      <if test="pageNumber != null" >
+        PAGE_NUMBER,
+      </if>
+      <if test="pageType != null" >
+        PAGE_TYPE,
+      </if>
+      <if test="flushType != null" >
+        FLUSH_TYPE,
+      </if>
+      <if test="fixCount != null" >
+        FIX_COUNT,
+      </if>
+      <if test="isHashed != null" >
+        IS_HASHED,
+      </if>
+      <if test="newestModification != null" >
+        NEWEST_MODIFICATION,
+      </if>
+      <if test="oldestModification != null" >
+        OLDEST_MODIFICATION,
+      </if>
+      <if test="accessTime != null" >
+        ACCESS_TIME,
+      </if>
+      <if test="tableName != null" >
+        TABLE_NAME,
+      </if>
+      <if test="indexName != null" >
+        INDEX_NAME,
+      </if>
+      <if test="numberRecords != null" >
+        NUMBER_RECORDS,
+      </if>
+      <if test="dataSize != null" >
+        DATA_SIZE,
+      </if>
+      <if test="compressedSize != null" >
+        COMPRESSED_SIZE,
+      </if>
+      <if test="compressed != null" >
+        COMPRESSED,
+      </if>
+      <if test="ioFix != null" >
+        IO_FIX,
+      </if>
+      <if test="isOld != null" >
+        IS_OLD,
+      </if>
+      <if test="freePageClock != null" >
+        FREE_PAGE_CLOCK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="poolId != null" >
+        #{poolId,jdbcType=BIGINT},
+      </if>
+      <if test="lruPosition != null" >
+        #{lruPosition,jdbcType=BIGINT},
+      </if>
+      <if test="space != null" >
+        #{space,jdbcType=BIGINT},
+      </if>
+      <if test="pageNumber != null" >
+        #{pageNumber,jdbcType=BIGINT},
+      </if>
+      <if test="pageType != null" >
+        #{pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="flushType != null" >
+        #{flushType,jdbcType=BIGINT},
+      </if>
+      <if test="fixCount != null" >
+        #{fixCount,jdbcType=BIGINT},
+      </if>
+      <if test="isHashed != null" >
+        #{isHashed,jdbcType=VARCHAR},
+      </if>
+      <if test="newestModification != null" >
+        #{newestModification,jdbcType=BIGINT},
+      </if>
+      <if test="oldestModification != null" >
+        #{oldestModification,jdbcType=BIGINT},
+      </if>
+      <if test="accessTime != null" >
+        #{accessTime,jdbcType=BIGINT},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="indexName != null" >
+        #{indexName,jdbcType=VARCHAR},
+      </if>
+      <if test="numberRecords != null" >
+        #{numberRecords,jdbcType=BIGINT},
+      </if>
+      <if test="dataSize != null" >
+        #{dataSize,jdbcType=BIGINT},
+      </if>
+      <if test="compressedSize != null" >
+        #{compressedSize,jdbcType=BIGINT},
+      </if>
+      <if test="compressed != null" >
+        #{compressed,jdbcType=VARCHAR},
+      </if>
+      <if test="ioFix != null" >
+        #{ioFix,jdbcType=VARCHAR},
+      </if>
+      <if test="isOld != null" >
+        #{isOld,jdbcType=VARCHAR},
+      </if>
+      <if test="freePageClock != null" >
+        #{freePageClock,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbBufferPageLruExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_BUFFER_PAGE_LRU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_BUFFER_PAGE_LRU
+    <set >
+      <if test="record.poolId != null" >
+        POOL_ID = #{record.poolId,jdbcType=BIGINT},
+      </if>
+      <if test="record.lruPosition != null" >
+        LRU_POSITION = #{record.lruPosition,jdbcType=BIGINT},
+      </if>
+      <if test="record.space != null" >
+        SPACE = #{record.space,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageNumber != null" >
+        PAGE_NUMBER = #{record.pageNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageType != null" >
+        PAGE_TYPE = #{record.pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flushType != null" >
+        FLUSH_TYPE = #{record.flushType,jdbcType=BIGINT},
+      </if>
+      <if test="record.fixCount != null" >
+        FIX_COUNT = #{record.fixCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.isHashed != null" >
+        IS_HASHED = #{record.isHashed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newestModification != null" >
+        NEWEST_MODIFICATION = #{record.newestModification,jdbcType=BIGINT},
+      </if>
+      <if test="record.oldestModification != null" >
+        OLDEST_MODIFICATION = #{record.oldestModification,jdbcType=BIGINT},
+      </if>
+      <if test="record.accessTime != null" >
+        ACCESS_TIME = #{record.accessTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.tableName != null" >
+        TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indexName != null" >
+        INDEX_NAME = #{record.indexName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberRecords != null" >
+        NUMBER_RECORDS = #{record.numberRecords,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataSize != null" >
+        DATA_SIZE = #{record.dataSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.compressedSize != null" >
+        COMPRESSED_SIZE = #{record.compressedSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.compressed != null" >
+        COMPRESSED = #{record.compressed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioFix != null" >
+        IO_FIX = #{record.ioFix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOld != null" >
+        IS_OLD = #{record.isOld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freePageClock != null" >
+        FREE_PAGE_CLOCK = #{record.freePageClock,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_BUFFER_PAGE_LRU
+    set POOL_ID = #{record.poolId,jdbcType=BIGINT},
+      LRU_POSITION = #{record.lruPosition,jdbcType=BIGINT},
+      SPACE = #{record.space,jdbcType=BIGINT},
+      PAGE_NUMBER = #{record.pageNumber,jdbcType=BIGINT},
+      PAGE_TYPE = #{record.pageType,jdbcType=VARCHAR},
+      FLUSH_TYPE = #{record.flushType,jdbcType=BIGINT},
+      FIX_COUNT = #{record.fixCount,jdbcType=BIGINT},
+      IS_HASHED = #{record.isHashed,jdbcType=VARCHAR},
+      NEWEST_MODIFICATION = #{record.newestModification,jdbcType=BIGINT},
+      OLDEST_MODIFICATION = #{record.oldestModification,jdbcType=BIGINT},
+      ACCESS_TIME = #{record.accessTime,jdbcType=BIGINT},
+      TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      INDEX_NAME = #{record.indexName,jdbcType=VARCHAR},
+      NUMBER_RECORDS = #{record.numberRecords,jdbcType=BIGINT},
+      DATA_SIZE = #{record.dataSize,jdbcType=BIGINT},
+      COMPRESSED_SIZE = #{record.compressedSize,jdbcType=BIGINT},
+      COMPRESSED = #{record.compressed,jdbcType=VARCHAR},
+      IO_FIX = #{record.ioFix,jdbcType=VARCHAR},
+      IS_OLD = #{record.isOld,jdbcType=VARCHAR},
+      FREE_PAGE_CLOCK = #{record.freePageClock,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

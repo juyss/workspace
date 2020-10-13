@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbSessionTempTablespacesMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbSessionTempTablespaces" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SPACE" property="space" jdbcType="INTEGER" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="SIZE" property="size" jdbcType="BIGINT" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SPACE, PATH, SIZE, STATE, PURPOSE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbSessionTempTablespacesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_SESSION_TEMP_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbSessionTempTablespacesExample" >
+    delete from INNODB_SESSION_TEMP_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbSessionTempTablespaces" >
+    insert into INNODB_SESSION_TEMP_TABLESPACES (ID, SPACE, PATH, 
+      SIZE, STATE, PURPOSE
+      )
+    values (#{id,jdbcType=INTEGER}, #{space,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, 
+      #{size,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbSessionTempTablespaces" >
+    insert into INNODB_SESSION_TEMP_TABLESPACES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="space != null" >
+        SPACE,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="size != null" >
+        SIZE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="purpose != null" >
+        PURPOSE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="space != null" >
+        #{space,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbSessionTempTablespacesExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_SESSION_TEMP_TABLESPACES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_SESSION_TEMP_TABLESPACES
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.space != null" >
+        SPACE = #{record.space,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null" >
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null" >
+        SIZE = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        PURPOSE = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_SESSION_TEMP_TABLESPACES
+    set ID = #{record.id,jdbcType=INTEGER},
+      SPACE = #{record.space,jdbcType=INTEGER},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      SIZE = #{record.size,jdbcType=BIGINT},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      PURPOSE = #{record.purpose,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

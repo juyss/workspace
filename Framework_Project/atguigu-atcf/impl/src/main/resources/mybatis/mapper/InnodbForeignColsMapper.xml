@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbForeignColsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbForeignCols" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FOR_COL_NAME" property="forColName" jdbcType="VARCHAR" />
+    <result column="REF_COL_NAME" property="refColName" jdbcType="VARCHAR" />
+    <result column="POS" property="pos" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, FOR_COL_NAME, REF_COL_NAME, POS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbForeignColsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_FOREIGN_COLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbForeignColsExample" >
+    delete from INNODB_FOREIGN_COLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbForeignCols" >
+    insert into INNODB_FOREIGN_COLS (ID, FOR_COL_NAME, REF_COL_NAME, 
+      POS)
+    values (#{id,jdbcType=VARCHAR}, #{forColName,jdbcType=VARCHAR}, #{refColName,jdbcType=VARCHAR}, 
+      #{pos,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbForeignCols" >
+    insert into INNODB_FOREIGN_COLS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="forColName != null" >
+        FOR_COL_NAME,
+      </if>
+      <if test="refColName != null" >
+        REF_COL_NAME,
+      </if>
+      <if test="pos != null" >
+        POS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="forColName != null" >
+        #{forColName,jdbcType=VARCHAR},
+      </if>
+      <if test="refColName != null" >
+        #{refColName,jdbcType=VARCHAR},
+      </if>
+      <if test="pos != null" >
+        #{pos,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbForeignColsExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_FOREIGN_COLS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_FOREIGN_COLS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forColName != null" >
+        FOR_COL_NAME = #{record.forColName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refColName != null" >
+        REF_COL_NAME = #{record.refColName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pos != null" >
+        POS = #{record.pos,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_FOREIGN_COLS
+    set ID = #{record.id,jdbcType=VARCHAR},
+      FOR_COL_NAME = #{record.forColName,jdbcType=VARCHAR},
+      REF_COL_NAME = #{record.refColName,jdbcType=VARCHAR},
+      POS = #{record.pos,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

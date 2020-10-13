@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbTablespacesBriefMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbTablespacesBrief" >
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="SPACE_TYPE" property="spaceType" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.juyss.bean.InnodbTablespacesBriefWithBLOBs" extends="BaseResultMap" >
+    <result column="SPACE" property="space" jdbcType="VARBINARY" />
+    <result column="FLAG" property="flag" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NAME, PATH, SPACE_TYPE
+  </sql>
+  <sql id="Blob_Column_List" >
+    SPACE, FLAG
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.juyss.bean.InnodbTablespacesBriefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from INNODB_TABLESPACES_BRIEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbTablespacesBriefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_TABLESPACES_BRIEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbTablespacesBriefExample" >
+    delete from INNODB_TABLESPACES_BRIEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbTablespacesBriefWithBLOBs" >
+    insert into INNODB_TABLESPACES_BRIEF (NAME, PATH, SPACE_TYPE, 
+      SPACE, FLAG)
+    values (#{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{spaceType,jdbcType=VARCHAR}, 
+      #{space,jdbcType=VARBINARY}, #{flag,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbTablespacesBriefWithBLOBs" >
+    insert into INNODB_TABLESPACES_BRIEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="spaceType != null" >
+        SPACE_TYPE,
+      </if>
+      <if test="space != null" >
+        SPACE,
+      </if>
+      <if test="flag != null" >
+        FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceType != null" >
+        #{spaceType,jdbcType=VARCHAR},
+      </if>
+      <if test="space != null" >
+        #{space,jdbcType=VARBINARY},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbTablespacesBriefExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_TABLESPACES_BRIEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_TABLESPACES_BRIEF
+    <set >
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spaceType != null" >
+        SPACE_TYPE = #{record.spaceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.space != null" >
+        SPACE = #{record.space,jdbcType=VARBINARY},
+      </if>
+      <if test="record.flag != null" >
+        FLAG = #{record.flag,jdbcType=VARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update INNODB_TABLESPACES_BRIEF
+    set NAME = #{record.name,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      SPACE_TYPE = #{record.spaceType,jdbcType=VARCHAR},
+      SPACE = #{record.space,jdbcType=VARBINARY},
+      FLAG = #{record.flag,jdbcType=VARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_TABLESPACES_BRIEF
+    set NAME = #{record.name,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      SPACE_TYPE = #{record.spaceType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

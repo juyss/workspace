@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.StSpatialReferenceSystemsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.StSpatialReferenceSystems" >
+    <result column="SRS_NAME" property="srsName" jdbcType="VARCHAR" />
+    <result column="SRS_ID" property="srsId" jdbcType="INTEGER" />
+    <result column="ORGANIZATION" property="organization" jdbcType="VARCHAR" />
+    <result column="ORGANIZATION_COORDSYS_ID" property="organizationCoordsysId" jdbcType="INTEGER" />
+    <result column="DEFINITION" property="definition" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SRS_NAME, SRS_ID, ORGANIZATION, ORGANIZATION_COORDSYS_ID, DEFINITION, DESCRIPTION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.StSpatialReferenceSystemsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ST_SPATIAL_REFERENCE_SYSTEMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.StSpatialReferenceSystemsExample" >
+    delete from ST_SPATIAL_REFERENCE_SYSTEMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.StSpatialReferenceSystems" >
+    insert into ST_SPATIAL_REFERENCE_SYSTEMS (SRS_NAME, SRS_ID, ORGANIZATION, 
+      ORGANIZATION_COORDSYS_ID, DEFINITION, DESCRIPTION
+      )
+    values (#{srsName,jdbcType=VARCHAR}, #{srsId,jdbcType=INTEGER}, #{organization,jdbcType=VARCHAR}, 
+      #{organizationCoordsysId,jdbcType=INTEGER}, #{definition,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.StSpatialReferenceSystems" >
+    insert into ST_SPATIAL_REFERENCE_SYSTEMS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srsName != null" >
+        SRS_NAME,
+      </if>
+      <if test="srsId != null" >
+        SRS_ID,
+      </if>
+      <if test="organization != null" >
+        ORGANIZATION,
+      </if>
+      <if test="organizationCoordsysId != null" >
+        ORGANIZATION_COORDSYS_ID,
+      </if>
+      <if test="definition != null" >
+        DEFINITION,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srsName != null" >
+        #{srsName,jdbcType=VARCHAR},
+      </if>
+      <if test="srsId != null" >
+        #{srsId,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCoordsysId != null" >
+        #{organizationCoordsysId,jdbcType=INTEGER},
+      </if>
+      <if test="definition != null" >
+        #{definition,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.StSpatialReferenceSystemsExample" resultType="java.lang.Integer" >
+    select count(*) from ST_SPATIAL_REFERENCE_SYSTEMS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ST_SPATIAL_REFERENCE_SYSTEMS
+    <set >
+      <if test="record.srsName != null" >
+        SRS_NAME = #{record.srsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srsId != null" >
+        SRS_ID = #{record.srsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.organization != null" >
+        ORGANIZATION = #{record.organization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organizationCoordsysId != null" >
+        ORGANIZATION_COORDSYS_ID = #{record.organizationCoordsysId,jdbcType=INTEGER},
+      </if>
+      <if test="record.definition != null" >
+        DEFINITION = #{record.definition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ST_SPATIAL_REFERENCE_SYSTEMS
+    set SRS_NAME = #{record.srsName,jdbcType=VARCHAR},
+      SRS_ID = #{record.srsId,jdbcType=INTEGER},
+      ORGANIZATION = #{record.organization,jdbcType=VARCHAR},
+      ORGANIZATION_COORDSYS_ID = #{record.organizationCoordsysId,jdbcType=INTEGER},
+      DEFINITION = #{record.definition,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
