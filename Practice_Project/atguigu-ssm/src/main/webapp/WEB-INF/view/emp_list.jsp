@@ -38,19 +38,19 @@
         <div class="col-md-12">
             <table class="table table-hover">
                 <tr>
-                    <th>员工名</th>
-                    <th>性别</th>
-                    <th>电子邮箱</th>
-                    <th>所在部门</th>
-                    <th>操作</th>
+                    <th style="text-align: center">员工名</th>
+                    <th style="text-align: center">性别</th>
+                    <th style="text-align: center">电子邮箱</th>
+                    <th style="text-align: center">所在部门</th>
+                    <th style="text-align: center">操作</th>
                 </tr>
                 <c:forEach items="${pageInfo.list }" var="emp">
                     <tr>
-                        <th>${emp.empName }</th>
-                        <th>${emp.empGender}</th>
-                        <th>${emp.empEmail }</th>
-                        <th>${emp.department.deptName }</th>
-                        <th>
+                        <th style="text-align: center">${emp.empName }</th>
+                        <th style="text-align: center">${emp.empGender}</th>
+                        <th style="text-align: center">${emp.empEmail }</th>
+                        <th style="text-align: center">${emp.department.deptName }</th>
+                        <th style="text-align: center">
                             <a id="update_btn" class="btn btn-primary btn-sm"
                                href="${pageContext.request.contextPath}/toEmpEdit?pageNum=${pageInfo.pageNum}&empId=${emp.empId}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
