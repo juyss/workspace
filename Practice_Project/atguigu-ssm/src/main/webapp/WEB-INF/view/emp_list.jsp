@@ -76,9 +76,16 @@
 
     <!-- 显示分页信息 -->
     <div class="row">
+        <!--分页文字信息  -->
+        <div align="center" class="col-md-12">
+            <a class="btn">
+                当前第 ${pageInfo.pageNum} 页，共 ${pageInfo.pages} 页，共 ${pageInfo.total} 条记录
+            </a>
+        </div>
+
         <!-- 分页条信息 -->
-        <div class="col-md-4 col-md-offset-4">
-            <nav aria-label="Page navigation">
+        <div class="col-md-12">
+            <nav align="center" aria-label="Page navigation">
                 <ul class="pagination">
                     <li><a href="${pageContext.request.contextPath}/emps">首页</a></li>
                     <c:if test="${pageInfo.hasPreviousPage }">
@@ -106,12 +113,7 @@
         </div>
     </div>
     <div class="row">
-        <!--分页文字信息  -->
-        <div class="col-md-12 col-md-offset-4">
-            <a class="btn btn-info">
-                当前第 ${pageInfo.pageNum} 页，共 ${pageInfo.pages} 页，共 ${pageInfo.total} 条记录
-            </a>
-        </div>
+
     </div>
 </div>
 </body>

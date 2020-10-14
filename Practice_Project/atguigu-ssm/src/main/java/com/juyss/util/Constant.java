@@ -19,7 +19,7 @@ public class Constant {
     /**
      * 定义分页条总共展示页码数
      */
-    public static final Integer NAVIGATE_PAGES=3;
+    public static final Integer NAVIGATE_PAGES=5;
 
     /**
      * 信息载体
