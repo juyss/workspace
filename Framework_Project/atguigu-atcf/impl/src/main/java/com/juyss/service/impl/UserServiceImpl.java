@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
         this.mapper = mapper;
     }
 
+    public TAdminMapper getMapper() {
+        return mapper;
+    }
+
+
     /**
      * 根据条件查询用户
      *
@@ -40,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
         String loginacct = (String) map.get("loginacct");
         TAdminExample example = new TAdminExample();
+
         example.createCriteria().andLoginacctEqualTo(loginacct);
 
         List<TAdmin> list = mapper.selectByExample(example);

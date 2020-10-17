@@ -23,9 +23,16 @@ public class MenuServiceImpl implements MenuService {
 
     private TMenuMapper menuMapper;
 
+    private TMenuExample example;
+
     @Autowired
     public void setMenuMapper(TMenuMapper menuMapper) {
         this.menuMapper = menuMapper;
+    }
+
+    @Autowired
+    public void setExample(TMenuExample example) {
+        this.example = example;
     }
 
     /**
@@ -35,7 +42,6 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public List<TMenu> getMenuList() {
-        TMenuExample example = new TMenuExample();
         example.createCriteria();
         return menuMapper.selectByExample(example);
     }

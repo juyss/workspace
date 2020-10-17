@@ -1,5 +1,8 @@
 package com.juyss.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TAdmin {
     private Integer id;
 

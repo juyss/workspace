@@ -16,7 +16,7 @@
     <meta name="keys" content="">
     <meta name="author" content="">
 
-    <%@include file="../common/css.jsp"%>
+    <%@include file="common/css.jsp"%>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/login.css">
 </head>
@@ -65,7 +65,7 @@
     </form>
 </div>
 
-<%@include file="../common/script.jsp"%>
+<%@include file="common/script.jsp"%>
 
 <script>
     function doLogin() {

@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <%@include file="../common/css.jsp"%>
+    <%@include file="common/css.jsp"%>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/carousel.css">
     <style>
@@ -108,7 +108,7 @@
 </head>
 <body>
 
-<%@include file="../common/header.jsp"%>
+<%@include file="common/header.jsp"%>
 
 <!-- Carousel
 ================================================== -->
@@ -593,12 +593,12 @@
         </div>
     </div>
 
-<%@include file="../common/footer.jsp"%>
+<%@include file="common/footer.jsp"%>
 
 </div><!-- /.container -->
 
 
-<%@include file="../common/script.jsp"%>
+<%@include file="common/script.jsp"%>
 
 <script src="${pageContext.request.contextPath}/static/script/docs.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/script/back-to-top.js"></script>

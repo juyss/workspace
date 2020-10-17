@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <%@include file="../common/css.jsp"%>
+    <%@include file="common/css.jsp"%>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css">
     <style>
@@ -34,12 +34,12 @@
 
 <body>
 
-<jsp:include page="../common/admin_header.jsp"/>
+<jsp:include page="common/admin_header.jsp"/>
 
 <div class="container-fluid">
     <div class="row">
 
-        <jsp:include page="../common/admin_sidebar.jsp"/>
+        <jsp:include page="common/admin_sidebar.jsp"/>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">控制面板</h1>
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<%@include file="../common/script.jsp"%>
+<%@include file="common/script.jsp"%>
 
 <script src="${pageContext.request.contextPath}/static/script/docs.min.js"></script>
 <script type="text/javascript">

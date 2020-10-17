@@ -56,6 +56,8 @@ public class UserController {
 
         map.put("loginacct", loginacct);
 
+        log.debug("Map集合内容：{}",map);
+
         TAdmin LoginUser = service.getUserByMap(map);
 
         //判断用户是否存在

@@ -15,7 +15,7 @@ public class Md5Test {
 
     @Test
     public void MD5Test(){
-        String digest = MD5Util.digest("000000");
+        String digest = MD5Util.digest("102850");
         System.out.println(digest);
     }
 

@@ -4,6 +4,7 @@ import com.juyss.bean.TAdmin;
 import com.juyss.bean.TAdminExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TAdminMapper {
@@ -12,6 +13,8 @@ public interface TAdminMapper {
     int deleteByExample(TAdminExample example);
 
     int deleteByPrimaryKey(Integer id);
+
+    int deleteBatch(@Param("ids") ArrayList<Integer> ids);
 
     int insert(TAdmin record);
 

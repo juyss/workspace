@@ -1,7 +1,10 @@
 package com.juyss.bean;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class TMenu {
     private Integer id;
 

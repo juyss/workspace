@@ -18,7 +18,7 @@
 
                 <c:choose>
                     <c:when test="${not empty pmeun.url}">
-                        <span><i class="${pmeun.icon}"></i> <a href="${pmeun.url}">${pmeun.name}</a> <span class="badge" style="float:right">${fn:length(pmeun.children)} </span></span>
+                        <span><i class="${pmeun.icon}"></i> <a href="${pageContext.request.contextPath}/${pmeun.url}">${pmeun.name}</a> <span class="badge" style="float:right">${fn:length(pmeun.children)} </span></span>
                     </c:when>
                     <c:otherwise>
                         <span><i class="${pmeun.icon}"></i> ${pmeun.name} <span class="badge" style="float:right"> ${fn:length(pmeun.children)} </span></span>
@@ -30,7 +30,7 @@
                     <c:forEach items="${pmeun.children}" var="cmenu">
 
                     <li style="height:30px;">
-                        <a href="${cmenu.url}"><i class="${cmenu.icon}"></i> ${cmenu.name} </a>
+                        <a href="${pageContext.request.contextPath}/${cmenu.url}"><i class="${cmenu.icon}"></i> ${cmenu.name} </a>
                     </li>
                     </c:forEach>
                 </ul>
