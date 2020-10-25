@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.juyss.pojo.Employee;
 import com.juyss.service.EmployeeService;
 import com.juyss.util.Constant;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,8 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+    private Logger log = Logger.getLogger(EmployeeController.class);
+
     private EmployeeService employeeService;
 
     @Autowired
@@ -46,6 +49,7 @@ public class EmployeeController {
     public String getEmps(@RequestParam(value = "page_num", defaultValue = "1") Integer pageNum,
                           @RequestParam(value = "msg", required = false) String msg,
                           Model model) {
+        log.debug("========================执行查询所有员工信息操作=======================");
         PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
         List<Employee> list = employeeService.getAll();
         PageInfo<Employee> pageInfo = new PageInfo<>(list, Constant.NAVIGATE_PAGES);
@@ -61,7 +65,7 @@ public class EmployeeController {
     public String updateEmp(@RequestParam("page_num")Integer pageNum,
                             Employee employee,
                             RedirectAttributes reatt) {
-        System.out.println("更新后的员工对象信息"+employee);
+        log.debug("========================执行更新员工信息操作=======================");
         Boolean flag = employeeService.updateEmp(employee);
         if (flag) {
             reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]修改成功");
@@ -76,6 +80,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/addEmp", method = RequestMethod.POST)
     public String insertEmp(Employee employee, RedirectAttributes reatt) {
+        log.debug("========================执行添加员工信息操作=======================");
         Boolean flag = employeeService.saveEmp(employee);
         if (flag) {
             reatt.addAttribute(Constant.MSG, "员工[ "+employee.getEmpName()+" ]添加成功");
@@ -97,6 +102,7 @@ public class EmployeeController {
     public String deleteEmp(@PathVariable("deptId") Integer deptId,
                             @PathVariable("pageNum") Integer pageNum,
                             RedirectAttributes reatt) {
+        log.debug("========================执行删除员工信息操作=======================");
         Boolean flag = employeeService.deleteEmp(deptId);
         if (flag) {
             reatt.addAttribute(Constant.MSG, "删除成功");

@@ -5,6 +5,7 @@ import com.juyss.pojo.Employee;
 import com.juyss.service.DepartmentService;
 import com.juyss.service.EmployeeService;
 import com.juyss.util.Constant;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 @Controller
 public class PageController {
+
+    private Logger log = Logger.getLogger(PageController.class);
 
     private EmployeeService employeeService;
 
@@ -47,7 +50,7 @@ public class PageController {
     public String toDeptEdit(@RequestParam(value = "msg", required = false) String msg,
                              @PathVariable(value = "pageNum",required = false) String pageNum,
                              Model model){
-
+        log.debug("=====================准备跳转到dept_edit.jsp页面======================");
         //查询所有部门信息
         List<Department> deptList = departmentService.getDepts();
         model.addAttribute("dept_list", deptList);
@@ -73,7 +76,7 @@ public class PageController {
                             @RequestParam(value = "empId", required = false) String empId,
                             @RequestParam(value = "pageNum", required = false) String pageNum,
                             Model model) {
-
+        log.debug("=============================准备跳转页面emp_edit.jsp页面============================");
         List<Department> deptList = departmentService.getDepts();
         model.addAttribute("dept_list", deptList);
 
@@ -93,8 +96,6 @@ public class PageController {
             System.out.println("查询到的用户信息===>" + emp);
             model.addAttribute("emp_info", emp);
         }
-
-
 
         return "emp_edit";
     }

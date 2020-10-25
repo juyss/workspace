@@ -1,0 +1,59 @@
+server:
+  servlet:
+    context-path: /mb
+
+#\u6570\u636E\u6E90\u57FA\u672C\u4FE1\u606F
+spring:
+  datasource:
+    druid:
+      username: user01
+      password: 102850
+      url: jdbc:mysql://localhost:3306/daily?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+      #\u8FDE\u63A5\u6C60\u5C5E\u6027
+      initial-size: 15
+      max-active: 100
+      min-idle: 15
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+      validation-query-timeout: 1000
+      keep-alive: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+      log-abandoned: true
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,slf4j
+      use-global-data-source-stat: true
+      maxOpenPreparedStatements: 100
+      connect-properties.mergeSql: true
+      connect-properties.slowSqlMillis: 5000
+
+      # \u914D\u7F6EDruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # \u914D\u7F6EDruidStatViewServlet
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        # IP\u767D\u540D\u5355(\u6CA1\u6709\u914D\u7F6E\u6216\u8005\u4E3A\u7A7A\uFF0C\u5219\u5141\u8BB8\u6240\u6709\u8BBF\u95EE)
+        allow: 127.0.0.1
+        #  \u7981\u7528HTML\u9875\u9762\u4E0A\u7684\u201CReset All\u201D\u529F\u80FD
+        reset-enable: false
+        # \u767B\u5F55\u540D
+        login-username: admin
+        # \u767B\u5F55\u5BC6\u7801
+        login-password: 102850
+        # \u65B0\u7248\u9700\u8981\u914D\u7F6E\u8FD9\u4E2A\u5C5E\u6027\u624D\u80FD\u8BBF\u95EE\u76D1\u63A7\u9875\u9762
+        enabled: true
+
+mybatis:
+  type-aliases-package: com.juyss.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml

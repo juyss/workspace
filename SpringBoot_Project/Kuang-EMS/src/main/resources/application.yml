@@ -1,0 +1,8 @@
+# 配置上下文路径 : /ems ,端口: 8080
+server:
+  servlet:
+    context-path: /ems
+  port: 8080
+spring:
+  messages:
+    basename: i18n/login
