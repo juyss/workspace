@@ -26,10 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") //定义密码参数
                 .loginPage("/login") //定义登录页,需要对此请求或者页面放行
                 .loginProcessingUrl("/login") //定义登录的请求路径
-                .defaultSuccessUrl("/index",true); //登陆成功重定向URL
+                .defaultSuccessUrl("/index",true) //登陆成功重定向URL
+                .permitAll(); //放行登陆相关请求
 
         http.authorizeRequests()
-                .antMatchers("/index","/","/index.html","/login").permitAll()
+                .antMatchers("/index","/","/index.html").permitAll()
                 .antMatchers("/level1/**").hasRole("vip1")
                 .antMatchers("/level2/**").hasRole("vip2")
                 .antMatchers("/level3/**").hasRole("vip3")
@@ -38,13 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) //使用GET请求执行注销
                 //.logoutUrl("/logout") // POST请求执行注销操作
-                .logoutSuccessUrl("/index");
+                .logoutSuccessUrl("/index")
+                .permitAll();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("admin").password(new BCryptPasswordEncoder().encode("102850")).roles("vip2");
+                .withUser("admin").password(new BCryptPasswordEncoder().encode("102850")).roles("vip3","vip2","vip1");
     }
 }

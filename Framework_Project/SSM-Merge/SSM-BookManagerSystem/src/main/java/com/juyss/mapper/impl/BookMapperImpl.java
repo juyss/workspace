@@ -30,6 +30,10 @@ public class BookMapperImpl implements BookMapper {
         this.sqlSession = sqlSession;
     }
 
+    public BookMapperImpl() {
+        System.out.println("调用了BookMapperImpl类无参构造器");
+    }
+
     /**
      * 获取Book表所有数据
      *

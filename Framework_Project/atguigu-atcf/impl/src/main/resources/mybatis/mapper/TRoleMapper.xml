@@ -96,6 +96,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+  <!-- 批量删除 -->
+  <delete id="deleteBatch" parameterType="arraylist">
+    delete
+    from t_role
+    where id in
+    <foreach collection="ids" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+  </delete>
+
   <insert id="insert" parameterType="com.juyss.bean.TRole" >
     insert into t_role (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})

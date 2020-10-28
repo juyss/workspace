@@ -3,6 +3,10 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
+
+	<welcome-file-list>
+		<welcome-file>index-2.jsp</welcome-file>
+	</welcome-file-list>
 	
 	<!--1、启动Spring的容器  -->
 	<!-- needed for ContextLoaderListener -->

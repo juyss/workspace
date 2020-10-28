@@ -169,5 +169,4 @@ public class BookServlet extends BaseServlet {
             pageBooks(request, response);
         }
     }
-
 }

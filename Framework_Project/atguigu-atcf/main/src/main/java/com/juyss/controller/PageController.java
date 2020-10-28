@@ -155,4 +155,24 @@ public class PageController {
         return "redirect:/toIndex";
     }
 
+    /**
+     * 跳转到角色维护主页面
+     * @return role/index.jsp
+     */
+    @RequestMapping("/role/index")
+    public String toRoleIndex(){
+        log.debug("准备跳转角色维护主页：/role/index.jsp");
+        return "role/index";
+    }
+
+    /**
+     * 跳转到菜单维护页面
+     * @return menu/index.jsp
+     */
+    @RequestMapping("/menu/index")
+    public String toMenuIndex(){
+        log.debug("准备跳转菜单维护页面：/menu/index.jsp");
+        return "menu/index";
+    }
+
 }

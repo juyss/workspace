@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/osp_kuangbbs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: user08
+    password: 102850
+# swagger
+swagger:
+  enable: true
+
+# mybatis
+mybatis-plus:
+  type-aliases-package: com.kuang.pojo
+  mapper-locations: classpath:com/kuang/mapper/xml/*.xml
+
+

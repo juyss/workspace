@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <title>用户维护</title>
     <%--  引入css样式  --%>
     <%@include file="../common/css.jsp" %>
 
@@ -45,7 +46,7 @@
     <div class="row">
 
         <%--    引入侧边栏    --%>
-        <%@include file="../common/admin_sidebar.jsp" %>
+            <%@include file="../common/admin_sidebar.jsp"%>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
@@ -82,7 +83,7 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th style="text-align: center" width="30">#</th>
+                                <th style="text-align: center" width="60">序号</th>
                                 <th style="text-align: center" width="30"><input id="select_all" type="checkbox"></th>
                                 <th style="text-align: center">账号</th>
                                 <th style="text-align: center">名称</th>
@@ -175,6 +176,19 @@
 <script type="text/javascript">
     $(function () {
 
+        //侧边栏点击事件
+        $(".list-group-item").click(function(){
+            if ( $(this).find("ul") ) {
+                $(this).toggleClass("tree-closed");
+                if ( $(this).hasClass("tree-closed") ) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+
+        //删除确认提示框
         $(document).on("click", "#btn_single_delete", function () {
             let admin_name = $(this).parent().parent().find("td:eq(3)").text();
             let admin_id = $(this).parent().parent().find("td:eq(0)").text();
@@ -199,6 +213,7 @@
             $("tbody input[type='checkbox']").prop("checked", this.checked);
         });
 
+        //全部删除按钮点击事件函数
         $("#delete_all").click(function () {
             let check_box_list = $("tbody input[type='checkbox']:checked");
 
@@ -225,8 +240,6 @@
             }, function () {
                 console.log(ids);
             });
-
-
         });
 
 

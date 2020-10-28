@@ -1,0 +1,61 @@
+{
+  "pageNum": 1,
+  "pageSize": 10,
+  "size": 9,
+  "startRow": 1,
+  "endRow": 9,
+  "total": 9,
+  "pages": 1,
+  "list": [
+    {
+      "id": 1,
+      "name": "PM - 项目经理"
+    },
+    {
+      "id": 2,
+      "name": "SE - 软件工程师"
+    },
+    {
+      "id": 3,
+      "name": "PG - 程序员"
+    },
+    {
+      "id": 4,
+      "name": "TL - 组长"
+    },
+    {
+      "id": 5,
+      "name": "GL - 组长"
+    },
+    {
+      "id": 6,
+      "name": "QA - 品质保证"
+    },
+    {
+      "id": 7,
+      "name": "QC - 品质控制"
+    },
+    {
+      "id": 8,
+      "name": "SA - 软件架构师"
+    },
+    {
+      "id": 9,
+      "name": "CMO / CMS - 配置管理员"
+    }
+  ],
+  "prePage": 0,
+  "nextPage": 0,
+  "isFirstPage": true,
+  "isLastPage": true,
+  "hasPreviousPage": false,
+  "hasNextPage": false,
+  "navigatePages": 5,
+  "navigatepageNums": [
+    1
+  ],
+  "navigateFirstPage": 1,
+  "navigateLastPage": 1,
+  "lastPage": 1,
+  "firstPage": 1
+}

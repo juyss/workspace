@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Build-Number: 0.41.13-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: doom369
+Multi-Release: true
+Created-By: Apache Maven 3.6.1
+Build-Jdk: 1.8.0_201
+Build-By: Blynk Inc.
+Main-Class: cc.blynk.server.launcher.ServerLauncher
+

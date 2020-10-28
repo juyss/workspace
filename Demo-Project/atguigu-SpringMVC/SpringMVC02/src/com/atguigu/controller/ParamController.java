@@ -1,21 +1,9 @@
 package com.atguigu.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.atguigu.bean.User;
 
 @Controller
 public class ParamController {
@@ -91,6 +79,4 @@ public class ParamController {
 		model.addAttribute("username", "张三");//向作用域中放值
 		return "success";//返回视图名称
 	}
-	
-	
 }

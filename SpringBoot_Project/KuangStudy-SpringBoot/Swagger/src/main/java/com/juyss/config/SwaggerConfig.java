@@ -6,7 +6,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -28,6 +27,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket docket(Environment environment){
+
         Profiles profiles = Profiles.of("dev");
         boolean isDev = environment.acceptsProfiles(profiles);
 
@@ -38,8 +38,15 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo(){
         Contact contact = new Contact("Juyss", "http://juyss.com", "1028507471@qq.com");
-        return new ApiInfo("Swagger Api Documentation Title", "Swagger Api Documentation Description", "1.0", "urn:tos",
-                contact, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<>());
+
+        return new ApiInfo( "Swagger Api Documentation Title",
+                            "Swagger Api Documentation Description",
+                            "1.0",
+                            "urn:tos",
+                            contact,
+                            "Apache 2.0",
+                            "http://www.apache.org/licenses/LICENSE-2.0",
+                            new ArrayList<>());
     }
 
 }

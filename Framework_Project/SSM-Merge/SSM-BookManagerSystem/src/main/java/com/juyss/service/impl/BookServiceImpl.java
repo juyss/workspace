@@ -28,6 +28,10 @@ public class BookServiceImpl implements BookService {
         this.bookMapper = bookMapper;
     }
 
+    public BookServiceImpl() {
+        System.out.println("调用了BookServiceImpl类无参构造器");
+    }
+
     /**
      * 获取Book表所有数据
      *

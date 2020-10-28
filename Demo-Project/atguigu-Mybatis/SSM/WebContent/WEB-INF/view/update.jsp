@@ -38,7 +38,7 @@
 			<tr>
 				<td>DEPARTMENT</td>
 				<td>
-					<form:select path="dept.did" items="${deptList }" itemLabel="dname" itemValue="did"></form:select>
+					<form:select path="dept.did" items="${deptList }" itemLabel="dname" itemValue="did"/>
 				</td>
 			</tr>
 			<tr>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-model="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="../static/axios.js"></script>
+</head>
+<body>
+    <script type="text/javascript" src="../static/vue.js"></script>
+
+    <!--   {{}} 插值表达式，绑定vue中的data数据 -->
+    <div id="app">
+        <h1>{{text}}</h1>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                text: ' Hello,Vue!!! '
+            }
+        });
+    </script>
+
+
+    <!--  v:bind 为属性绑定数据,单向绑定  -->
+    <div id="bind">
+        <label v-bind:title="title">{{text}}</label>
+    </div>
+
+    <script>
+        let bind = new Vue({
+            el: '#bind',
+            data: {
+                text: "Vue对象",
+                title: "标题"
+            }
+        });
+    </script>
+
+
+
+    <!-- v-model 双向绑定 -->
+    <div id="model">
+        <label>搜索:<input type="text" v-model:value="search.keyword"></label>
+        <p>{{search.keyword}}</p>
+    </div>
+
+    <script>
+        let model = new Vue({
+            el: '#model',
+            data: {
+                search: {
+                    keyword: '模型'
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -35,8 +35,8 @@
     </javaClientGenerator>
 
 	<!-- 设置要将数据库中的哪张表逆向生成哪一个javabean -->
-	<table tableName="emp" domainObjectName="Emp"></table>
-	<table tableName="dept" domainObjectName="Dept"></table>
+    <table tableName="emp" domainObjectName="Emp"/>
+    <table tableName="dept" domainObjectName="Dept"/>
 
   </context>
 </generatorConfiguration>

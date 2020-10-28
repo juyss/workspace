@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juyss.mapper.BookMapper">
+
+    <insert id="addBook" parameterType="book">
+        insert into
+            bookstore.t_book
+            (name, price, author, sales, stock, img_path)
+            VALUE
+            (name=#{name},price=#{price},author=#{author},sales=#{sales},stock=#{stock},img_path=#{imgPath})
+    </insert>
+
+    <delete id="deleteBookById" parameterType="_int">
+        delete from bookstore.t_book where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="book">
+        update bookstore.t_book
+        set name=#{name}, price=#{price}, author=#{author}, sales=#{sales}, stock=#{stock}, img_path=#{imgPath}
+        where id=#{id}
+    </update>
+
+    <select id="queryBooks" resultType="book">
+        select * from bookstore.t_book
+    </select>
+
+    <select id="queryBookById" resultType="book">
+        select * from bookstore.t_book
+        where id=#{id}
+    </select>
+
+    <select id="queryBooksByPrice" parameterType="_int">
+        select * from t_book
+        where price between #{min} and #{max}
+        order by price ASC
+    </select>
+
+</mapper>

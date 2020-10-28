@@ -5,10 +5,14 @@
       <module fileurl="file://$PROJECT_DIR$/AbstractClass/AbstractClass.iml" filepath="$PROJECT_DIR$/AbstractClass/AbstractClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/InputStream/InputStream.iml" filepath="$PROJECT_DIR$/InputStream/InputStream.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoginPage/LoginPage.iml" filepath="$PROJECT_DIR$/LoginPage/LoginPage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MavenTest/Maven-01/Maven-01.iml" filepath="$PROJECT_DIR$/MavenTest/Maven-01/Maven-01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MavenTest/Maven-02/Maven-02.iml" filepath="$PROJECT_DIR$/MavenTest/Maven-02/Maven-02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MavenTest/MavenTest.iml" filepath="$PROJECT_DIR$/MavenTest/MavenTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/Mybatis/Mybatis.iml" filepath="$PROJECT_DIR$/Mybatis/Mybatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/Singleton/Singleton.iml" filepath="$PROJECT_DIR$/Singleton/Singleton.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestDemo.iml" filepath="$PROJECT_DIR$/TestDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ToString/ToString.iml" filepath="$PROJECT_DIR$/ToString/ToString.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XinZhiWeather/XinZhiWeather.iml" filepath="$PROJECT_DIR$/XinZhiWeather/XinZhiWeather.iml" />
     </modules>
   </component>
 </project>

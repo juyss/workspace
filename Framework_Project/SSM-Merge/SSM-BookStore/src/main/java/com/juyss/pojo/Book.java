@@ -1,5 +1,7 @@
 package com.juyss.pojo;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 
 /**
@@ -11,6 +13,7 @@ import java.math.BigDecimal;
  * @project SSM-Merge
  * @date 2020/9/17 19:55
  */
+@Component
 public class Book {
 
     private Integer id;

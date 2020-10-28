@@ -23,17 +23,19 @@ public class SpringListener implements ServletContextListener {
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
-    public void contextDestroyed(ServletContextEvent arg0)  { 
+    @Override
+    public void contextDestroyed(ServletContextEvent arg0)  {
          // TODO Auto-generated method stub
     }
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
-    public void contextInitialized(ServletContextEvent sce)  { 
+    @Override
+    public void contextInitialized(ServletContextEvent sce)  {
         ApplicationContext ac = new ClassPathXmlApplicationContext("spring.xml");
         ServletContext servletContext = sce.getServletContext();
         servletContext.setAttribute("ac", ac);
     }
-	
+
 }

@@ -1,0 +1,96 @@
+server:
+  port: 8080
+  servlet:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 100Mb
+
+
+spring:
+  datasource:
+    name: mysql_test
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 102850
+    url: jdbc:mysql://localhost:3306/osp_mysite?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    #druid相关配置
+    druid:
+      #连接池属性
+      initial-size: 15
+      max-active: 100
+      min-idle: 15
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+      validation-query-timeout: 1000
+      keep-alive: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+      log-abandoned: true
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,slf4j
+      use-global-data-source-stat: true
+      maxOpenPreparedStatements: 100
+      connect-properties.mergeSql: true
+      connect-properties.slowSqlMillis: 5000
+
+      # 配置DruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # 配置DruidStatViewServlet
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        # IP白名单(没有配置或者为空，则允许所有访问)
+        allow: 127.0.0.1,192.168.112.1
+        # IP黑名单 (存在共同时，deny优先于allow)
+        reset-enable: false
+        # 登录名
+        login-username: admin
+        # 登录密码
+        login-password: 102850
+        # 新版需要配置这个属性才能访问监控页面
+        enabled: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: LEGACYHTML5
+    cache: false
+  aop:
+    auto: true
+    proxy-target-class: true
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.luischen.model
+
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  level:
+    cn.luischen.dao : error
+
+qiniu:
+  accesskey: "Qn43lLiDH_dd-qgKJ0kgKcfQOF4S5_dSxn1aQg6T"
+  secretkey: "2HE7pmGj6o7SfJlTH0NRwZckfgyxG5oslYy0ao53"
+  bucket: "juyss"
+  cdn:
+    url: "http://image.juyss.com"

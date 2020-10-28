@@ -12,6 +12,10 @@ import com.atguigu.bean.Teacher;
 @Controller
 public class TestController {
 
+	/**
+	 * 无返回值默认的视图名称为请求路径.jsp
+	 * @param session 会话对象
+	 */
 	@RequestMapping("/testListener")
 	public void testListener(HttpSession session) {
 		//获取spring所管理的teacher对象

@@ -20,6 +20,7 @@ public class Book {
     private String detail;
 
     public Book() {
+        System.out.println("调用了Book类无参构造器");
     }
 
     public Book(Integer id, String name, Integer count, String detail) {

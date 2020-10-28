@@ -22,6 +22,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/SpringMVC04/WebContent/WEB-INF/lib/spring-webmvc-4.0.0.RELEASE.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/SpringMVC04/WebContent/WEB-INF/lib/taglibs-standard-impl-1.2.1.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/SpringMVC04/WebContent/WEB-INF/lib/taglibs-standard-spec-1.2.1.jar" />
+          <element id="library" level="application" name="Java EE 6-Java EE 6" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SpringMVC04/web/Web" />

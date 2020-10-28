@@ -21,11 +21,11 @@
             <th>描述</th>
         </tr>
         <c:forEach var="book" items="${book_list}">
-            <tr>
-                <td>${book.id}</td>
-                <td>${book.name}</td>
-                <td>${book.count}</td>
-                <td>${book.detail}</td>
+            <tr >
+                <td align="center">${book.id}</td>
+                <td align="center">${book.name}</td>
+                <td align="center">${book.count}</td>
+                <td align="center">${book.detail}</td>
             </tr>
         </c:forEach>
 

@@ -31,6 +31,10 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    public BookController() {
+        System.out.println("调用了BookController类无参构造器");
+    }
+
     @RequestMapping("/books")
     public String getBookList(Model model){
         List<Book> books = bookService.getBookList();

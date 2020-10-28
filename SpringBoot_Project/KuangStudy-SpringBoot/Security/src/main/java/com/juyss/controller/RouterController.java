@@ -22,7 +22,7 @@ public class RouterController {
         return "index";
     }
 
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public String toIndex(){
         System.out.println("`/index` ==> /index.html");
         return "index";

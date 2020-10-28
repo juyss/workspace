@@ -4,6 +4,7 @@ import com.juyss.bean.TRole;
 import com.juyss.bean.TRoleExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TRoleMapper {
@@ -12,6 +13,8 @@ public interface TRoleMapper {
     int deleteByExample(TRoleExample example);
 
     int deleteByPrimaryKey(Integer id);
+
+    int deleteBatch(@Param("ids") ArrayList<Integer> ids);
 
     int insert(TRole record);
 

@@ -12,7 +12,7 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <div class="tree">
         <ul style="padding-left:0px;" class="list-group">
-            <c:forEach items="${menu_list}" var="pmeun">
+            <c:forEach items="${sessionScope.menu_list}" var="pmeun">
 
             <li class="list-group-item tree-closed">
 
