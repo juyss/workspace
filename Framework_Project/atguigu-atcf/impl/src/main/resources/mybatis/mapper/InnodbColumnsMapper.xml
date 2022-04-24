@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.InnodbColumnsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.InnodbColumns" >
+    <result column="TABLE_ID" property="tableId" jdbcType="BIGINT" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="POS" property="pos" jdbcType="BIGINT" />
+    <result column="MTYPE" property="mtype" jdbcType="INTEGER" />
+    <result column="PRTYPE" property="prtype" jdbcType="INTEGER" />
+    <result column="LEN" property="len" jdbcType="INTEGER" />
+    <result column="HAS_DEFAULT" property="hasDefault" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.juyss.bean.InnodbColumns" extends="BaseResultMap" >
+    <result column="DEFAULT_VALUE" property="defaultValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TABLE_ID, NAME, POS, MTYPE, PRTYPE, LEN, HAS_DEFAULT
+  </sql>
+  <sql id="Blob_Column_List" >
+    DEFAULT_VALUE
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.juyss.bean.InnodbColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from INNODB_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.InnodbColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from INNODB_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.InnodbColumnsExample" >
+    delete from INNODB_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.InnodbColumns" >
+    insert into INNODB_COLUMNS (TABLE_ID, NAME, POS, 
+      MTYPE, PRTYPE, LEN, 
+      HAS_DEFAULT, DEFAULT_VALUE)
+    values (#{tableId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{pos,jdbcType=BIGINT}, 
+      #{mtype,jdbcType=INTEGER}, #{prtype,jdbcType=INTEGER}, #{len,jdbcType=INTEGER}, 
+      #{hasDefault,jdbcType=INTEGER}, #{defaultValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.InnodbColumns" >
+    insert into INNODB_COLUMNS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tableId != null" >
+        TABLE_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="pos != null" >
+        POS,
+      </if>
+      <if test="mtype != null" >
+        MTYPE,
+      </if>
+      <if test="prtype != null" >
+        PRTYPE,
+      </if>
+      <if test="len != null" >
+        LEN,
+      </if>
+      <if test="hasDefault != null" >
+        HAS_DEFAULT,
+      </if>
+      <if test="defaultValue != null" >
+        DEFAULT_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tableId != null" >
+        #{tableId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pos != null" >
+        #{pos,jdbcType=BIGINT},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="prtype != null" >
+        #{prtype,jdbcType=INTEGER},
+      </if>
+      <if test="len != null" >
+        #{len,jdbcType=INTEGER},
+      </if>
+      <if test="hasDefault != null" >
+        #{hasDefault,jdbcType=INTEGER},
+      </if>
+      <if test="defaultValue != null" >
+        #{defaultValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.InnodbColumnsExample" resultType="java.lang.Integer" >
+    select count(*) from INNODB_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update INNODB_COLUMNS
+    <set >
+      <if test="record.tableId != null" >
+        TABLE_ID = #{record.tableId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pos != null" >
+        POS = #{record.pos,jdbcType=BIGINT},
+      </if>
+      <if test="record.mtype != null" >
+        MTYPE = #{record.mtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.prtype != null" >
+        PRTYPE = #{record.prtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.len != null" >
+        LEN = #{record.len,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasDefault != null" >
+        HAS_DEFAULT = #{record.hasDefault,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultValue != null" >
+        DEFAULT_VALUE = #{record.defaultValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update INNODB_COLUMNS
+    set TABLE_ID = #{record.tableId,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      POS = #{record.pos,jdbcType=BIGINT},
+      MTYPE = #{record.mtype,jdbcType=INTEGER},
+      PRTYPE = #{record.prtype,jdbcType=INTEGER},
+      LEN = #{record.len,jdbcType=INTEGER},
+      HAS_DEFAULT = #{record.hasDefault,jdbcType=INTEGER},
+      DEFAULT_VALUE = #{record.defaultValue,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update INNODB_COLUMNS
+    set TABLE_ID = #{record.tableId,jdbcType=BIGINT},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      POS = #{record.pos,jdbcType=BIGINT},
+      MTYPE = #{record.mtype,jdbcType=INTEGER},
+      PRTYPE = #{record.prtype,jdbcType=INTEGER},
+      LEN = #{record.len,jdbcType=INTEGER},
+      HAS_DEFAULT = #{record.hasDefault,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,9 @@
+{
+  "serverUrl": "http://127.0.0.1:9898",
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "allInOneDocFileName": "index.adoc",
+  "projectName": "sample",
+  "recursionLimit": 3,
+  "framework": "spring"
+}

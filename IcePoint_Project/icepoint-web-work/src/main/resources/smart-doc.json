@@ -1,0 +1,11 @@
+{
+  "serverUrl": "http://39.100.11.213:9993",
+  "allInOne": true,
+  "outPath": "./src/main/resources/static/doc",
+  "projectName": "work-order",
+  "recursionLimit": 3,
+  "apiObjectReplacements": [{
+    "className": "org.springframework.data.domain.Pageable",
+    "replacementClassName": "com.icepoint.framework.workorder.work.TestPageable"
+  }]
+}

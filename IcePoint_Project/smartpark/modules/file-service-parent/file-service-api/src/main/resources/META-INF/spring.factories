@@ -1,0 +1,3 @@
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#  com.github.tangyi.file.api.feign.fallback.AttachmentServiceClientFallbackImpl,\
+#  com.github.tangyi.file.api.feign.factory.AttachmentServiceClientFallbackFactory

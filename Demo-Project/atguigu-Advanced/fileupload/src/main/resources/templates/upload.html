@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FileUpload Test</title>
+</head>
+<body>
+
+<h3>文件上传</h3>
+
+    <form action="" th:action="@{/file/upload}" enctype="multipart/form-data" method="post">
+        <!--    name属性需要与控制器中MultipartFile的变量名一致    -->
+        <input type="file" name="file"><br>
+        <input type="submit" value="上传">
+    </form>
+<hr>
+<h3>文件下载</h3>
+    <a href="" th:href="@{/file/download/01.jpg}">01.jpg</a>
+    <a href="" th:href="@{/file/download/02.png}">02.png</a>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.AdministrableRoleAuthorizationsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.AdministrableRoleAuthorizations" >
+    <result column="USER" property="user" jdbcType="VARCHAR" />
+    <result column="HOST" property="host" jdbcType="VARCHAR" />
+    <result column="GRANTEE" property="grantee" jdbcType="VARCHAR" />
+    <result column="GRANTEE_HOST" property="granteeHost" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_HOST" property="roleHost" jdbcType="VARCHAR" />
+    <result column="IS_GRANTABLE" property="isGrantable" jdbcType="VARCHAR" />
+    <result column="IS_DEFAULT" property="isDefault" jdbcType="VARCHAR" />
+    <result column="IS_MANDATORY" property="isMandatory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USER, HOST, GRANTEE, GRANTEE_HOST, ROLE_NAME, ROLE_HOST, IS_GRANTABLE, IS_DEFAULT, 
+    IS_MANDATORY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.AdministrableRoleAuthorizationsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.AdministrableRoleAuthorizationsExample" >
+    delete from ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.AdministrableRoleAuthorizations" >
+    insert into ADMINISTRABLE_ROLE_AUTHORIZATIONS (USER, HOST, GRANTEE, 
+      GRANTEE_HOST, ROLE_NAME, ROLE_HOST, 
+      IS_GRANTABLE, IS_DEFAULT, IS_MANDATORY
+      )
+    values (#{user,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR}, #{grantee,jdbcType=VARCHAR}, 
+      #{granteeHost,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleHost,jdbcType=VARCHAR}, 
+      #{isGrantable,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, #{isMandatory,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.AdministrableRoleAuthorizations" >
+    insert into ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="host != null" >
+        HOST,
+      </if>
+      <if test="grantee != null" >
+        GRANTEE,
+      </if>
+      <if test="granteeHost != null" >
+        GRANTEE_HOST,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="roleHost != null" >
+        ROLE_HOST,
+      </if>
+      <if test="isGrantable != null" >
+        IS_GRANTABLE,
+      </if>
+      <if test="isDefault != null" >
+        IS_DEFAULT,
+      </if>
+      <if test="isMandatory != null" >
+        IS_MANDATORY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null" >
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="grantee != null" >
+        #{grantee,jdbcType=VARCHAR},
+      </if>
+      <if test="granteeHost != null" >
+        #{granteeHost,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleHost != null" >
+        #{roleHost,jdbcType=VARCHAR},
+      </if>
+      <if test="isGrantable != null" >
+        #{isGrantable,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="isMandatory != null" >
+        #{isMandatory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.AdministrableRoleAuthorizationsExample" resultType="java.lang.Integer" >
+    select count(*) from ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    <set >
+      <if test="record.user != null" >
+        USER = #{record.user,jdbcType=VARCHAR},
+      </if>
+      <if test="record.host != null" >
+        HOST = #{record.host,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grantee != null" >
+        GRANTEE = #{record.grantee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.granteeHost != null" >
+        GRANTEE_HOST = #{record.granteeHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleName != null" >
+        ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleHost != null" >
+        ROLE_HOST = #{record.roleHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isGrantable != null" >
+        IS_GRANTABLE = #{record.isGrantable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null" >
+        IS_DEFAULT = #{record.isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMandatory != null" >
+        IS_MANDATORY = #{record.isMandatory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ADMINISTRABLE_ROLE_AUTHORIZATIONS
+    set USER = #{record.user,jdbcType=VARCHAR},
+      HOST = #{record.host,jdbcType=VARCHAR},
+      GRANTEE = #{record.grantee,jdbcType=VARCHAR},
+      GRANTEE_HOST = #{record.granteeHost,jdbcType=VARCHAR},
+      ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
+      ROLE_HOST = #{record.roleHost,jdbcType=VARCHAR},
+      IS_GRANTABLE = #{record.isGrantable,jdbcType=VARCHAR},
+      IS_DEFAULT = #{record.isDefault,jdbcType=VARCHAR},
+      IS_MANDATORY = #{record.isMandatory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

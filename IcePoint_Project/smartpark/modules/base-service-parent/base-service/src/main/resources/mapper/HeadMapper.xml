@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.HeadMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.docType as 'docType',
+            a.docNo as 'docNo',
+            a.name as 'name',
+            a.value as 'value',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createTime as 'createTime',
+            a.createUser as 'createUser',
+            a.updateTime as 'updateTime',
+            a.updateUser as 'updateUser',
+            a.deleted as 'deleted'
+        FROM t_tab_head a
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into t_tab_head(
+            id,
+            docType,
+            docNo,
+            name,
+            value,
+            ownerId,
+            appId,
+            createTime,
+            createUser,
+            updateTime,
+            updateUser,
+            deleted
+        )
+        values(
+            #{id},
+            #{docType},
+            #{docNo},
+            #{name},
+            #{value},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted}
+        )
+    </insert>
+
+    <insert id="saveAllMybatis" useGeneratedKeys="true" keyProperty="id">
+        insert into t_tab_head(
+        id,
+        docType,
+        docNo,
+        name,
+        value,
+        ownerId,
+        appId,
+        createTime,
+        createUser,
+        updateTime,
+        updateUser,
+        deleted
+        )
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.id},
+            #{entity.docType},
+            #{entity.docNo},
+            #{entity.name},
+            #{entity.value},
+            #{entity.ownerId},
+            #{entity.appId},
+            #{entity.createTime},
+            #{entity.createUser},
+            #{entity.updateTime},
+            #{entity.updateUser},
+            #{entity.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="addAllBig">
+        insert into t_tab_head_big(
+        id,
+        docType,
+        docNo,
+        name,
+        value,
+        ownerId,
+        appId,
+        createTime,
+        createUser,
+        updateTime,
+        updateUser,
+        deleted
+        )
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (
+            #{entity.id},
+            #{entity.docType},
+            #{entity.docNo},
+            #{entity.name},
+            #{entity.value},
+            #{entity.ownerId},
+            #{entity.appId},
+            #{entity.createTime},
+            #{entity.createUser},
+            #{entity.updateTime},
+            #{entity.updateUser},
+            #{entity.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.Head">
+         UPDATE t_tab_head
+         SET
+         value = #{value},
+         updateTime = #{updateTime},
+         deleted = #{deleted}
+         WHERE docNo = #{docNo} AND name = #{name}
+    </update>
+
+    <update id="updateAll">
+        update t_tab_head set
+        value = case id
+        <foreach collection="entities" item="entity">
+            when #{entity.id} then #{entity.value}
+        </foreach>
+        end,
+        updateTime = case id
+        <foreach collection="entities" item="entity">
+            when #{entity.id} then #{entity.updateTime}
+        </foreach>
+        end,
+        updateUser = case id
+        <foreach collection="entities" item="entity">
+            when #{entity.id} then #{entity.updateUser}
+        </foreach>
+        end,
+        deleted = case id
+        <foreach collection="entities" item="entity">
+            when #{entity.id} then #{entity.deleted}
+        </foreach>
+        end
+        where
+        <foreach collection="entities" item="entity" separator="or">
+            id = #{entity.id}
+        </foreach>
+    </update>
+
+    <update id="updateForBig">
+        UPDATE t_tab_head_big
+         SET
+         value = #{value},
+         updateTime = #{updateTime},
+         deleted = #{deleted}
+         WHERE docNo = #{docNo} AND name = #{name}
+    </update>
+
+    <delete id="deleteBatch">
+         UPDATE t_tab_head t1 LEFT JOIN t_tab_seq t2 ON t2.id = #{id} AND t2.docType = #{docType}
+         SET
+         t1.deleted = 1
+         WHERE t1.docNo = t2.docNo
+    </delete>
+
+    <delete id="deleteSeq">
+        UPDATE t_tab_seq
+        SET deleted = 1
+        WHERE id = #{id} AND docType = #{docType}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.Head">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.Head">
+        <include refid="query"/>
+        <include refid="where"/>
+        <include refid="union"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.Head">
+        <include refid="query"/>
+        <include refid="where"/>
+        <include refid="union"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="listBy" resultType="com.icepoint.base.api.entity.Head">
+        <include refid="query"/>
+        LEFT JOIN t_tab_seq seq ON a.docNo = seq.docNo
+        WHERE a.docType = #{docType} AND seq.id = #{id}
+    </select>
+
+    <select id="listByDocNos" resultType="com.icepoint.base.api.entity.Head">
+        <include refid="query"/>
+        <if test="docNos != null and docNos.size() > 0">
+            <where>
+                <foreach collection="docNos" item="docNo" open="docNo IN(" separator="," close=")">
+                    #{docNo}
+                </foreach>
+                AND docType = #{docType}
+                AND deleted = 0
+            </where>
+        </if>
+        <include refid="union"/>
+    </select>
+
+    <select id="getDocNoList" resultType="string">
+        <choose>
+            <when test="queryEntity == null">
+                SELECT docNo
+                FROM t_tab_seq
+                WHERE docType = #{docType} AND deleted = 0
+            </when>
+            <otherwise>
+                ${queryEntity.sql}
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="nextId" resultType="long">
+        SELECT f_tab_seq_next_id(#{docType})
+    </select>
+
+    <select id="nextDocNo" resultType="string">
+        SELECT f_tab_seq_next_docNo(#{docType}, #{resourceName})
+    </select>
+
+    <select id="getParkDataYearXAxisList" resultType="java.lang.String">
+        SELECT value FROM t_tab_head WHERE docType = 33 AND name = 'year' ORDER BY value
+    </select>
+
+    <select id="getParkDataYearMetadata" resultType="java.util.HashMap">
+        SELECT docNo, value FROM t_tab_head WHERE docType = 33 AND NAME = 'year' ORDER BY value
+    </select>
+
+    <select id="getParkDataYear" resultType="java.util.HashMap">
+
+    </select>
+
+    <select id="listPlanAnnex" resultType="java.lang.String">
+        SELECT value FROM t_tab_head
+        WHERE name = 'annex' AND docNo IN (
+        <foreach collection="list" item="docNo" separator=",">
+            #{docNo}
+        </foreach>
+        )
+    </select>
+
+    <select id="listMgtInstututionAnnex" resultType="java.lang.String">
+        SELECT value FROM t_tab_head
+        WHERE name = 'annex' AND docNo IN (
+        <foreach collection="list" item="docNo" separator=",">
+            #{docNo}
+        </foreach>
+        )
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.docType == null || entity.docType == '')">
+                    and docType = #{entity.docType}
+                </if>
+                <if test="!(entity.docNo == null || entity.docNo == '')">
+                    and docNo = #{entity.docNo}
+                </if>
+                <if test="!(entity.name == null || entity.name == '')">
+                    and name = #{entity.name}
+                </if>
+                <if test="!(entity.value == null || entity.value == '')">
+                    and value = #{entity.value}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.updateTime == null || entity.updateTime == '')">
+                    and updateTime = #{entity.updateTime}
+                </if>
+                <if test="!(entity.updateUser == null || entity.updateUser == '')">
+                    and updateUser = #{entity.updateUser}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <sql id="union">
+        UNION ALL
+        SELECT
+        a.id as 'id',
+        a.docType as 'docType',
+        a.docNo as 'docNo',
+        a.name as 'name',
+        a.value as 'value',
+        a.ownerId as 'ownerId',
+        a.appId as 'appId',
+        a.createTime as 'createTime',
+        a.createUser as 'createUser',
+        a.updateTime as 'updateTime',
+        a.updateUser as 'updateUser',
+        a.deleted as 'deleted'
+        FROM t_tab_head_big a
+        <if test="_parameter.containsKey('docNos') and docNos != null and docNos.size() > 0">
+            <where>
+                <foreach collection="docNos" item="docNo" open="a.docNo IN(" separator="," close=")">
+                    #{docNo}
+                </foreach>
+                AND a.docType = #{docType}
+                AND deleted = 0
+            </where>
+        </if>
+    </sql>
+</mapper>

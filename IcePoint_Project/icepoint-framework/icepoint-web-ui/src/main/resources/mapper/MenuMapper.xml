@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icepoint.framework.web.ui.mapper.UiMenuMapper">
+
+    <select id="getMenuByRole" resultType="com.icepoint.framework.web.ui.entity.UiMenu">
+        SELECT
+            um.*
+        FROM
+            ui_menu um,
+            pmi_rel_role_menu pm,
+            auth_role ar
+        WHERE
+            um.id = pm.menu_code
+          AND pm.role_code = ar.id
+          AND ar.id = #{roleId}
+          AND um.deleted = 0
+          AND ar.deleted = 0
+    </select>
+
+    <delete id="deleteMenuByRoleId" >
+        delete from pmi_rel_role_menu where role_code = #{roleId}
+    </delete>
+
+    <insert id="insertMenId" >
+        insert into pmi_rel_role_menu values (null,#{roleId},#{menuId})
+    </insert>
+
+</mapper>

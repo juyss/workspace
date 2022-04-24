@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.webcast.mapper.ChannelPosterMapper">
+
+    <sql id="columns">
+        a.id,
+        a.channel_id AS channelId,
+        a.poster_url AS posterUrl
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <if test="channelId != null and channelId != ''">
+            a.channel_id = #{channelId}
+        </if>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into webcast_channel_poster (
+            channel_id,
+            poster_url
+        ) values (
+            #{channelId},
+            #{posterUrl}
+        );
+    </insert>
+
+    <update id="update">
+        UPDATE webcast_channel_poster SET
+            poster_url = #{posterUrl}
+        WHERE channel_id = #{channelId}
+    </update>
+
+    <select id="get" resultType="com.github.tangyi.webcast.api.model.ChannelPoster">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_poster a
+        WHERE a.channel_id = #{channelId}
+    </select>
+
+    <select id="findList" resultType="com.github.tangyi.webcast.api.model.ChannelPoster">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_poster a
+    </select>
+
+</mapper>

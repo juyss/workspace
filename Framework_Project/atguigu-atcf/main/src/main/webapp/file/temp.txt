@@ -1,0 +1,14 @@
+context+='<tr>';
+context+='    <td style="text-align: center">${role.id}</td>';
+context+='    <td style="text-align: center"><input type="checkbox" role_id="${role.id}"></td>';
+context+='    <td style="text-align: center">${role.name}</td>';
+context+='    <td style="text-align: center">';
+context+='        <button class="btn btn-success btn-xs"><i';
+context+='                class=" glyphicon glyphicon-check"></i></button>';
+context+='        <a href="${pageContext.request.contextPath}/role/${role.id}/${page_info.pageNum}"';
+context+='           class="btn btn-primary btn-xs"><i';
+context+='                class=" glyphicon glyphicon-pencil"></i></a>';
+context+='        <button id="btn_single_delete" class="btn btn-danger btn-xs"><i';
+context+='                class=" glyphicon glyphicon-remove"></i></button>';
+context+='    </td>';
+context+='</tr>';

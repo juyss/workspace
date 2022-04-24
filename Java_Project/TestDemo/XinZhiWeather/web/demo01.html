@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue/vue.js"></script>
+    <script src="vue/axios.js"></script>
+</head>
+<body>
+
+<div id="vue" style="color: red">
+{{info}}
+</div>
+
+<script type="text/javascript">
+    let vm = new Vue({
+        el: '#vue',
+        data(){
+            return{
+                info:{}
+            }
+        },
+        mounted(){
+            axios.get('json/weather.json')
+                .then(response=>(this.info=response.data));
+        }
+    });
+</script>
+
+</body>
+</html>

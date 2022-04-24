@@ -1,0 +1,127 @@
+= 数据层文档
+:toc:
+
+== 0. 概述
+
+数据层框架核心
+
+== 1. 依赖
+
+.Maven依赖
+====
+[source,xml]
+----
+<dependency>
+    <groupId>com.icepoint.framework.boot</groupId>
+    <artifactId>spring-boot-starter-icepoint-data</artifactId>
+    <version>0.1-SNAPSHOT</version>
+</dependency>
+----
+====
+
+== 2. 领域模型
+
+=== 2.1 Identifiable<ID>
+
+所有数据实体的顶级接口，只有一个方法 `getId()`。
+
+=== 2.1 BaseEntity / LongBaseEntity / StringBaseEntity
+
+所有数据实体的顶级父类，`Identifiable` 的基础实现，另外实现了JPA的接口 `Persistable<ID>`，以及序列化接口 `Serializable`。
+
+`LongBaseEntity` 和 `StringBaseEntity` 分别是已定义好泛型为Long或者String的 `BaseEntity`。
+
+=== 2.2 StdEntity<ID, UID> / LongStdEntity / StringStdEntity
+
+基于 `BaseEntity` 做的扩展，包含了一个应用标准实体类的属性，除了 `id` 以外新增了属性：
+
+- `platformId`: 平台id
+- `appId`: 应用id
+- `ownerId`: 所有者id
+- `createUserId`: 创建用户id
+- `createTime`: 创建时间
+- `updateUserId`: 更新用户id
+- `updateTime`: 更新时间
+- `deleted`: 逻辑删除标识，false是未删，true是已删除
+
+`UID` 是用户实体的id类型。
+
+`LongStdEntity` 和 `StringStdEntity` 分别是已定义好泛型为Long或者String的 `StdEntity`。
+
+=== 2.3 Ordered
+
+排序顶级接口，这个是Spring自带的接口，其他需要特定顺序的类都使用这个接口进行排序。
+
+=== 2.4 TreeNode
+
+树形结构的包装类，底层存储用的是Map，构建属性结构列表可以使用工具类 `TreeUtils`。
+
+=== 2.5 JsonAnyProperties
+
+抽象类，继承此类可以往里面放置任意属性名的属性，并且JSON序列化时会放到该类同级属性下，底层存储用的是Map。
+
+.JsonAnyProperties
+====
+[source]
+----
+public class ABean extends JsonAnyProperties {
+
+    private String name;
+
+    private Integer number;
+
+    // getters setters ...
+
+}
+
+...
+
+ABean bean = new ABean("aName", 5);
+
+bean.setProperty("extraProperty", "I am inevitable");
+
+// 序列化结果
+{
+    "name": "aName",
+    "number": 5,
+    "extraProperty": "I am inevitable"
+}
+----
+====
+
+== 3. DAO
+
+目前数据持久层结合了Mybatis Plus和Spring Data Jpa两个框架。
+
+=== 3.1 JPA
+
+==== 3.1.1 BaseRepository<T, ID> / LongBaseRepository<T> / StringBaseRepository<T>
+
+JPA数据访问的顶层接口，实现了 `JpaRepository`、 `JpaSpecificationExecutor` 和 `QuerydslPredicateExecutor` 三个接口，具有基本的增删改查，分页查询、复杂条件查询、Querydsl查询等功能。
+
+`LongBaseRepository<T>` 和 `StringBaseRepository<T>` 分别是定义好的Long型或String型id的 `BaseRepository`。
+
+==== 3.1.2 StdRepository<T, ID> / LongStdRepository<T, ID> / StringStdRepository<T, ID>
+
+增加了对逻辑删除的支持，所有查询方法都增加多一个参数 `boolean deleted` 的同名方法，如果不传，会查询所有相关记录，如果为true，会查询所有已被逻辑删除的相关记录，如果为false，则会查询所有未被逻辑删除的相关记录。
+
+=== 3.2 Mybatis
+
+==== 3.2.1 RepositoryMapper
+
+Mybatis的数据访问层顶级接口。在Mybatis Plus的 `BaseMapper` 的基础上增加了对 `Pageable` 以及 `Sort` 的查询方法，
+
+==== 3.2.2 PaginationAdapterInterceptor
+
+对 `Pageable` 增加支持的查询拦截器，适用于查询方法中 `Pageable` 或者 `Sort` 参数的方法。目前有对PageHelper和Mybatis Plus分页的支持，如果需要增加自定义的分页方式，新增 `AbstractPaginationInterceptor` 的子类，并注册为Spring Bean即可。
+
+ `AbstractPaginationInterceptor` 的实现方式可以参考 `MybatisPlusSupportInterceptor` 或者 `PageHelperSupportInterceptor`。
+
+== 4. 事务相关：TransactionAspect / @ReadTransaction / @WriteTransaction
+
+目前会根据业务层和数据访问执行的方法名，自动添加事务只读或写入事务，后面要做成可配置的，待完善，目前只读和写入的方法分别是：
+
+- 只读： "find", "get", "lookup", "select", "list", "page", "tree", "count", "exists"
+- 写入： "save", "add", "create", "new", "insert", "upload", "update", "set", "change", "delete", "remove"
+
+@ReadTransaction是只读事务的注解。 @WriteTransaction是写入事务的注解。

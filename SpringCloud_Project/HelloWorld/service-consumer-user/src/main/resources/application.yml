@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: service-consumer-user # 注册中心服务名称
+
+server:
+  port: 8080 # 服务端口
+
+eureka:
+  client:
+    register-with-eureka: true #在注册中心注册自己
+    fetchRegistry: true # 需要去检索服务
+    service-url:
+      defaultZone: http://118.31.244.185:8080/eureka/
+  instance:
+    instance-id: service-provider-movie # 注册中心自定义显示服务名称
+    prefer-ip-address: true # 服务名称链接显示ip

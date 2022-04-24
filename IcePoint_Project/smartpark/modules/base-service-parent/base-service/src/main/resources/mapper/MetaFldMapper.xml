@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.MetaFldMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.tabId as 'tabId',
+            a.name as 'name',
+            a.nameEn as 'nameEn',
+            a.storeName as 'storeName',
+            a.storeNameEn as 'storeNameEn',
+            a.type as 'type',
+            a.nativeType as 'nativeType',
+            a.maxlen as 'maxlen',
+            a.fractional as 'fractional',
+            a.description as 'description',
+            a.optional as 'optional',
+            a.defaultValue as 'defaultValue',
+            a.domain as 'domain',
+            a.maxVal as 'maxVal',
+            a.maxInclude as 'maxInclude',
+            a.minVal as 'minVal',
+            a.minInclude as 'minInclude',
+            a.listField as 'listField',
+            a.queryField as 'queryField',
+            a.dictField as 'dictField',
+            a.categoryEn as 'categoryEn',
+            a.inField as 'inField',
+            a.primaryKey as 'primaryKey',
+            a.uniqueIdx as 'uniqueIdx',
+            a.showSort as 'showSort',
+            a.busType as 'busType',
+            a.idx as 'idx',
+            a.status as 'status',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createTime as 'createTime',
+            a.createUser as 'createUser',
+            a.updateTime as 'updateTime',
+            a.updateUser as 'updateUser',
+            a.deleted as 'deleted'
+        FROM t_meta_field a
+    </sql>
+
+    <insert id="save" parameterType="com.icepoint.base.api.entity.MetaField">
+        insert into t_meta_field(
+            id,
+            tabId,
+            name,
+            nameEn,
+            storeName,
+            storeNameEn,
+            type,
+            nativeType,
+            maxlen,
+            fractional,
+            description,
+            optional,
+            defaultValue,
+            domain,
+            maxVal,
+            maxInclude,
+            minVal,
+            minInclude,
+            listField,
+            queryField,
+            dictField,
+            categoryEn,
+            inField,
+            primaryKey,
+            uniqueIdx,
+            showSort,
+            busType,
+            idx,
+            status,
+            ownerId,
+            appId,
+            createTime,
+            createUser,
+            updateTime,
+            updateUser,
+            deleted
+        )
+        values(
+            #{id},
+            #{tabId},
+            #{name},
+            #{nameEn},
+            #{storeName},
+            #{storeNameEn},
+            #{type},
+            #{nativeType},
+            #{maxlen},
+            #{fractional},
+            #{description},
+            #{optional},
+            #{defaultValue},
+            #{domain},
+            #{maxVal},
+            #{maxInclude},
+            #{minVal},
+            #{minInclude},
+            #{listField},
+            #{queryField},
+            #{dictField},
+            #{categoryEn},
+            #{inField},
+            #{primaryKey},
+            #{uniqueIdx},
+            #{showSort},
+            #{busType},
+            #{idx},
+            #{status},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.MetaField">
+        update t_meta_field
+        set
+            id = #{id},
+            tabId = #{tabId},
+            name = #{name},
+            nameEn = #{nameEn},
+            storeName = #{storeName},
+            storeNameEn = #{storeNameEn},
+            type = #{type},
+            nativeType = #{nativeType},
+            maxlen = #{maxlen},
+            fractional = #{fractional},
+            description = #{description},
+            optional = #{optional},
+            defaultValue = #{defaultValue},
+            domain = #{domain},
+            maxVal = #{maxVal},
+            maxInclude = #{maxInclude},
+            minVal = #{minVal},
+            minInclude = #{minInclude},
+            listField = #{listField},
+            queryField = #{queryField},
+            dictField = #{dictField},
+            categoryEn = #{categoryEn},
+            inField = #{inField},
+            primaryKey = #{primaryKey},
+            uniqueIdx = #{uniqueIdx},
+            showSort = #{showSort},
+            busType = #{busType},
+            idx = #{idx},
+            status = #{status},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createTime = #{createTime},
+            createUser = #{createUser},
+            updateTime = #{updateTime},
+            updateUser = #{updateUser},
+            deleted = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from t_meta_field
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.MetaField">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.MetaField">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.MetaField">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="entity.id != null and entity.id != ''">
+                    and id = #{entity.id}
+                </if>
+                <if test="entity.tabId != null and entity.tabId != ''">
+                    and tabId = #{entity.tabId}
+                </if>
+                <if test="entity.name != null and entity.name != ''">
+                    and name = #{entity.name}
+                </if>
+                <if test="entity.nameEn != null and entity.nameEn != ''">
+                    and nameEn = #{entity.nameEn}
+                </if>
+                <if test="entity.storeName != null and entity.storeName != ''">
+                    and storeName = #{entity.storeName}
+                </if>
+                <if test="entity.storeNameEn != null and entity.storeNameEn != ''">
+                    and storeNameEn = #{entity.storeNameEn}
+                </if>
+                <if test="entity.type != null and entity.type != ''">
+                    and type = #{entity.type}
+                </if>
+                <if test="entity.nativeType != null and entity.nativeType != ''">
+                    and nativeType = #{entity.nativeType}
+                </if>
+                <if test="entity.maxlen != null and entity.maxlen != ''">
+                    and maxlen = #{entity.maxlen}
+                </if>
+                <if test="entity.fractional != null and entity.fractional != ''">
+                    and fractional = #{entity.fractional}
+                </if>
+                <if test="entity.description != null and entity.description != ''">
+                    and description = #{entity.description}
+                </if>
+                <if test="entity.optional != null and entity.optional != ''">
+                    and optional = #{entity.optional}
+                </if>
+                <if test="entity.defaultValue != null and entity.defaultValue != ''">
+                    and defaultValue = #{entity.defaultValue}
+                </if>
+                <if test="entity.domain != null and entity.domain != ''">
+                    and domain = #{entity.domain}
+                </if>
+                <if test="entity.maxVal != null and entity.maxVal != ''">
+                    and maxVal = #{entity.maxVal}
+                </if>
+                <if test="entity.maxInclude != null and entity.maxInclude != ''">
+                    and maxInclude = #{entity.maxInclude}
+                </if>
+                <if test="entity.minVal != null and entity.minVal != ''">
+                    and minVal = #{entity.minVal}
+                </if>
+                <if test="entity.minInclude != null and entity.minInclude != ''">
+                    and minInclude = #{entity.minInclude}
+                </if>
+                <if test="entity.listField != null and entity.listField != ''">
+                    and listField = #{entity.listField}
+                </if>
+                <if test="entity.queryField != null and entity.queryField != ''">
+                    and queryField = #{entity.queryField}
+                </if>
+                <if test="entity.dictField != null and entity.dictField != ''">
+                    and dictField = #{entity.dictField}
+                </if>
+                <if test="entity.categoryEn != null and entity.categoryEn != ''">
+                    and categoryEn = #{entity.categoryEn}
+                </if>
+                <if test="entity.inField != null and entity.inField != ''">
+                    and inField = #{entity.inField}
+                </if>
+                <if test="entity.primaryKey != null and entity.primaryKey != ''">
+                    and primaryKey = #{entity.primaryKey}
+                </if>
+                <if test="entity.uniqueIdx != null and entity.uniqueIdx != ''">
+                    and uniqueIdx = #{entity.uniqueIdx}
+                </if>
+                <if test="entity.showSort != null and entity.showSort != ''">
+                    and showSort = #{entity.showSort}
+                </if>
+                <if test="entity.busType != null and entity.busType != ''">
+                    and busType = #{entity.busType}
+                </if>
+                <if test="entity.idx != null and entity.idx != ''">
+                    and idx = #{entity.idx}
+                </if>
+                <if test="entity.status != null and entity.status != ''">
+                    and status = #{entity.status}
+                </if>
+                <if test="entity.ownerId != null and entity.ownerId != ''">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="entity.appId != null and entity.appId != ''">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="entity.createTime != null and entity.createTime != ''">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="entity.createUser != null and entity.createUser != ''">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="entity.updateTime != null and entity.updateTime != ''">
+                    and updateTime = #{entity.updateTime}
+                </if>
+                <if test="entity.updateUser != null and entity.updateUser != ''">
+                    and updateUser = #{entity.updateUser}
+                </if>
+                <if test="entity.deleted != null">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

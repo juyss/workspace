@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.introduction.mapper.GeneralIntroductionMapper">
+
+    <resultMap id="BaseResultMap" type="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="plate" jdbcType="INTEGER" property="plate"/>
+        <result column="termType" jdbcType="INTEGER" property="termType"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="picture" jdbcType="VARCHAR" property="picture"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="profile" jdbcType="VARCHAR" property="profile"/>
+        <result column="organization" jdbcType="VARCHAR" property="organization"/>
+        <result column="map" jdbcType="INTEGER" property="map"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="displayType" jdbcType="INTEGER" property="displayType"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="idx" jdbcType="INTEGER" property="idx"/>
+        <result column="parentId" jdbcType="BIGINT" property="parentId"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="platformId" jdbcType="BIGINT" property="platformId"/>
+        <result column="ownerId" jdbcType="BIGINT" property="ownerId"/>
+        <result column="appId" jdbcType="BIGINT" property="appId"/>
+        <result column="createUser" jdbcType="BIGINT" property="createUser"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateUser" jdbcType="BIGINT" property="updateUser"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, `plate`, `termType`, `name`, `picture`, `summary`, `profile`, `organization`, `map`, `location`,
+    `displayType`, `level`, `idx`, `parentId`, `remarks`, `platformId`, `ownerId`, `appId`, `createUser`,
+    `createTime`, `updateUser`, `updateTime`, `deleted`
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.github.tangyi.introduction.entity.GeneralIntroduction" useGeneratedKeys="true">
+        insert into sys_profile (id,plate, termType, `name`,
+                                 picture, summary, profile,
+                                 organization, `map`, `location`,
+                                 displayType, `level`, idx,
+                                 parentId, remarks, platformId,
+                                 ownerId, appId, `createUser`,
+                                 createTime, updateUser, updateTime,
+                                 deleted)
+        values (#{id,jdbcType=INTEGER},#{plate,jdbcType=INTEGER}, #{termType,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+                #{picture,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR},
+                #{organization,jdbcType=VARCHAR}, #{map,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR},
+                #{displayType,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{idx,jdbcType=INTEGER},
+                #{parentId,jdbcType=BIGINT}, #{remarks,jdbcType=VARCHAR}, #{platformId,jdbcType=BIGINT},
+                #{ownerId,jdbcType=BIGINT}, #{appId,jdbcType=BIGINT}, #{createUser,jdbcType=BIGINT},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+                #{deleted,jdbcType=TINYINT})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.github.tangyi.introduction.entity.GeneralIntroduction" useGeneratedKeys="true">
+        insert into sys_profile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="plate != null">
+                plate,
+            </if>
+            <if test="termType != null">
+                termType,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="profile != null">
+                profile,
+            </if>
+            <if test="organization != null">
+                organization,
+            </if>
+            <if test="map != null">
+                `map`,
+            </if>
+            <if test="location != null">
+                `location`,
+            </if>
+            <if test="displayType != null">
+                displayType,
+            </if>
+            <if test="level != null">
+                `level`,
+            </if>
+            <if test="idx != null">
+                idx,
+            </if>
+            <if test="parentId != null">
+                parentId,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="platformId != null">
+                platformId,
+            </if>
+            <if test="ownerId != null">
+                ownerId,
+            </if>
+            <if test="appId != null">
+                appId,
+            </if>
+            <if test="createUser != null">
+                `createUser`,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateUser != null">
+                updateUser,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="plate != null">
+                #{plate,jdbcType=INTEGER},
+            </if>
+            <if test="termType != null">
+                #{termType,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="profile != null">
+                #{profile,jdbcType=VARCHAR},
+            </if>
+            <if test="organization != null">
+                #{organization,jdbcType=VARCHAR},
+            </if>
+            <if test="map != null">
+                #{map,jdbcType=INTEGER},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="displayType != null">
+                #{displayType,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="idx != null">
+                #{idx,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="platformId != null">
+                #{platformId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        update sys_profile
+        set plate = #{plate,jdbcType=INTEGER},
+            termType = #{termType,jdbcType=INTEGER},
+            `name` = #{name,jdbcType=VARCHAR},
+            picture = #{picture,jdbcType=VARCHAR},
+            summary = #{summary,jdbcType=VARCHAR},
+            profile = #{profile,jdbcType=VARCHAR},
+            organization = #{organization,jdbcType=VARCHAR},
+            `map` = #{map,jdbcType=INTEGER},
+            `location` = #{location,jdbcType=VARCHAR},
+            displayType = #{displayType,jdbcType=INTEGER},
+            `level` = #{level,jdbcType=INTEGER},
+            idx = #{idx,jdbcType=INTEGER},
+            parentId = #{parentId,jdbcType=BIGINT},
+            remarks = #{remarks,jdbcType=VARCHAR},
+            platformId = #{platformId,jdbcType=BIGINT},
+            ownerId = #{ownerId,jdbcType=BIGINT},
+            appId = #{appId,jdbcType=BIGINT},
+            `createUser` = #{createUser,jdbcType=BIGINT},
+            createTime = #{createTime,jdbcType=TIMESTAMP},
+            updateUser = #{updateUser,jdbcType=BIGINT},
+            updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=TINYINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        update sys_profile
+        <set>
+            <if test="plate != null">
+                plate = #{plate,jdbcType=INTEGER},
+            </if>
+            <if test="termType != null">
+                termType = #{termType,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                picture = #{picture,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="profile != null">
+                profile = #{profile,jdbcType=VARCHAR},
+            </if>
+            <if test="organization != null">
+                organization = #{organization,jdbcType=VARCHAR},
+            </if>
+            <if test="map != null">
+                `map` = #{map,jdbcType=INTEGER},
+            </if>
+            <if test="location != null">
+                `location` = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="displayType != null">
+                displayType = #{displayType,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                `level` = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="idx != null">
+                idx = #{idx,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="platformId != null">
+                platformId = #{platformId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                ownerId = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="appId != null">
+                appId = #{appId,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                `createUser` = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                updateUser = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="deleteByPrimaryKey">
+        update sys_profile
+        set deleted=1
+        where id=#{id}
+    </update>
+
+    <update id="updateIdxById">
+        update sys_profile
+        set idx=#{idx}
+        where id=#{id} and deleted=0
+    </update>
+
+    <select id="getList" resultType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_profile
+        where deleted=0
+        <if test="sort != null and sort !='' and order != null and order != ''">
+            order by ${sort} ${order}
+        </if>
+    </select>
+
+    <select id="getChildrenList" resultType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_profile
+        <where>
+            <if test="parentId != null" >
+                parentId=#{parentId}
+            </if>
+            <if test="name != null and name !=''">
+                and name like concat('%', #{name},'%')
+            </if>
+            and deleted=0
+        </where>
+        <if test="sort != null and sort !='' and order != null and order != ''">
+            order by ${sort} ${order}
+        </if>
+    </select>
+
+    <select id="getMaxIdx" resultType="java.lang.Double">
+        select
+        max(idx)
+        from sys_profile
+        where parentId=#{parentId} and deleted=0
+    </select>
+
+    <select id="getMinIdx" resultType="java.lang.Double">
+        select
+        min(idx)
+        from sys_profile
+        where parentId=#{parentId} and deleted=0
+    </select>
+
+    <select id="getIntroById" resultType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_profile
+        where id=#{id} and deleted=0
+    </select>
+    <select id="selectIntroByName" resultType="com.github.tangyi.introduction.entity.GeneralIntroduction">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_profile
+        where name like "%"#{name}"%"  and deleted=0
+        order by ${sort} ${order}
+    </select>
+
+</mapper>

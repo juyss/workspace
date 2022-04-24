@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.LinkTableMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.fieldId as 'fieldId',
+            a.linkType as 'linkType',
+            a.linkTabId as 'linkTabId',
+            a.linkInfo as 'linkInfo',
+            a.list as 'list',
+            a.tagEn as 'tagEn',
+            a.tag as 'tag',
+            a.displayType as 'displayType',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createTime as 'createTime',
+            a.createUser as 'createUser',
+            a.updateTime as 'updateTime',
+            a.updateUser as 'updateUser',
+            a.deleted as 'deleted'
+        FROM t_res_link_tab a
+    </sql>
+
+    <insert id="save" parameterType="com.icepoint.base.api.entity.LinkTab">
+        insert into t_res_link_tab(
+            id,
+            fieldId,
+            linkType,
+            linkTabId,
+            linkInfo,
+            list,
+            tagEn,
+            tag,
+            displayType,
+            ownerId,
+            appId,
+            createTime,
+            createUser,
+            updateTime,
+            updateUser,
+            deleted
+        )
+        values(
+            #{id},
+            #{fieldId},
+            #{linkType},
+            #{linkTabId},
+            #{linkInfo},
+            #{list},
+            #{tagEn},
+            #{tag},
+            #{displayType},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.LinkTab">
+        update t_res_link_tab
+        set
+            fieldId = #{fieldId},
+            linkType = #{linkType},
+            linkTabId = #{linkTabId},
+            linkInfo = #{linkInfo},
+            list = #{list},
+            tagEn = #{tagEn},
+            tag = #{tag},
+            displayType = #{displayType},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createTime = #{createTime},
+            createUser = #{createUser},
+            updateTime = #{updateTime},
+            updateUser = #{updateUser},
+            deleted = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        update t_res_link_tab set deleted = 1
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.LinkTab">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.LinkTab">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.LinkTab">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.fieldId == null || entity.fieldId == '')">
+                    and fieldId = #{entity.fieldId}
+                </if>
+                <if test="!(entity.linkType == null || entity.linkType == '')">
+                    and linkType = #{entity.linkType}
+                </if>
+                <if test="!(entity.linkTabId == null || entity.linkTabId == '')">
+                    and linkTabId = #{entity.linkTabId}
+                </if>
+                <if test="!(entity.linkInfo == null || entity.linkInfo == '')">
+                    and linkInfo = #{entity.linkInfo}
+                </if>
+                <if test="!(entity.list == null || entity.list == '')">
+                    and list = #{entity.list}
+                </if>
+                <if test="!(entity.tagEn == null || entity.tagEn == '')">
+                    and tagEn = #{entity.tagEn}
+                </if>
+                <if test="!(entity.tag == null || entity.tag == '')">
+                    and tag = #{entity.tag}
+                </if>
+                <if test="!(entity.displayType == null || entity.displayType == '')">
+                    and displayType = #{entity.displayType}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.updateTime == null || entity.updateTime == '')">
+                    and updateTime = #{entity.updateTime}
+                </if>
+                <if test="!(entity.updateUser == null || entity.updateUser == '')">
+                    and updateUser = #{entity.updateUser}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

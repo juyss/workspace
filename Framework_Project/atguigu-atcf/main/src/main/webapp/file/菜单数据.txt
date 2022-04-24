@@ -1,0 +1,51 @@
+[
+	TMenu{
+		id=1, 
+		pid=0, 
+		name='控制面板', 
+		icon='glyphicon glyphicon-dashboard', 
+		url='main.html', 
+		children=[]}, 
+	TMenu{
+		id=2, 
+		pid=0, 
+		name='权限管理', 
+		icon='glyphicon glyphicon glyphicon-tasks', 
+		url='null', 
+		children=[
+				  TMenu{
+				  	    id=3, 
+				  		pid=2, 
+				  		name='用户维护', 
+				  		icon='glyphicon glyphicon-user', 
+				  		url='admin/index.html', 
+				  		children=null}, 
+				  TMenu{
+				  		id=4, 
+				  		pid=2, 
+				  		name='角色维护', 
+				  		icon='glyphicon glyphicon-king', 
+				  		url='role/index.html', 
+				  		children=null}, 
+				  TMenu{
+				  		id=5, 
+				  		pid=2, 
+				  		name='权限维护', 
+				  		icon='glyphicon glyphicon-lock', 
+				  		url='permission/index.html', 
+				  		children=null}, 
+				  TMenu{id=6, 
+				  		pid=2, 
+				  		name='菜单维护', 
+				  		icon='glyphicon glyphicon-th-list', 
+				  		url='menu/index.html', 
+				  		children=null}
+				]}, 
+	TMenu{
+		id=19, 
+		pid=0, 
+		name='参数管理', 
+		icon='glyphicon glyphicon-list-alt', 
+		url='param/index.html', 
+		children=[]}
+] 

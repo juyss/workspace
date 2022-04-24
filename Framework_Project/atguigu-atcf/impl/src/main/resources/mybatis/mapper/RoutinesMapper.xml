@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.RoutinesMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.Routines" >
+    <result column="SPECIFIC_NAME" property="specificName" jdbcType="VARCHAR" />
+    <result column="ROUTINE_CATALOG" property="routineCatalog" jdbcType="VARCHAR" />
+    <result column="ROUTINE_SCHEMA" property="routineSchema" jdbcType="VARCHAR" />
+    <result column="ROUTINE_NAME" property="routineName" jdbcType="VARCHAR" />
+    <result column="ROUTINE_TYPE" property="routineType" jdbcType="CHAR" />
+    <result column="CHARACTER_MAXIMUM_LENGTH" property="characterMaximumLength" jdbcType="BIGINT" />
+    <result column="CHARACTER_OCTET_LENGTH" property="characterOctetLength" jdbcType="BIGINT" />
+    <result column="NUMERIC_PRECISION" property="numericPrecision" jdbcType="INTEGER" />
+    <result column="NUMERIC_SCALE" property="numericScale" jdbcType="INTEGER" />
+    <result column="DATETIME_PRECISION" property="datetimePrecision" jdbcType="INTEGER" />
+    <result column="CHARACTER_SET_NAME" property="characterSetName" jdbcType="VARCHAR" />
+    <result column="COLLATION_NAME" property="collationName" jdbcType="VARCHAR" />
+    <result column="ROUTINE_BODY" property="routineBody" jdbcType="VARCHAR" />
+    <result column="EXTERNAL_LANGUAGE" property="externalLanguage" jdbcType="VARCHAR" />
+    <result column="PARAMETER_STYLE" property="parameterStyle" jdbcType="VARCHAR" />
+    <result column="IS_DETERMINISTIC" property="isDeterministic" jdbcType="VARCHAR" />
+    <result column="SQL_DATA_ACCESS" property="sqlDataAccess" jdbcType="CHAR" />
+    <result column="SECURITY_TYPE" property="securityType" jdbcType="CHAR" />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="LAST_ALTERED" property="lastAltered" jdbcType="TIMESTAMP" />
+    <result column="SQL_MODE" property="sqlMode" jdbcType="CHAR" />
+    <result column="DEFINER" property="definer" jdbcType="VARCHAR" />
+    <result column="CHARACTER_SET_CLIENT" property="characterSetClient" jdbcType="VARCHAR" />
+    <result column="COLLATION_CONNECTION" property="collationConnection" jdbcType="VARCHAR" />
+    <result column="DATABASE_COLLATION" property="databaseCollation" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.juyss.bean.RoutinesWithBLOBs" extends="BaseResultMap" >
+    <result column="DATA_TYPE" property="dataType" jdbcType="LONGVARCHAR" />
+    <result column="DTD_IDENTIFIER" property="dtdIdentifier" jdbcType="LONGVARCHAR" />
+    <result column="ROUTINE_DEFINITION" property="routineDefinition" jdbcType="LONGVARCHAR" />
+    <result column="EXTERNAL_NAME" property="externalName" jdbcType="BINARY" />
+    <result column="SQL_PATH" property="sqlPath" jdbcType="BINARY" />
+    <result column="ROUTINE_COMMENT" property="routineComment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SPECIFIC_NAME, ROUTINE_CATALOG, ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_TYPE, CHARACTER_MAXIMUM_LENGTH, 
+    CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE, DATETIME_PRECISION, CHARACTER_SET_NAME, 
+    COLLATION_NAME, ROUTINE_BODY, EXTERNAL_LANGUAGE, PARAMETER_STYLE, IS_DETERMINISTIC, 
+    SQL_DATA_ACCESS, SECURITY_TYPE, CREATED, LAST_ALTERED, SQL_MODE, DEFINER, CHARACTER_SET_CLIENT, 
+    COLLATION_CONNECTION, DATABASE_COLLATION
+  </sql>
+  <sql id="Blob_Column_List" >
+    DATA_TYPE, DTD_IDENTIFIER, ROUTINE_DEFINITION, EXTERNAL_NAME, SQL_PATH, ROUTINE_COMMENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.juyss.bean.RoutinesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ROUTINES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.RoutinesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ROUTINES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.RoutinesExample" >
+    delete from ROUTINES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.RoutinesWithBLOBs" >
+    insert into ROUTINES (SPECIFIC_NAME, ROUTINE_CATALOG, ROUTINE_SCHEMA, 
+      ROUTINE_NAME, ROUTINE_TYPE, CHARACTER_MAXIMUM_LENGTH, 
+      CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, 
+      NUMERIC_SCALE, DATETIME_PRECISION, CHARACTER_SET_NAME, 
+      COLLATION_NAME, ROUTINE_BODY, EXTERNAL_LANGUAGE, 
+      PARAMETER_STYLE, IS_DETERMINISTIC, SQL_DATA_ACCESS, 
+      SECURITY_TYPE, CREATED, LAST_ALTERED, 
+      SQL_MODE, DEFINER, CHARACTER_SET_CLIENT, 
+      COLLATION_CONNECTION, DATABASE_COLLATION, 
+      DATA_TYPE, DTD_IDENTIFIER, ROUTINE_DEFINITION, 
+      EXTERNAL_NAME, SQL_PATH, ROUTINE_COMMENT
+      )
+    values (#{specificName,jdbcType=VARCHAR}, #{routineCatalog,jdbcType=VARCHAR}, #{routineSchema,jdbcType=VARCHAR}, 
+      #{routineName,jdbcType=VARCHAR}, #{routineType,jdbcType=CHAR}, #{characterMaximumLength,jdbcType=BIGINT}, 
+      #{characterOctetLength,jdbcType=BIGINT}, #{numericPrecision,jdbcType=INTEGER}, 
+      #{numericScale,jdbcType=INTEGER}, #{datetimePrecision,jdbcType=INTEGER}, #{characterSetName,jdbcType=VARCHAR}, 
+      #{collationName,jdbcType=VARCHAR}, #{routineBody,jdbcType=VARCHAR}, #{externalLanguage,jdbcType=VARCHAR}, 
+      #{parameterStyle,jdbcType=VARCHAR}, #{isDeterministic,jdbcType=VARCHAR}, #{sqlDataAccess,jdbcType=CHAR}, 
+      #{securityType,jdbcType=CHAR}, #{created,jdbcType=TIMESTAMP}, #{lastAltered,jdbcType=TIMESTAMP}, 
+      #{sqlMode,jdbcType=CHAR}, #{definer,jdbcType=VARCHAR}, #{characterSetClient,jdbcType=VARCHAR}, 
+      #{collationConnection,jdbcType=VARCHAR}, #{databaseCollation,jdbcType=VARCHAR}, 
+      #{dataType,jdbcType=LONGVARCHAR}, #{dtdIdentifier,jdbcType=LONGVARCHAR}, #{routineDefinition,jdbcType=LONGVARCHAR}, 
+      #{externalName,jdbcType=BINARY}, #{sqlPath,jdbcType=BINARY}, #{routineComment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.RoutinesWithBLOBs" >
+    insert into ROUTINES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="specificName != null" >
+        SPECIFIC_NAME,
+      </if>
+      <if test="routineCatalog != null" >
+        ROUTINE_CATALOG,
+      </if>
+      <if test="routineSchema != null" >
+        ROUTINE_SCHEMA,
+      </if>
+      <if test="routineName != null" >
+        ROUTINE_NAME,
+      </if>
+      <if test="routineType != null" >
+        ROUTINE_TYPE,
+      </if>
+      <if test="characterMaximumLength != null" >
+        CHARACTER_MAXIMUM_LENGTH,
+      </if>
+      <if test="characterOctetLength != null" >
+        CHARACTER_OCTET_LENGTH,
+      </if>
+      <if test="numericPrecision != null" >
+        NUMERIC_PRECISION,
+      </if>
+      <if test="numericScale != null" >
+        NUMERIC_SCALE,
+      </if>
+      <if test="datetimePrecision != null" >
+        DATETIME_PRECISION,
+      </if>
+      <if test="characterSetName != null" >
+        CHARACTER_SET_NAME,
+      </if>
+      <if test="collationName != null" >
+        COLLATION_NAME,
+      </if>
+      <if test="routineBody != null" >
+        ROUTINE_BODY,
+      </if>
+      <if test="externalLanguage != null" >
+        EXTERNAL_LANGUAGE,
+      </if>
+      <if test="parameterStyle != null" >
+        PARAMETER_STYLE,
+      </if>
+      <if test="isDeterministic != null" >
+        IS_DETERMINISTIC,
+      </if>
+      <if test="sqlDataAccess != null" >
+        SQL_DATA_ACCESS,
+      </if>
+      <if test="securityType != null" >
+        SECURITY_TYPE,
+      </if>
+      <if test="created != null" >
+        CREATED,
+      </if>
+      <if test="lastAltered != null" >
+        LAST_ALTERED,
+      </if>
+      <if test="sqlMode != null" >
+        SQL_MODE,
+      </if>
+      <if test="definer != null" >
+        DEFINER,
+      </if>
+      <if test="characterSetClient != null" >
+        CHARACTER_SET_CLIENT,
+      </if>
+      <if test="collationConnection != null" >
+        COLLATION_CONNECTION,
+      </if>
+      <if test="databaseCollation != null" >
+        DATABASE_COLLATION,
+      </if>
+      <if test="dataType != null" >
+        DATA_TYPE,
+      </if>
+      <if test="dtdIdentifier != null" >
+        DTD_IDENTIFIER,
+      </if>
+      <if test="routineDefinition != null" >
+        ROUTINE_DEFINITION,
+      </if>
+      <if test="externalName != null" >
+        EXTERNAL_NAME,
+      </if>
+      <if test="sqlPath != null" >
+        SQL_PATH,
+      </if>
+      <if test="routineComment != null" >
+        ROUTINE_COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="specificName != null" >
+        #{specificName,jdbcType=VARCHAR},
+      </if>
+      <if test="routineCatalog != null" >
+        #{routineCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="routineSchema != null" >
+        #{routineSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="routineName != null" >
+        #{routineName,jdbcType=VARCHAR},
+      </if>
+      <if test="routineType != null" >
+        #{routineType,jdbcType=CHAR},
+      </if>
+      <if test="characterMaximumLength != null" >
+        #{characterMaximumLength,jdbcType=BIGINT},
+      </if>
+      <if test="characterOctetLength != null" >
+        #{characterOctetLength,jdbcType=BIGINT},
+      </if>
+      <if test="numericPrecision != null" >
+        #{numericPrecision,jdbcType=INTEGER},
+      </if>
+      <if test="numericScale != null" >
+        #{numericScale,jdbcType=INTEGER},
+      </if>
+      <if test="datetimePrecision != null" >
+        #{datetimePrecision,jdbcType=INTEGER},
+      </if>
+      <if test="characterSetName != null" >
+        #{characterSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="collationName != null" >
+        #{collationName,jdbcType=VARCHAR},
+      </if>
+      <if test="routineBody != null" >
+        #{routineBody,jdbcType=VARCHAR},
+      </if>
+      <if test="externalLanguage != null" >
+        #{externalLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterStyle != null" >
+        #{parameterStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeterministic != null" >
+        #{isDeterministic,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDataAccess != null" >
+        #{sqlDataAccess,jdbcType=CHAR},
+      </if>
+      <if test="securityType != null" >
+        #{securityType,jdbcType=CHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastAltered != null" >
+        #{lastAltered,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlMode != null" >
+        #{sqlMode,jdbcType=CHAR},
+      </if>
+      <if test="definer != null" >
+        #{definer,jdbcType=VARCHAR},
+      </if>
+      <if test="characterSetClient != null" >
+        #{characterSetClient,jdbcType=VARCHAR},
+      </if>
+      <if test="collationConnection != null" >
+        #{collationConnection,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseCollation != null" >
+        #{databaseCollation,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dtdIdentifier != null" >
+        #{dtdIdentifier,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routineDefinition != null" >
+        #{routineDefinition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="externalName != null" >
+        #{externalName,jdbcType=BINARY},
+      </if>
+      <if test="sqlPath != null" >
+        #{sqlPath,jdbcType=BINARY},
+      </if>
+      <if test="routineComment != null" >
+        #{routineComment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.RoutinesExample" resultType="java.lang.Integer" >
+    select count(*) from ROUTINES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ROUTINES
+    <set >
+      <if test="record.specificName != null" >
+        SPECIFIC_NAME = #{record.specificName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routineCatalog != null" >
+        ROUTINE_CATALOG = #{record.routineCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routineSchema != null" >
+        ROUTINE_SCHEMA = #{record.routineSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routineName != null" >
+        ROUTINE_NAME = #{record.routineName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routineType != null" >
+        ROUTINE_TYPE = #{record.routineType,jdbcType=CHAR},
+      </if>
+      <if test="record.characterMaximumLength != null" >
+        CHARACTER_MAXIMUM_LENGTH = #{record.characterMaximumLength,jdbcType=BIGINT},
+      </if>
+      <if test="record.characterOctetLength != null" >
+        CHARACTER_OCTET_LENGTH = #{record.characterOctetLength,jdbcType=BIGINT},
+      </if>
+      <if test="record.numericPrecision != null" >
+        NUMERIC_PRECISION = #{record.numericPrecision,jdbcType=INTEGER},
+      </if>
+      <if test="record.numericScale != null" >
+        NUMERIC_SCALE = #{record.numericScale,jdbcType=INTEGER},
+      </if>
+      <if test="record.datetimePrecision != null" >
+        DATETIME_PRECISION = #{record.datetimePrecision,jdbcType=INTEGER},
+      </if>
+      <if test="record.characterSetName != null" >
+        CHARACTER_SET_NAME = #{record.characterSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collationName != null" >
+        COLLATION_NAME = #{record.collationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routineBody != null" >
+        ROUTINE_BODY = #{record.routineBody,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalLanguage != null" >
+        EXTERNAL_LANGUAGE = #{record.externalLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameterStyle != null" >
+        PARAMETER_STYLE = #{record.parameterStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeterministic != null" >
+        IS_DETERMINISTIC = #{record.isDeterministic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDataAccess != null" >
+        SQL_DATA_ACCESS = #{record.sqlDataAccess,jdbcType=CHAR},
+      </if>
+      <if test="record.securityType != null" >
+        SECURITY_TYPE = #{record.securityType,jdbcType=CHAR},
+      </if>
+      <if test="record.created != null" >
+        CREATED = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastAltered != null" >
+        LAST_ALTERED = #{record.lastAltered,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sqlMode != null" >
+        SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      </if>
+      <if test="record.definer != null" >
+        DEFINER = #{record.definer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characterSetClient != null" >
+        CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collationConnection != null" >
+        COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databaseCollation != null" >
+        DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null" >
+        DATA_TYPE = #{record.dataType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dtdIdentifier != null" >
+        DTD_IDENTIFIER = #{record.dtdIdentifier,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.routineDefinition != null" >
+        ROUTINE_DEFINITION = #{record.routineDefinition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.externalName != null" >
+        EXTERNAL_NAME = #{record.externalName,jdbcType=BINARY},
+      </if>
+      <if test="record.sqlPath != null" >
+        SQL_PATH = #{record.sqlPath,jdbcType=BINARY},
+      </if>
+      <if test="record.routineComment != null" >
+        ROUTINE_COMMENT = #{record.routineComment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ROUTINES
+    set SPECIFIC_NAME = #{record.specificName,jdbcType=VARCHAR},
+      ROUTINE_CATALOG = #{record.routineCatalog,jdbcType=VARCHAR},
+      ROUTINE_SCHEMA = #{record.routineSchema,jdbcType=VARCHAR},
+      ROUTINE_NAME = #{record.routineName,jdbcType=VARCHAR},
+      ROUTINE_TYPE = #{record.routineType,jdbcType=CHAR},
+      CHARACTER_MAXIMUM_LENGTH = #{record.characterMaximumLength,jdbcType=BIGINT},
+      CHARACTER_OCTET_LENGTH = #{record.characterOctetLength,jdbcType=BIGINT},
+      NUMERIC_PRECISION = #{record.numericPrecision,jdbcType=INTEGER},
+      NUMERIC_SCALE = #{record.numericScale,jdbcType=INTEGER},
+      DATETIME_PRECISION = #{record.datetimePrecision,jdbcType=INTEGER},
+      CHARACTER_SET_NAME = #{record.characterSetName,jdbcType=VARCHAR},
+      COLLATION_NAME = #{record.collationName,jdbcType=VARCHAR},
+      ROUTINE_BODY = #{record.routineBody,jdbcType=VARCHAR},
+      EXTERNAL_LANGUAGE = #{record.externalLanguage,jdbcType=VARCHAR},
+      PARAMETER_STYLE = #{record.parameterStyle,jdbcType=VARCHAR},
+      IS_DETERMINISTIC = #{record.isDeterministic,jdbcType=VARCHAR},
+      SQL_DATA_ACCESS = #{record.sqlDataAccess,jdbcType=CHAR},
+      SECURITY_TYPE = #{record.securityType,jdbcType=CHAR},
+      CREATED = #{record.created,jdbcType=TIMESTAMP},
+      LAST_ALTERED = #{record.lastAltered,jdbcType=TIMESTAMP},
+      SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      DEFINER = #{record.definer,jdbcType=VARCHAR},
+      CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR},
+      DATA_TYPE = #{record.dataType,jdbcType=LONGVARCHAR},
+      DTD_IDENTIFIER = #{record.dtdIdentifier,jdbcType=LONGVARCHAR},
+      ROUTINE_DEFINITION = #{record.routineDefinition,jdbcType=LONGVARCHAR},
+      EXTERNAL_NAME = #{record.externalName,jdbcType=BINARY},
+      SQL_PATH = #{record.sqlPath,jdbcType=BINARY},
+      ROUTINE_COMMENT = #{record.routineComment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ROUTINES
+    set SPECIFIC_NAME = #{record.specificName,jdbcType=VARCHAR},
+      ROUTINE_CATALOG = #{record.routineCatalog,jdbcType=VARCHAR},
+      ROUTINE_SCHEMA = #{record.routineSchema,jdbcType=VARCHAR},
+      ROUTINE_NAME = #{record.routineName,jdbcType=VARCHAR},
+      ROUTINE_TYPE = #{record.routineType,jdbcType=CHAR},
+      CHARACTER_MAXIMUM_LENGTH = #{record.characterMaximumLength,jdbcType=BIGINT},
+      CHARACTER_OCTET_LENGTH = #{record.characterOctetLength,jdbcType=BIGINT},
+      NUMERIC_PRECISION = #{record.numericPrecision,jdbcType=INTEGER},
+      NUMERIC_SCALE = #{record.numericScale,jdbcType=INTEGER},
+      DATETIME_PRECISION = #{record.datetimePrecision,jdbcType=INTEGER},
+      CHARACTER_SET_NAME = #{record.characterSetName,jdbcType=VARCHAR},
+      COLLATION_NAME = #{record.collationName,jdbcType=VARCHAR},
+      ROUTINE_BODY = #{record.routineBody,jdbcType=VARCHAR},
+      EXTERNAL_LANGUAGE = #{record.externalLanguage,jdbcType=VARCHAR},
+      PARAMETER_STYLE = #{record.parameterStyle,jdbcType=VARCHAR},
+      IS_DETERMINISTIC = #{record.isDeterministic,jdbcType=VARCHAR},
+      SQL_DATA_ACCESS = #{record.sqlDataAccess,jdbcType=CHAR},
+      SECURITY_TYPE = #{record.securityType,jdbcType=CHAR},
+      CREATED = #{record.created,jdbcType=TIMESTAMP},
+      LAST_ALTERED = #{record.lastAltered,jdbcType=TIMESTAMP},
+      SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      DEFINER = #{record.definer,jdbcType=VARCHAR},
+      CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

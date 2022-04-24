@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		scope:设置bean的作用域
+		scope="singleton|prototype|request|session"
+		singleton:单例，唯一实例
+		prototype:原型，多例
+		request:在一次请求中创建一个bean
+		session：在一次会话中创建一个bean
+	 -->
+	<bean id="emp" class="com.atguigu.spring.scope.Emp" scope="prototype">
+		<property name="id" value="1001"></property>
+		<property name="name" value="张三"></property>
+	</bean>
+
+</beans>

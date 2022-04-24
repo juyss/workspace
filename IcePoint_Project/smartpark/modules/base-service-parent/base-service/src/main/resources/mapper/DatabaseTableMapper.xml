@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.DatabaseTableMapper">
+
+    <select id="list" parameterType="com.icepoint.base.web.resource.component.generic.DatabaseTableParam" resultType="map">
+        <include refid="select" />
+        <include refid="where" />
+        <include refid="orderBy" />
+    </select>
+
+    <select id="page" parameterType="com.icepoint.base.web.resource.component.generic.DatabaseTableParam" resultType="map">
+        <include refid="select" />
+        <include refid="where" />
+        <include refid="orderBy" />
+    </select>
+
+    <sql id="select">
+        SELECT
+        <if test="param.selectFields != null and param.selectFields.size() > 0">
+            <foreach collection="param.selectFields" item="field" separator=",">
+                `${field.name}`
+                <if test="field.aliasName != null and field.aliasName != ''">
+                    AS `${field.aliasName}`
+                </if>
+            </foreach>
+        </if>
+        FROM ${param.name}
+    </sql>
+
+    <sql id="where">
+    	<if test="(param.whereFields != null and param.whereFields.size() > 0) or (param.filterFields != null and param.filterFields.size() > 0)">
+            WHERE
+        </if>
+        
+        <if test="param.whereFields != null and param.whereFields.size() > 0">
+            <foreach collection="param.whereFields" item="field" index="index">
+                ${field.name} = #{field.value}
+                <if test="field.condition != null and field.condition != '' and param.whereFields.size() > index + 1">
+                    ${field.condition}
+                </if>
+            </foreach>
+        </if>
+        
+        <if test="param.filterFields != null and param.filterFields.size() > 0">
+            <foreach collection="param.filterFields" item="filter">
+                <if test="filter.name != null and filter.name != '' and filter.oper != null and filter.oper != ''">
+                    ${filter.name} #{field.oper} #{field.value}
+                </if>
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="orderBy">
+        <if test="param.orderByFields != null and param.orderByFields.size() > 0">
+            ORDER BY
+            <foreach collection="param.orderByFields" item="field" separator=",">
+                <choose>
+                    <when test="field.aliasName != null and field.aliasName != ''">
+                        ${field.aliasName}
+                    </when>
+                    <otherwise>s
+                        ${field.name}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </if>
+    </sql>
+    
+    <sql id="insert">
+        INSERT INTO ${param.name}(
+        <if test="param.insertFields != null and param.insertFields.size() > 0">
+            <foreach collection="param.insertFields" item="field" separator=",">
+                `${field.name}`
+            </foreach>
+        </if>
+        )
+    </sql>
+    
+    <sql id="value">
+        VALUES(
+        <if test="param.valueFields != null and param.valueFields.size() > 0">
+            <foreach collection="param.valueFields" item="field" separator=",">
+                #{field.value}
+            </foreach>
+        </if>
+        )
+    </sql>
+    
+    <sql id="set">
+        SET
+        <if test="param.valueFields != null and param.valueFields.size() > 0">
+            <foreach collection="param.valueFields" item="field" separator=",">
+                `${field.name}` = #{field.value}
+            </foreach>
+        </if>
+    </sql>
+    
+    <insert id="save" parameterType="com.icepoint.base.web.resource.component.generic.DatabaseTableParam" useGeneratedKeys="true" keyProperty="id">
+    	<include refid="insert" />
+    	<include refid="value" />
+    </insert>
+    
+    <update id="update" parameterType="com.icepoint.base.web.resource.component.generic.DatabaseTableParam">
+         UPDATE ${param.name}
+         <include refid="set" />
+         <include refid="where" />
+    </update>
+    
+    <delete id="delete" parameterType="com.icepoint.base.web.resource.component.generic.DatabaseTableParam">
+        DELETE FROM ${param.name}
+        WHERE 
+        <if test="param.deleteField != null">
+            `${param.deleteField.name}` IN( 
+            <foreach collection="param.deleteField.values" item="val" separator=",">
+                #{val}
+            </foreach>
+            )
+        </if>
+    </delete>
+</mapper>

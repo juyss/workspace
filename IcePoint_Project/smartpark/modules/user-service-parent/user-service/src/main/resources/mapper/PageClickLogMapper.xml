@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.user.mapper.PageClickLogMapper">
+
+    <select id="statistics" resultType="Map">
+        select count(1) click_count,click_id,click_type
+        from
+        page_click_log
+        where
+        create_date between #{startTime} and  #{endTime}
+        group by click_id,click_type
+        order by click_count desc
+    </select>
+       <!-- <choose>
+            <when test='type == "week"'>
+                SELECT IF(DATE_FORMAT(zz.time, '%c') IN (1, 12),
+                CONCAT(DATE_FORMAT(zz.time, '%y.%c.%e'), '-', DATE_FORMAT(DATE_ADD(zz.time, INTERVAL 6 DAY), '%c.%e')),
+                CONCAT(DATE_FORMAT(zz.time, '%c.%e'), '-', DATE_FORMAT(DATE_ADD(zz.time, INTERVAL 6 DAY), '%c.%e')))
+                time,
+                (SELECT COUNT(1)
+                FROM page_click_log z1
+                WHERE z1.del_flag = 0
+                AND z1.create_date &gt;= zz.time
+                AND z1.create_date &lt; DATE_ADD(zz.time, INTERVAL 6 DAY)) click_count
+                FROM (
+                SELECT DATE_ADD(SUBDATE(#{startTime}, if(DATE_FORMAT(#{startTime}, '%w') = 0, 7,
+                DATE_FORMAT(#{startTime}, '%w')) - 1),
+                INTERVAL @num := @num + 1 WEEK) time
+                FROM sys_menu t1,
+                (SELECT @num := -1) t2
+                WHERE DATE_ADD(SUBDATE(#{startTime}, if(DATE_FORMAT(#{startTime}, '%w') = 0, 7,
+                DATE_FORMAT(#{startTime}, '%w')) - 1),
+                INTERVAL @num + 1 WEEK) &lt;=
+                SUBDATE(DATE_FORMAT(#{endTime}, '%Y-%m-%d'), if(DATE_FORMAT(#{endTime}, '%w') = 0, 7,
+                DATE_FORMAT(#{endTime}, '%w')) - 1)
+                ) zz
+            </when>
+            <when test='type == "month"'>
+                SELECT IF(DATE_FORMAT(zz.time, '%c') IN (1, 12), DATE_FORMAT(zz.time, '%y.%c'), DATE_FORMAT(zz.time,
+                '%c')) time,
+                (SELECT COUNT(1)
+                FROM page_click_log z1
+                WHERE z1.del_flag = 0
+                AND z1.create_date &gt;= zz.time
+                AND z1.create_date &lt; DATE_ADD(zz.time, INTERVAL 1 MONTH)) click_count
+                FROM (
+                SELECT DATE_ADD(DATE_FORMAT(#{startTime}, '%Y-%m-01'), INTERVAL @num := @num + 1 MONTH) time
+                FROM sys_menu t1,
+                (SELECT @num := -1) t2
+                WHERE DATE_ADD(DATE_FORMAT(#{startTime}, '%Y-%m-01'), INTERVAL @num + 1 MONTH) &lt;=
+                DATE_FORMAT(#{endTime}, '%Y-%m-01')
+                ) zz
+            </when>
+            <otherwise>
+                SELECT IF(DATE_FORMAT(zz.time, '%c') IN (1, 12), DATE_FORMAT(zz.time, '%y.%c.%e'), DATE_FORMAT(zz.time,
+                '%c.%e')) time,
+                (SELECT COUNT(1)
+                FROM page_click_log z1
+                WHERE z1.del_flag = 0
+                AND z1.create_date &gt;= zz.time
+                AND z1.create_date &lt; DATE_ADD(zz.time, INTERVAL 1 DAY)) click_count
+                FROM (
+                SELECT DATE_ADD(#{startTime}, INTERVAL @num := @num + 1 DAY) time
+                FROM shop t1,
+                (SELECT @num := -1) t2
+                WHERE DATE_ADD(#{startTime}, INTERVAL @num + 1 DAY) &lt;= #{endTime}
+                ) zz
+            </otherwise>
+        </choose>-->
+
+
+    <select id="getList" resultType="map">
+        select
+        t.*
+        from
+        page_click_log t
+        where
+        t.click_id = #{baseReq.kw}
+        and
+        t.create_date between #{baseReq.startTime} and  #{baseReq.endTime}
+        order by ${sort} ${order}
+    </select>
+</mapper>

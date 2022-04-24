@@ -1,0 +1,10 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.icepoint.framework.autoconfigure.data.DataAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.file.WebFileAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.system.WebSystemAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.core.WebCoreAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.security.SecurityAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.IcepointFrameworkAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.data.PaginationAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.ui.WebUiAutoConfiguration,\
+  com.icepoint.framework.autoconfigure.web.crewschedule.CrewScheduleAutoConfiguration

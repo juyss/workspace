@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.message.mapper.LeaveMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.github.tangyi.message.entity.LeaveMessage">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="internet_name" property="internetName" jdbcType="VARCHAR"/>
+        <result column="email_address" property="emailAddress" jdbcType="VARCHAR"/>
+        <result column="postal_code" property="postalCode" jdbcType="INTEGER"/>
+        <result column="residential_address" property="residentialAddress" jdbcType="VARCHAR"/>
+        <result column="message_type" property="messageType" jdbcType="INTEGER"/>
+        <result column="message_theme" property="messageTheme" jdbcType="VARCHAR"/>
+        <result column="message_pic" property="messagePic" jdbcType="VARCHAR"/>
+        <result column="message_attachment" property="messageAttachment" jdbcType="VARCHAR"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modifier_id" property="modifierId" jdbcType="BIGINT"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="check_status" property="checkStatus" jdbcType="INTEGER"/>
+        <result column="reply_status" property="replyStatus" jdbcType="INTEGER"/>
+        <result column="del_flag" property="delFlag" jdbcType="INTEGER"/>
+        <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+
+    <!--  全部字段  -->
+    <sql id="base_column">
+        id,
+        internet_name,
+        email_address,
+        postal_code,
+        residential_address,
+        message_type,
+        message_theme,
+        message_content,
+        message_pic,
+        message_attachment,
+        phone_num,
+        create_date,
+        modifier_id,
+        modify_date,
+        check_status,
+        reply_status,
+        del_flag
+    </sql>
+
+    <!--  添加一条数据  -->
+    <insert id="insert">
+        insert into msg_interaction_message
+        (
+        <include refid="base_column"/>
+        )
+        values
+        (
+        #{id},
+        #{internetName},
+        #{emailAddress},
+        #{postalCode},
+        #{residentialAddress},
+        #{messageType},
+        #{messageTheme},
+        #{messageContent},
+        #{messagePic},
+        #{messageAttachment},
+        #{phoneNum},
+        #{createDate},
+        #{modifierId},
+        #{modifyDate},
+        #{checkStatus},
+        #{replyStatus},
+        #{delFlag}
+        )
+    </insert>
+
+    <!--  根据ID更新审核状态  -->
+    <update id="updateCheckStatus">
+        update msg_interaction_message
+        set check_status=#{checkStatus}
+        where id = #{id}
+    </update>
+
+    <!--  根据ID更新回复状态  -->
+    <update id="updateReplyStatus">
+        update msg_interaction_message
+        set reply_status=#{replyStatus}
+        where id = #{id}
+    </update>
+
+    <!--  根据ID批量删除留言  -->
+    <delete id="deleteById">
+        delete
+        from msg_interaction_message
+        where
+        id IN
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--  根据ID查询留言信息  -->
+    <select id="getMessageById" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from msg_interaction_message
+        where id=#{id} and del_flag=0
+    </select>
+
+    <!--  根据留言类型、审核状态、回复状态、创建时间条件查询并排序  -->
+    <select id="getListByCondition" resultType="map">
+        select
+        <include refid="base_column"/>
+        from msg_interaction_message
+        <where>
+            <if test="type != null">
+                message_type=#{type}
+            </if>
+            <if test="checkStatus !=null">
+                and check_status=#{checkStatus}
+            </if>
+            <if test="replyStatus != null">
+                and reply_status=#{replyStatus}
+            </if>
+            <if test="createDate != null">
+                and create_date>=#{createDate}
+            </if>
+            and del_flag=0
+        </where>
+        order by ${sort} ${order}
+    </select>
+
+    <!--  获取留言统计信息  -->
+    <select id="getMessageTypeStaticInfo" resultType="java.util.Map">
+        select message_type,count(*) `count`
+        from msg_interaction_message
+        where del_flag=0 and check_status=1 and reply_status=1
+        group by message_type
+        order by message_type
+    </select>
+
+
+
+
+</mapper>

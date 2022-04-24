@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.webcast.mapper.ChannelMarqueeMapper">
+
+
+    <sql id="columns">
+        a.id,
+        a.channel_id AS channelId,
+        a.marquee AS marquee
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <where>
+            <if test="channelId != null and channelId != ''">
+                a.channel_id = #{channelId}
+            </if>
+        </where>
+    </sql>
+
+    <select id="get" resultType="com.github.tangyi.webcast.api.model.ChannelMarquee">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_marquee a
+        WHERE a.channel_id = #{channelId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into webcast_channel_marquee (
+            channel_id,
+            marquee
+        ) values (
+            #{channelId},
+            #{marquee}
+        );
+    </insert>
+
+    <update id="update">
+        UPDATE webcast_channel_marquee SET
+            marquee = #{marquee}
+        WHERE channel_id = #{channelId}
+    </update>
+
+</mapper>

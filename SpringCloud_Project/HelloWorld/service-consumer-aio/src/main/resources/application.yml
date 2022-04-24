@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: service-consumer-aio
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://118.31.244.185:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: service-consumer-aio
+
+server:
+  port: 8081

@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: pro
+
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+
+  data:
+    web:
+      pageable:
+        default-page-size: 1000
+
+  thymeleaf:
+    enabled: false
+    check-template-location: false
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

@@ -1,0 +1,7 @@
+{
+  "serverUrl": "http://39.100.11.213:9991",
+  "allInOne": true,
+  "outPath": "./src/main/resources/static/doc",
+  "projectName": "system",
+  "recursionLimit":1
+}

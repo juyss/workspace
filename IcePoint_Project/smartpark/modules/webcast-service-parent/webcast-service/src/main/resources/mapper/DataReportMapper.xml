@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.webcast.mapper.DataReportMapper">
+
+    <sql id="columns">
+        a.id,
+        a.channel_id AS channelId,
+        a.name AS name,
+        a.start_time AS startTime
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <where>
+            <if test="channelId != null and channelId != ''">
+                a.channel_id = #{channelId}
+            </if>
+            <if test="name != null and name != ''">
+                AND a.name like CONCAT('%',#{name},'%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.start_time &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.start_time &lt;= #{endDate}
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into webcast_data_report (
+            channel_id,
+            name,
+            start_time
+        ) values (
+            #{channelId},
+            #{name},
+            #{startTime}
+        );
+    </insert>
+
+    <select id="findList" resultType="com.github.tangyi.webcast.api.model.DataReport">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_data_report a
+        <include refid="whereColumnList"/>
+        ORDER BY a.start_time ASC
+    </select>
+
+</mapper>

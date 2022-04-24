@@ -1,0 +1,24 @@
+/* asciidoctor 样式 **/
+@import '~antd/dist/antd.less';
+@import "../adoc.less";
+
+.ant-anchor-link-title {
+  line-height: 38px !important;
+  border-radius: 0.3rem;
+  padding-left: 10px;
+}
+
+.ant-anchor-link {
+  @paddingHorizon: 0px;
+  padding: @paddingHorizon 6px @paddingHorizon 16px !important;
+
+  a {
+    display: block;
+    margin-bottom: 0 !important;
+  }
+}
+
+.ant-anchor-link-title-active {
+  background-color: @primary-color;
+  color: white !important;
+}

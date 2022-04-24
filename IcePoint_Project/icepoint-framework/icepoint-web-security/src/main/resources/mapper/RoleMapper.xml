@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icepoint.framework.web.security.dao.RoleMapper">
+
+    <select id="findUserByRole" resultType="com.icepoint.framework.web.security.entity.User">
+        SELECT au.nickname,
+               au.username,
+               au.id
+        FROM auth_user au,
+             auth_user_role aur,
+             auth_role ar
+        WHERE au.id = aur.user_id
+          AND ar.id = aur.role_id
+          AND ar.id = #{roleId}
+          And ar.deleted = 0
+          And au.deleted = 0
+    </select>
+
+    <insert id="insertUserIds" >
+        insert into auth_user_role values(null,#{userId},#{roleId})
+    </insert>
+
+    <delete id="deleteRoleById">
+        delete auth_user_role where role_id = #{roleId}
+    </delete>
+
+</mapper>

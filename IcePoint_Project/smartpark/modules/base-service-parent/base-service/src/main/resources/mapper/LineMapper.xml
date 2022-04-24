@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.LineMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.docNo as 'docNo',
+            a.lineNo as 'lineNo',
+            a.name as 'name',
+            a.value as 'value',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createTime as 'createTime',
+            a.createUser as 'createUser',
+            a.updateTime as 'updateTime',
+            a.updateUser as 'updateUser',
+            a.deleted as 'deleted',
+            a.docType as 'docType'
+        FROM t_tab_line a
+    </sql>
+
+    <insert id="save" parameterType="com.icepoint.base.api.entity.Line">
+        insert into t_tab_line(
+            id,
+            docNo,
+            lineNo,
+            name,
+            value,
+            ownerId,
+            appId,
+            createTime,
+            createUser,
+            updateTime,
+            updateUser,
+            deleted,
+            docType
+        )
+        values(
+            #{id},
+            #{docNo},
+            #{lineNo},
+            #{name},
+            #{value},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted},
+            #{docType}
+        )
+    </insert>
+
+    <insert id="batchAdd" parameterType="java.util.List" >
+        insert into t_tab_line(
+        id,
+        docNo,
+        lineNo,
+        name,
+        value,
+        ownerId,
+        appId,
+        createTime,
+        createUser,
+        updateTime,
+        updateUser,
+        deleted,
+        docType
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{id},
+            #{docNo},
+            #{lineNo},
+            #{name},
+            #{value},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted},
+            #{docType})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.Line">
+        update t_tab_line
+        set
+            id = #{id},
+            docNo = #{docNo},
+            lineNo = #{lineNo},
+            name = #{name},
+            value = #{value},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createTime = #{createTime},
+            createUser = #{createUser},
+            updateTime = #{updateTime},
+            updateUser = #{updateUser},
+            deleted = #{deleted},
+            docType = #{docType}
+        where id = #{id}
+    </update>
+
+    <!-- 批量更新第一种方法，通过接收传进来的参数list进行循环着组装sql -->
+    <update id="batchUpdate" parameterType="java.util.List" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_tab_line
+            <set>
+                id = #{item.id},
+                docNo = #{item.docNo},
+                lineNo = #{item.lineNo},
+                name = #{item.name},
+                value = #{item.value},
+                ownerId = #{item.ownerId},
+                appId = #{item.appId},
+                createTime = #{item.createTime},
+                createUser = #{item.createUser},
+                updateTime = #{item.updateTime},
+                updateUser = #{item.updateUser},
+                deleted = #{item.deleted},
+                docType = #{item.docType}
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from t_tab_line
+        where id = #{id}
+    </delete>
+
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE FROM t_tab_line WHERE id in(
+        <foreach collection="list" item="id" index="index" separator=",">
+            ${id}
+        </foreach>
+        );
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.Line">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.Line">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.Line">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.docNo == null || entity.docNo == '')">
+                    and docNo = #{entity.docNo}
+                </if>
+                <if test="!(entity.lineNo == null || entity.lineNo == '')">
+                    and lineNo = #{entity.lineNo}
+                </if>
+                <if test="!(entity.name == null || entity.name == '')">
+                    and name = #{entity.name}
+                </if>
+                <if test="!(entity.value == null || entity.value == '')">
+                    and value = #{entity.value}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.updateTime == null || entity.updateTime == '')">
+                    and updateTime = #{entity.updateTime}
+                </if>
+                <if test="!(entity.updateUser == null || entity.updateUser == '')">
+                    and updateUser = #{entity.updateUser}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+                <if test="!(entity.docType == null || entity.docType == '')">
+                    and docType = #{entity.docType}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

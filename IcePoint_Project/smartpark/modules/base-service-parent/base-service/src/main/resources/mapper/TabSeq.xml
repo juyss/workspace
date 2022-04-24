@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.TabSeqMapper">
+
+
+    <insert id="add">
+        INSERT INTO t_tab_seq(id, docNo, docType, deleted) VALUES (#{id}, #{docNo}, #{docType}, #{deleted})
+    </insert>
+
+    <select id="get" resultType="com.icepoint.base.api.entity.TabSeq">
+        SELECT id, docNo, docType, deleted FROM t_tab_seq WHERE id = #{id} AND docType = #{docType}
+    </select>
+</mapper>

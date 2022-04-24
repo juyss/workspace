@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.user.mapper.DeptMapper">
+    <resultMap id="deptResultMap" type="com.github.tangyi.user.api.module.Dept">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="dept_desc" property="deptDesc"/>
+        <result column="dept_leader" property="deptLeader"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="creator" property="creator"/>
+        <result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_date" property="modifyDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="application_code" property="applicationCode"/>
+        <result column="tenant_code" property="tenantCode"/>
+        <result column="org_code" property="orgCode"/>
+        <result column="zt_id" property="ztId"/>
+    </resultMap>
+
+    <sql id="deptColumns">
+        a.id,
+        a.type,
+        a.dept_name,
+        a.dept_desc,
+        a.dept_leader,
+        a.parent_id,
+        a.sort,
+        a.creator,
+        a.create_date,
+        a.modifier,
+        a.modify_date,
+        a.del_flag,
+        a.application_code,
+        a.tenant_code,
+        a.org_code,
+        a.zt_id
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <if test="deptName != null and deptName != ''">
+            and a.dept_name like #{deptName}
+        </if>
+        <if test="tenantCode != null and tenantCode != ''">
+            and a.tenant_code = #{tenantCode}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and a.parent_id = #{parentId}
+        </if>
+        <if test="type != null and type != ''">
+            and a.type = #{type}
+        </if>
+        <if test="ztId != null and ztId != ''">
+            and a.zt_id = #{ztId}
+        </if>
+    </sql>
+
+    <select id="getById" resultMap="deptResultMap">
+        SELECT
+        <include refid="deptColumns"/>
+        FROM sys_dept a
+        WHERE a.id = #{id} and a.del_flag = 0
+    </select>
+
+    <select id="get" resultMap="deptResultMap">
+        SELECT
+        <include refid="deptColumns"/>
+        FROM sys_dept a
+        WHERE a.id = #{id} and a.del_flag = 0
+    </select>
+
+    <select id="findList" resultMap="deptResultMap">
+        SELECT
+        <include refid="deptColumns"/>
+        FROM sys_dept a
+        WHERE a.del_flag = 0
+        <include refid="whereColumnList"/>
+        order by a.sort asc, a.dept_name
+    </select>
+
+    <select id="findListById" resultMap="deptResultMap">
+        SELECT
+        <include refid="deptColumns"/>
+        FROM sys_dept a
+        WHERE a.id IN
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="listEnterprise" resultType="java.util.HashMap">
+        SELECT * FROM ent_enterprise_base WHERE deleted = 0
+    </select>
+
+    <insert id="insert">
+        INSERT INTO sys_dept (
+            id,
+            type,
+            dept_name,
+            dept_desc,
+            dept_leader,
+            parent_id,
+            sort,
+            creator,
+            create_date,
+            modifier,
+            modify_date,
+            del_flag,
+            application_code,
+            tenant_code,
+            zt_id,
+            org_code
+        ) VALUES (
+            #{id},
+            #{type},
+            #{deptName},
+            #{deptDesc},
+            #{deptLeader},
+            #{parentId},
+            #{sort},
+            #{creator},
+            #{createDate, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{modifier},
+            #{modifyDate, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{delFlag},
+            #{applicationCode},
+            #{tenantCode},
+            #{ztId},
+            #{orgCode}
+        )
+    </insert>
+
+    <insert id="saveEnterprise">
+        INSERT INTO ent_enterprise_base (ztId, companyName, creditCode, createTime, updateTime)
+        VALUE
+        <foreach collection="list" item="enterprise" separator=",">
+            (#{enterprise.ztId}, #{enterprise.companyName}, #{enterprise.orgCode}, #{enterprise.createTime}, #{enterprise.updateTime})
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_dept SET
+        <if test="type != null">
+            type = #{type},
+        </if>
+        <if test="deptName != null">
+            dept_name = #{deptName},
+        </if>
+        <if test="deptDesc != null">
+            dept_desc = #{deptDesc},
+        </if>
+        <if test="deptLeader != null">
+            dept_leader = #{deptLeader},
+        </if>
+        <if test="sort != null">
+            sort = #{sort},
+        </if>
+        <if test="delFlag != null">
+            del_flag = #{delFlag},
+        </if>
+        <if test="ztId != null">
+            zt_id = #{ztId},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        <if test="level != null">
+            level = #{level},
+        </if>
+        <if test="orgCode != null">
+            org_code = #{orgCode},
+        </if>
+        modifier = #{modifier},
+        modify_date = #{modifyDate, jdbcType=TIMESTAMP, javaType=java.util.Date}
+        WHERE
+        <if test="id != null">
+            id = #{id}
+        </if>
+    </update>
+
+    <update id="updateEnterprise">
+        UPDATE ent_enterprise_base
+        SET
+        companyName = #{companyName},
+        ztId = #{ztId},
+        updateTime = #{updateTime}
+        WHERE creditCode = #{orgCode}
+    </update>
+
+    <delete id="delete">
+        UPDATE sys_dept SET
+        del_flag = 1,
+        modifier = #{modifier} ,
+        modify_date = #{modifyDate, jdbcType=TIMESTAMP, javaType=java.util.Date}
+        WHERE ID = #{id}
+    </delete>
+
+    <select id="getListByUser" resultMap="deptResultMap">
+        SELECT
+        <include refid="deptColumns"/>
+        FROM sys_dept a
+        inner join sys_user_dept b on a.id=b.dept_id
+        where b.user_id =#{userId}
+    </select>
+</mapper>

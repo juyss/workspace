@@ -1,0 +1,8 @@
+<root>
+    <item name='org.springframework.util.Assert void hasText(java.lang.String, java.lang.String)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="value" val="&quot;null, _ -&gt; fail&quot;"/>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+</root>

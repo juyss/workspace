@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.webcast.mapper.ChannelSessionMapper">
+    <sql id="columns">
+        a.id as id,
+        a.channelId AS channelId,
+        a.sessionId AS sessionId,
+        a.startTime AS startTime,
+        a.endTime As endTime,
+        a.upload_status As uploadStatus
+    </sql>
+
+    <select id="queryByTime" resultType="com.github.tangyi.webcast.api.model.ChannelSessionInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM channel_session_info a
+        WHERE
+        a.endTime > (
+        SELECT
+        SUBDATE(now(), INTERVAL 30 MINUTE)
+        )
+        and
+        a.endTime IS NOT NULL
+
+    </select>
+
+</mapper>

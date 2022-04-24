@@ -1,0 +1,16 @@
+server:
+  port: 9993
+
+spring:
+  datasource:
+    url: jdbc:mysql://39.100.11.213:3306/work_order?useSSL=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: BDhY4VUITOtp4iuD0GGq
+
+  jpa:
+    show-sql: false
+
+  redis:
+    host: 101.32.184.222
+    port: 6379
+

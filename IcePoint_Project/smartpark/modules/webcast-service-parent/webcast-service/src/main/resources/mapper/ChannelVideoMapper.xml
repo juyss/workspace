@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.webcast.mapper.ChannelVideoMapper">
+    <sql id="columns">
+        a.id                 AS id,
+        a.channel_name       AS channelName,
+        a.channel_id         AS channelId,
+        a.channel_session_id AS channelSessionId,
+        a.file_id            AS fileId,
+        a.file_name          AS fileName,
+        a.file_size          AS fileSize,
+        a.resolution         AS resolution,
+        a.url                AS url,
+        a.bitrate            AS bitrate,
+        a.duration           AS duration,
+        a.start_time         AS startTime,
+        a.end_time           AS endTime,
+        a.obs_uploaded       AS obsUploaded,
+        a.obs_url            AS obsUrl,
+        a.verification_code  AS verificationCode,
+        a.type               AS type
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <where>
+            not EXISTS (select 1 from webcast_channel_dept wd where wd.channel_id = a.channel_id  )
+            AND
+            a.deleted = 0
+            <if test="channelId != null and channelId != ''">
+                AND a.channel_id = #{channelId}
+            </if>
+            <if test="channelSessionId != null and channelSessionId != ''">
+                AND a.channel_session_id = #{channelSessionId}
+            </if>
+            <if test="obsUploaded != null and obsUploaded != ''">
+                AND a.obs_uploaded = #{obsUploaded}
+            </if>
+        </where>
+    </sql>
+
+    <select id="get" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_video a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_video a
+        <include refid="whereColumnList"/>
+        ORDER BY a.start_time DESC
+    </select>
+
+    <select id="findAllList" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        SELECT
+        <include refid="columns"/>
+        FROM webcast_channel_video a
+        <include refid="whereColumnList"/>
+        ORDER BY a.start_time DESC
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into webcast_channel_video
+                (id,
+                 channel_name,
+                 channel_id,
+                 channel_session_id,
+                 file_id,
+                 file_name,
+                 file_size,
+                 resolution,
+                 url,
+                 bitrate,
+                 duration,
+                 start_time,
+                 end_time,
+                 obs_uploaded,
+                 obs_url,
+                 deleted,
+                 verification_code,
+                 `type`
+                 )
+        values (null,
+                #{info.channelName},
+                #{info.channelId},
+                #{info.channelSessionId},
+                #{info.fileId},
+                #{info.fileName},
+                #{info.fileSize},
+                #{info.resolution},
+                #{info.url},
+                #{info.bitrate},
+                #{info.duration},
+                #{info.startTime},
+                #{info.endTime},
+                #{info.obsUploaded},
+                #{info.obsUrl},
+                0,
+                #{info.verificationCode},
+                #{info.type});
+    </insert>
+
+    <insert id="insertAll" useGeneratedKeys="true" keyProperty="id">
+        insert into webcast_channel_video
+                (channel_name,
+                 channel_id,
+                 channel_session_id,
+                 file_id,
+                 file_name,
+                 file_size,
+                 resolution,
+                 url,
+                 bitrate,
+                 duration,
+                 start_time,
+                 end_time ,
+                 verification_code,
+                 `type` )
+                values
+        <foreach collection="list" item="entity" separator=",">
+            (#{entity.channelName},
+             #{entity.channelId},
+             #{entity.channelSessionId},
+             #{entity.fileId},
+             #{entity.fileName},
+             #{entity.fileSize},
+             #{entity.resolution},
+             #{entity.url},
+             #{entity.bitrate},
+             #{entity.duration},
+             #{entity.startTime},
+             #{entity.endTime},
+            #{entity.verificationCode},
+            #{entity.type})
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE webcast_channel_video
+        SET obs_uploaded = #{obsUploaded},
+            obs_url      = #{obsUrl}
+        WHERE file_id = #{fileId}
+    </update>
+
+    <delete id="deleteAll">
+        UPDATE webcast_channel_video
+        SET deleted = 1
+                WHERE id in
+        <foreach item="item" index="index" collection="ids" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="findListChannelById" parameterType="Long" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        select
+        <include refid="columns"/>
+        from
+        webcast_channel_video a
+        where
+        deleted = 0
+        and
+        a.channel_id in
+        <foreach item="item" index="index" collection="list" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getChannelVideoByid" parameterType="Long" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        select
+        <include refid="columns"/>
+        from
+        webcast_channel_video a
+        where
+        deleted = 0
+        and
+        a.id=#{id}
+    </select>
+
+    <select id="queryByChannel" parameterType="com.github.tangyi.webcast.api.model.ChannelVideo" resultType="com.github.tangyi.webcast.api.model.ChannelVideo">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        webcast_channel_video a
+        where
+        a.deleted = 0
+        AND
+        a.obs_uploaded = #{info.obsUploaded}
+        <if test="info.channelId !='' and info.channelId !=null">
+            and a.channel_id = #{info.channelId}
+        </if>
+        order by start_time desc
+    </select>
+
+    <update id="deleteAllChannelId">
+        update
+        webcast_channel_video
+        set
+            deleted = 1
+        where
+              channel_id = #{channelId}
+    </update>
+
+
+</mapper>

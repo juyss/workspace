@@ -1,0 +1,551 @@
+package <%=module%>.example;
+
+import <%=module%>.core.common.util.CheckUtils;
+import <%=module%>.core.common.util.CollectionUtils;
+import <%=module%>.core.mybatis.example.AbstractExample;
+import <%=module%>.model.<%=className%>;
+import tk.mybatis.mapper.entity.EntityColumn;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.Map;<% for(var p in imports) { %>
+import <%=p%>;<% } %>
+
+/**
+ * <%=name%> <%=nameCN%>
+ *
+ * @author <%=author%>
+ * @since <%=date%>
+ */
+public class <%=className%>Example extends AbstractExample<<%=className%>> {
+
+    /**
+     * 排序
+     */
+    protected OrderBy ORDER_BY;
+
+    public <%=className%>Example() {
+        super(<%=className%>.class);
+        this.ORDER_BY = new OrderBy(this, propertyMap);
+    }
+
+    /**
+     * and
+     *
+     * @return
+     */
+    @Override
+    public Criteria and() {
+        Criteria criteria = new Criteria(propertyMap, exists, notNull);
+        criteria.setAndOr("and");
+        oredCriteria.add(criteria);
+        return criteria;
+    }
+
+    /**
+     * order by
+     *
+     * @return
+     */
+    public OrderBy orderBy() {
+        return ORDER_BY;
+    }
+
+    /**
+     * order by
+     */
+    public static class OrderBy extends Example.OrderBy {
+
+        public OrderBy(Example example, Map<String, EntityColumn> propertyMap) {
+            super(example, propertyMap);
+        }
+
+        /**
+         * desc
+         *
+         * @return
+         */
+        @Override
+        public OrderBy desc() {
+            super.desc();
+            return this;
+        }
+
+        /**
+         * asc
+         *
+         * @return
+         */
+        @Override
+        public OrderBy asc() {
+            super.asc();
+            return this;
+        }
+        <% fields.forEach(function(field) { %>
+        /**
+         * order by <%=field.alias%>
+         *
+         * @return
+         */
+        public OrderBy <%=field.name%>() {
+            this.orderBy("<%=field.name%>");
+            return this;
+        }
+        <% }) %>
+    }
+
+    /**
+     * where
+     */
+    public static class Criteria extends Example.Criteria {
+
+        public Criteria(Map<String, EntityColumn> propertyMap, boolean exists, boolean notNull) {
+            super(propertyMap, exists, notNull);
+        }
+<% fields.forEach(function(field) { if (field.name !== 'deleted') { if (field.javaType === 'String') { %>
+        /**
+         * and <%=field.alias%> = ''
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>IsEmpty() {
+            this.andEqualTo("<%=field.name%>", "");
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> != ''
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>IsNotEmpty() {
+            this.andNotEqualTo("<%=field.name%>", "");
+            return this;
+        }
+<% } %>
+        /**
+         * and <%=field.alias%> = value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>EqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.andEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> != value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>NotEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.andNotEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> > value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>GreaterThan(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andGreaterThan("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> >= value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>GreaterThanOrEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andGreaterThanOrEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> < value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>LessThan(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andLessThan("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> <= value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>LessThanOrEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andLessThanOrEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>In(Iterable<<%=field.javaType%>> values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            super.andIn("<%=field.name%>", values);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>In(<%=field.javaType%>... values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            super.andIn("<%=field.name%>", CollectionUtils.initList(values));
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> not in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>NotIn(Iterable<<%=field.javaType%>> values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            super.andNotIn("<%=field.name%>", values);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> not in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>NotIn(<%=field.javaType%>[] values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            super.andNotIn("<%=field.name%>", CollectionUtils.initList(values));
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> between value1 and value2
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>Between(<%=field.javaType%> value1, <%=field.javaType%> value2) {
+            if (CheckUtils.isAnyEmpty(value1, value2)) {
+                return this;
+            }
+            super.andBetween("<%=field.name%>", value1, value2);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> not between value1 and value2
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>NotBetween(<%=field.javaType%> value1, <%=field.javaType%> value2) {
+            if (CheckUtils.isAnyEmpty(value1, value2)) {
+                return this;
+            }
+            super.andNotBetween("<%=field.name%>", value1, value2);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> like value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>Like(String value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andLike("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * and <%=field.alias%> not like value
+         *
+         * @return
+         */
+        public Criteria and<%=field.fnName%>NotLike(String value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            super.andNotLike("<%=field.name%>", value);
+            return this;
+        }<% if (field.javaType === 'String') { %>
+
+        /**
+         * or <%=field.alias%> = ''
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>IsEmpty() {
+            this.orEqualTo("<%=field.name%>", "");
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> != ''
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>IsNotEmpty() {
+            this.orNotEqualTo("<%=field.name%>", "");
+            return this;
+        }<% } %>
+
+        /**
+         * or <%=field.alias%> = value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>EqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> != value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>NotEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orNotEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> > value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>GreaterThan(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orGreaterThan("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> >= value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>GreaterThanOrEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orGreaterThanOrEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> < value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>LessThan(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orLessThan("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> <= value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>LessThanOrEqualTo(<%=field.javaType%> value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orLessThanOrEqualTo("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>In(Iterable<<%=field.javaType%>> values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            this.orIn("<%=field.name%>", values);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>In(<%=field.javaType%>[] values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            this.orIn("<%=field.name%>", CollectionUtils.initList(values));
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> not in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>NotIn(Iterable<<%=field.javaType%>> values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            this.orNotIn("<%=field.name%>", values);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> not in (value1, value2, ...)
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>NotIn(<%=field.javaType%>[] values) {
+            if (CheckUtils.isEmpty(values)) {
+                return this;
+            }
+            this.orNotIn("<%=field.name%>", CollectionUtils.initList(values));
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> between value1 and value2
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>Between(<%=field.javaType%> value1, <%=field.javaType%> value2) {
+            if (CheckUtils.isAnyEmpty(value1, value2)) {
+                return this;
+            }
+            this.orBetween("<%=field.name%>", value1, value2);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> not between value1 and value2
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>NotBetween(<%=field.javaType%> value1, <%=field.javaType%> value2) {
+            if (CheckUtils.isAnyEmpty(value1, value2)) {
+                return this;
+            }
+            this.orNotBetween("<%=field.name%>", value1, value2);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> like value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>Like(String value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orLike("<%=field.name%>", value);
+            return this;
+        }
+
+        /**
+         * or <%=field.alias%> not like value
+         *
+         * @return
+         */
+        public Criteria or<%=field.fnName%>NotLike(String value) {
+            if (CheckUtils.isEmpty(value)) {
+                return this;
+            }
+            this.orNotLike("<%=field.name%>", value);
+            return this;
+        }
+<% }}); if (useBase === 'Y') { %>
+        /**
+         * and deleted = 0
+         *
+         * @return
+         */
+        public Criteria andValid() {
+            this.andEqualTo("delFlag", 0);
+            return this;
+        }
+
+        /**
+         * and deleted = 1
+         *
+         * @return
+         */
+        public Criteria andNotValid() {
+            this.andEqualTo("delFlag", 1);
+            return this;
+        }
+
+        /**
+         * or deleted = 0
+         *
+         * @return
+         */
+        public Criteria orValid() {
+            this.orEqualTo("delFlag", 0);
+            return this;
+        }
+
+        /**
+         * or deleted = 1
+         *
+         * @return
+         */
+        public Criteria orNotValid() {
+            this.orEqualTo("delFlag", 1);
+            return this;
+        }<% } %>
+
+    }
+
+}

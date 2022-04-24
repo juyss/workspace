@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.file.mapper.InstitutionHistoryMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.dataId as 'dataId',
+            a.name as 'name',
+            a.type as 'type',
+            a.fileType as 'fileType',
+            a.auditStatus as 'auditStatus',
+            a.annex as 'annex',
+            a.annexName as 'annexName',
+            a.fileName as 'fileName',
+            a.version as 'version'
+        FROM pk_mgt_institution_history a
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.github.tangyi.file.api.model.InstitutionHistory">
+        insert into pk_mgt_institution_history(
+            dataId,
+            name,
+            type,
+            fileType,
+            auditStatus,
+            annex,
+            annexName,
+            fileName,
+            version
+         )
+        values(
+            #{dataId},
+            #{name},
+            #{type},
+            #{fileType},
+            #{auditStatus},
+            #{annex},
+            #{annexName},
+            #{fileName},
+            #{version}
+        )
+    </insert>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.github.tangyi.file.api.model.InstitutionHistory">
+        insert into pk_mgt_institution_history(
+            dataId,
+            name,
+            type,
+            fileType,
+            auditStatus,
+            annex,
+            annexName,
+            fileName,
+            version
+         )
+        values(
+            #{dataId},
+            #{name},
+            #{type},
+            #{fileType},
+            #{auditStatus},
+            #{annex},
+            #{annexName},
+            #{fileName},
+            #{version}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.github.tangyi.file.api.model.InstitutionHistory">
+        update pk_mgt_institution_history
+        set
+            tabId = #{tabId},
+            dataId = #{dataId},
+            operateTime = #{operateTime},
+            operator = #{operator},
+            operate = #{operate},
+            auditOpinion = #{auditOpinion}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from pk_mgt_institution_history
+        where id = #{id}
+    </delete>
+
+    <update id="deleteByIdList">
+        UPDATE pk_mgt_institution_history SET deleted = 1
+        WHERE id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="deleteById" parameterType="Long">
+        update pk_mgt_institution_history set deleted = 1
+        where id = #{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="com.github.tangyi.file.api.model.InstitutionHistory">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.github.tangyi.file.api.model.InstitutionHistory">
+        <include refid="query"/>
+        <include refid="where"/>
+        ORDER BY a.version DESC
+    </select>
+
+    <select id="find" resultType="com.github.tangyi.file.api.model.InstitutionHistory">
+        <include refid="query"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="listInstitutionHistory" resultType="com.github.tangyi.file.api.model.InstitutionHistory">
+        <include refid="query"/>
+        <if test="list != null and list.size() > 0">
+            WHERE id IN
+            <foreach collection="list" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.dataId == null || entity.dataId == '')">
+                    and dataId = #{entity.dataId}
+                </if>
+                    and deleted = 0
+            </if>
+        </where>
+    </sql>
+</mapper>

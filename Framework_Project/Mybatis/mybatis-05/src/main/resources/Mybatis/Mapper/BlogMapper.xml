@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的DAO接口-->
+<!--id:接口方法名; resultType:返回值类型实体类-->
+<mapper namespace="com.juyss.mapper.BlogMapper">
+
+    <select id="getBlogList" resultType="blog">
+        select * from mybatis.blog
+    </select>
+
+    <select id="getBlogByTitle" resultType="blog">
+        select * from mybatis.blog where title=#{title}
+    </select>
+
+    <select id="queryBlogByInfo" parameterType="map" resultType="blog">
+        select * from mybatis.blog
+            <where>
+                <if test="views!=null">
+                    views=#{views}
+                </if>
+                <if test="title!=null">
+                    and title=#{title}
+                </if>
+                <if test="author!=null">
+                    and author=#{author}
+                </if>
+            </where>
+    </select>
+
+    <insert id="insert" parameterType="blog" >
+        insert into mybatis.blog
+        (id, title, author, create_time, views)
+        VALUES
+        (#{id},#{title},#{author},#{createTime},#{views})
+    </insert>
+
+
+
+</mapper>

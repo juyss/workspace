@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icepoint.framework.workorder.work.dao.WorkTaskClockMapper">
+
+    <select id="findAllByTaskIds" resultType="com.icepoint.framework.workorder.work.entity.WorkTaskClock">
+        select
+        *
+        from work_order_task_clock
+        where
+        task_id in
+        <foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

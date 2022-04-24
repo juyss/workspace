@@ -1,0 +1,13 @@
+server:
+  port: 5673
+
+spring:
+  application:
+    name: rabbitmq-provider
+  # rabbitmq \u914D\u7F6E
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: 102850
+    virtual-host: /host-1

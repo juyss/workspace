@@ -1,0 +1,671 @@
+generic-table:
+  entities:
+    # 园区企业
+    - key: entp
+      name: RES_ED_ENTERPRISE_BASE
+    # 规划管理
+    - key: plan
+      name: RES_PK_PLAN
+    # 基础设施
+    - key: infrastructure
+      name: RES_PK_INFRASTRUCTURE
+    # 公共管廊
+    - key: gallery
+      name: RES_PK_GALLERY
+    # 安全环保应急建设
+    - key: aqhbyj
+      name: RES_PK_AQHBYJ
+    # 工业气体供应
+    - key: gasSupply
+      name: RES_PK_GAS_SUPPLY
+    # 供水能力
+    - key: waterSupply
+      name: RES_PK_WATER_SUPPLY
+    # 污水处理与排水设施
+    - key: sewageDisposal
+      name: RES_PK_SEWAGE_DISPOSAL
+    # 供热与用热设施
+    - key: heatSupply
+      name: RES_PK_HEAT_SUPPLY
+    # 天然气设施
+    - key: naturalGas
+      name: RES_PK_NATURAL_GAS
+    # 固体废物处理装置
+    - key: solidWaste
+      name: RES_PK_SOLID_WASTE
+    # 园区数据-年
+    - key: dataYear
+      name: RES_PK_DATA_YEAR
+    # 园区数据-季
+    - key: dataQuarter
+      name: RES_PK_DATA_QUARTER
+    # 创新能力管理
+    - key: innovationAbility
+      name: RES_PK_INNOVATION_ABILITY
+    # 持证人员管理
+    - key: certificateStaff
+      name: RES_PK_CERTIFICATE_STAFF
+    # 管理制度
+    - key: mgtInstutution
+      name: RES_PK_MGT_INSTITUTION
+    # 大事记
+    - key: recordEvents
+      name: RES_PK_RECORD_EVENTS
+    # 网站图片
+    - key: webPhoto
+      name: RES_PK_WEB_PHOTO
+    # 园区总体指标
+    - key: overallIndxe
+      name: RES_PK_OVERALL_INDXE
+    # 园区例行监测
+    - key: routineMonitor
+      name: RES_PK_ROUTINE_MONITOR
+    # 周边敏感目标
+    - key: sensitiveTarget
+      name: RES_PK_SENSITIVE_TARGET
+    # 企业经营分析
+    - key: econBizAnls
+      name: RES_FAR_ECON_BIZ_ANLS
+    # 近三年经济财务数据
+    - key: econFin
+      name: RES_FAR_ECON_ECON_FIN
+    # 重点项目
+    - key: keyProj
+      name: RES_FAR_ECON_KEY_PROJ
+    # 科技项目
+    - key: techProj
+      name: RES_FAR_ECON_TECH_PROJ
+    # 知识产权
+    - key: ipr
+      name: RES_FAR_ECON_IPR
+    # 外贸外资
+    - key: fnTrade
+      name: RES_FAR_ECON_FN_TRADE
+    # 招商政策
+    - key: cboPolicy
+      name: RES_INFO_CBO_POLICY
+    # 招商项目
+    - key: cboItem
+      name: RES_INFO_CBO_ITEM
+    # 招商动态
+    - key: cboDynamic
+      name: RES_INFO_CBO_DYNAMIC
+    # 我要投资
+    - key: myInvest
+      name: RES_INFO_MY_INVEST
+    # 我要招商
+    - key: myCbo
+      name: RES_INFO_MY_CBO
+    # 用工需求
+    - key: laborNeed
+      name: RES_INFO_LABOR_NEED
+    # 招商政策-园区政策
+    - key: cboPolicyPark
+      name: RES_INFO_CBO_POLICY_PARK
+    # 招商政策-税收政策
+    - key: cboPolicyTax
+      name: RES_INFO_CBO_POLICY_TAX
+    # 基本信息
+    - key: enterpriseBase
+      name: RES_ED_ENTERPRISE_BASE
+    # 重大危险源信息
+    - key: majorHazard
+      name: RES_SS_MAJOR_HAZARD
+    # 隐患台账
+    - key: hiddenDanger
+      name: RES_SS_HIDDEN_DANGER
+    # 管廊管线高后果区
+    - key: tunnelHighrisk
+      name: RES_SS_TUNNEL_HIGHRISK
+    # 储罐信息
+    - key: storageTank
+      name: RES_SS_STORAGE_TANK
+    # 生产装置信息
+    - key: processPlant
+      name: RES_SS_PROCESS_PLANT
+    # 危化品仓库信息
+    - key: hazardsStore
+      name: RES_SS_HAZARDS_STORE
+    # 危化品运输管道
+    - key: hazaedsPipeline
+      name: RES_SS_HAZARDS_PIPELINE
+    # 气体报警仪
+    - key: gasAlarm
+      name: RES_SS_GAS_ALARM
+    # 生产单元区域
+    - key: productUnit
+      name: RES_SS_PRODUCT_UNIT
+    # 应急物资
+    - key: material
+      name: RES_EMER_MATERIAL
+    # 救援队伍
+    - key: rescueTeam
+      name: RES_EMER_RESCUE_TEAM
+    # 应急联动部门
+    - key: linkDept
+      name: RES_EMER_LINK_DEPT
+    # 企业风险单元信息
+    - key: entpRiskUnit
+      name: RES_EP_ENTP_RISK_UNIT
+    # 消防
+    - key: fireCtrl
+      name: RES_FIRE_CTRL
+    # 消防车
+    - key: truck
+      name: RES_FIRE_TRUCK
+    # 重点监管危险化工工艺
+    - key: chemicelTechibology
+      name: RES_FAR_SS_CHEMICEL_TECHBOLOGY
+    # 重点监管危险化学品信息
+    - key: hazardousChemicals
+      name: RES_FAR_SS_HAZARDOUS_CHEMICALS
+    # 职业危害信息
+    - key: proEndager
+      name: RES_FAR_SS_PRO_ENDANGER
+    # 特种作业人员信息
+    - key: specialWorking
+      name: RES_FAR_SS_SPECIAL_WORKING
+    # 特种设备检验
+    - key: specialDevice
+      name: RES_FAR_SS_SPECIAL_DEVICE
+    # 安全生产责任险
+    - key: safeProduction
+      name: RES_FAR_SS_SAFE_PRODUCTION
+    # 安全资格证
+    - key: safeQualification
+      name: RES_FAR_SS_SAFE_QUALIFICATION
+    # 应急车辆
+    - key: emergencyCar
+      name: RES_EMERGENCY_CTRL
+    # 应急人员
+    - key: emergencyCrew
+      name: RES_EMERGENCY_CREW
+    # 应急预案
+    - key: emerPlan
+      name: RES_FAR_EMER_PLAN
+    # 污水在线监控数据
+    - key: epSewageMonitoring
+      name: RES_FAR_EP_SEWAGE_MONITORING
+    # 烟气在线监控数据
+    - key: smokeMonitoring
+      name: RES_FAR_EP_SMOKE_MONITORING
+    # 特征污染物在线监测数据
+    - key: pollutantMonitoring
+      name: RES_FAR_EP_POLLUTANT_MONITORING
+    # 固废和危废管理信息
+    - key: solidwasteHazarwaste
+      name: RES_FAR_EP_SOLIDWASTE_HAZARWASTE
+    # 排污许可证信息
+    - key: dischargePermit
+      name: RES_FAR_EP_DISCHARGE_PERMIT
+    # 清洁生产审核
+    - key: cleanerProduction
+      name: RES_FAR_EP_CLEANER_PRODUCTION
+    # 用能监测
+    - key: energySurvey
+      name: RES_FAR_NGR_ENERGY_SURVEY
+    # 企业能源计量器具
+    - key: energyUtensil
+      name: RES_FAR_NGR_ENERGY_UTENSIL
+    # 企业重点用能设备
+    - key: energyFacility
+      name: RES_FAR_NGR_ENERGY_FACILITY
+    # 新闻动态
+    - key: newsFeed
+      name: RES_INFO_NEWS_FEED
+    # 政务公开
+    - key: affairOpen
+      name: RES_INFO_AFFAIR_OPEN
+    # 政策法规
+    - key: policyLaw
+      name: RES_INFO_POLICY_LAW
+    # 环保及安全信息公开
+    - key: epSecurity
+      name: RES_INFO_EP_SECURITY
+    # 化工园动态
+    - key: campusDynamic
+      name: RES_INFO_CAMPUS_DYNAMIC
+    # 通知公告
+    - key: notice
+      name: RES_INFO_NOTICE
+    # 系统附件
+    - key: sysFileLogs
+      name: RES_SYS_FILE_LOGS
+    # 法律法规
+    - key: lawsRegulations
+      name: PUB_INFO_LAWS_REGULATIONS
+    # 危化品管理
+    - key: dangChemicals
+      name: PUB_INFO_DANG_CHEMICALS
+    # 事故案例
+    - key: accidentCases
+      name: PUB_INFO_ACCIDENT_CASES
+    # 处理处置方法
+    - key: disposalMethod
+      name: PUB_INFO_DISPOSAL_METHOD
+    # 应急检测方法
+    - key: unitFunction
+      name: PUB_INFO_UNIT_FUNCTION
+    # 重点高新企业
+    - key: keyEnt
+      name: RES_PK_KEY_ENT
+    # 省级以上企业研发中心
+    - key: researchCentres
+      name: RES_PK_RESEARCH_CENTRES
+    # 院士工作站
+    - key: academician
+      name: RES_PK_ACADEMICIAN
+    # 专利申请
+    - key: patentApplication
+      name: RES_PK_PATENT_APPLICATION
+    # 土地动态
+    - key: landDynamics
+      name: RES_INFO_LAND_DYNAMICS
+    # 供需池
+    - key: supplyDemand
+      name: RES_INFO_SUNPPLY_DEMAND
+    # 管理机构
+    - key: organization
+      name: RES_PK_ORGANIZATION
+    # 园区基本信息
+    - key: basicInfo
+      name: RES_PK_BASIC_INFO
+    #土地买卖公示
+    - key: landPublicity
+      name: RES_INFO_LAND_PUBLICITY
+    #厂房招租信息
+    - key: plantHire
+      name: RES_INFO_PLANT_HIRE
+    #惠企政策
+    - key: discountEnt
+      name: RES_INFO_DISCOUNT_ENT
+    #简介管理
+    - key: profileManage
+      name: RES_INFO_PROFILE_MANAGE
+    #数据字典
+    - key: dataDictionary
+      name: RES_INFO_DATA_DICTIONARY
+    #监测点位
+    - key: pointMonitoring
+      name: POINT_MONITORING
+    #智能设备列表
+    - key: smartDevices
+      name: SMART_DEVICES
+    #园区能耗
+    - key: parkEnergyUsage
+      name: PARK_ENERGY_USAGE
+    #应急车辆
+    - key: entEmergencyVehicles
+      name: EMERGENCY_VEHICLES
+    #应急人员
+    - key: entEmergencyCrew
+      name: EMERGENCY_CREW
+    #应急物资
+    - key: entEmergencySupplies
+      name: EMERGENCY_SUPPLIES
+    #应急专家
+    - key: entEmergencyExpert
+      name: EMERGENCY_EXPERT
+    #救援队伍
+    - key: entRescueTeam
+      name: RESCUE_TEAM
+    #企业突发事件应急预案
+    - key: entEmergencyPlans
+      name: EMERGENCY_PLANS
+    #供需池回复
+    - key: supplyDemandHf
+      name: RES_INFO_SUNPPLY_DEMAND_HF
+    #重点工艺
+    - key: entKeyTechnology
+      name: KEY_TECHNOLOGY
+    #隐患台账
+    - key: entHiddenDanger
+      name: HIDDEN_DANGER
+    #储罐
+    - key: entStorageTank
+      name: STORAGE_TANK
+    #生产装置
+    - key: entProductionPlant
+      name: PRODUCTION_PLANT
+    #危化品库
+    - key: entHazardousArehouse
+      name: HAZARDOUS_AREHOUSE
+    #总体应急预案
+    - key: entTotalPlan
+      name: TOTAL_PLAN
+    #专项应急预案
+    - key: entSpecialPlan
+      name: SPECIAL_PLAN
+    #现场处置方案
+    - key: entLivePlan
+      name: LIVE_PLAN
+    #安全评价报告
+    - key: safetyEvaluation
+      name: SAFETY_EVALUATION
+    #安全生产许可
+    - key: safetyLicense
+      name: SAFETY_PRODUCTION
+    #安全标准化
+    - key: safetyStandards
+      name: SAFETY_STANDARDS
+    #园区环保指数
+    - key: parkEnvironmental
+      name: PARK_ENVIRONMENTAL
+    #能耗指标
+    - key: energyConsumption
+      name: ENERGY_CONSUMPTION
+    # 消防设施
+    - key: fireFightingFacilities
+      name: FIRE_FIGHTING_FACILITIES
+    # 园区企业信息
+    - key: entInformation
+      name: RES_ENT_INFORMATION
+    # 特征污染物
+    - key: characteristicPollutants
+      name: CHARACTERISTIC_POLLUTANTS
+    # 企业风险单元
+    - key: enterpriseRiskUnit
+      name: ENTERPRISE_RISK_UNIT
+    # 固废危废管理
+    - key: swhwManage
+      name: SWHW_MANAGE
+    # 污水监控数据
+    - key: sewageMonitoring
+      name: SEWAGE_MONITORING
+    # 烟气监控数据
+    - key: smokeMonitoring
+      name: SMOKE_MONITORING
+    # 重大危险源
+    - key: majorDanger
+      name: MAJOR_DANGER
+    # 重点危化品
+    - key: keyChemicals
+      name: KEY_CHEMICALS
+    # 近30天废气排放
+    - key: exhaustEmission
+      name: EXHAUST_EMISSION
+    # 近30天污水排放
+    - key: sewageDischarge
+      name: SEWAGE_DISCHARGE
+    # 管廊管线高后果区
+    - key: highcaPipeGallery
+      name: HIGHCA_PIPE_GALLERY
+    # 生产单元区域
+    - key: productionUnit
+      name: PRODUCTION_UNIT
+    # 重点设备
+    - key: keyEquipment
+      name: KEY_EQUIPMENT
+    # 重点场所
+    - key: keySites
+      name: KEY_SITES
+    # 重点装置
+    - key: keyDevices
+      name: KEY_DEVICES
+    # 危化品运输管道
+    - key: chemicalsPipelines
+      name: CHEMICALS_PIPELINES
+    # 消防人员
+    - key: fireFighter
+      name: FIRE_FIGHTER
+    # 消防车
+    - key: fireEngine
+      name: FIRE_ENGINE
+    # 安监点坐标
+    - key: poiPoint
+      name: POI_POINT
+    # 安监面坐标
+    - key: poiPolygon
+      name: POI_POLYGON
+    # 管理制度历史版本
+    - key: mgtInstututionHistory
+      name: RES_PK_MGT_INSTITUTION_HISTORY
+    # 党建要闻
+    - key: partyNews
+      name: PARTY_BUILDING_NEWS
+    # 线上展厅
+    - key: onlineShowroom
+      name: ONLINE_SHOWROOM
+    # 党建门户
+    - key: partyGateway
+      name: PARTY_BUILDING_GATEWAY
+    # 党建瞭望
+    - key: partyLook
+      name: PARTY_BUILDING_LOOK
+    # 党务指南
+    - key: partyGuide
+      name: PARTY_AFFAIRS_GUIDE
+    # 特色党建
+    - key: partyFeature
+      name: PARTY_BUILDING_FEATURE
+    # 资料库
+    - key: dataBase
+      name: PARTY_DATA_BASE
+    # 文选库
+    - key: literarySelections
+      name: LITERARY_SELECTIONS
+    # 产业资讯
+    - key: lndustryInformation
+      name: LNDUSTRY_INFORMATION
+    # 成果报告
+    - key: resultsReport
+      name: RESULTS_REPORT
+    # 能耗监控
+    - key: energyWarning
+      name: ENERGY_WARNING
+    # 消火栓
+    - key: hydrant
+      name: HYDRANT
+    # 消防水池
+    - key: firepool
+      name: FIREPOOL
+    # 天然水源
+    - key: naturewater
+      name: NATUREWATER
+    # 救援专家
+    - key: expert
+      name: EXPERT
+    # 车辆信息
+    - key: vehicle
+      name: VEHICLE
+    # 消防救援站
+    - key: squadron
+      name: SQUADRON
+    # 重点单位
+    - key: importunit
+      name: IMPORTUNIT
+    # 微型消防站
+    - key: ministation
+      name: MINISTATION
+    # 年缴税排名
+    - key: annualTax
+      name: ANNUAL_TAX
+    # 关闭之前的隐患企业数
+    - key: hiddenDangerEnterprise
+      name: HIDDEN_DANGER_ENTERPRISE
+    # 关闭之前的一般隐患数
+    - key: hiddenDangerCommon
+      name: HIDDEN_DANGER_COMMON
+    # 关闭之前的重点隐患数
+    - key: hiddenDangerImportant
+      name: HIDDEN_DANGER_IMPORTANT
+    # 隐患整改率
+    - key: hiddenDangerRate
+      name: HIDDEN_DANGER_RATE
+    # 待审核隐患数
+    - key: hiddenDangerPending
+      name: HIDDEN_DANGER_PENDING
+    # 待整改隐患数
+    - key: hiddenDangerRepairing
+      name: HIDDEN_DANGER_REPAIRING
+    # 待复查隐患数
+    - key: hiddenDangerReviewing
+      name: HIDDEN_DANGER_REVIEWING
+    # 延期整改隐患数
+    - key: hiddenDangerDelayed
+      name: HIDDEN_DANGER_DELAYED
+    # 关键字搜索
+    - key: seoKeyword
+      name: SEO_KEYWORD
+    # 应急物资装备
+    - key: entEmergencyEquipment
+      name: EMERGENCY_EQUIPMENT
+    # 运输机构
+    - key: transportOrg
+      name: EMERGENCY_TRANSPORT_ORG
+    # 医疗机构
+    - key: medicalTreatmentOrg
+      name: EMERGENCY_MEDICAL_TREATMENT_ORG
+    # 空气监测站点
+    - key: airMonitoringStation
+      name: Air_Monitoring_Station
+    # 通讯机构
+    - key: communicationOrg
+      name: EMERGENCY_COMMUNICATION_ORG
+    #特种作业人员
+    - key: operationStaff
+      name: SPECIAL_OPERATION_STAFF
+    #企业重大危险信息
+    - key: entMajorDanger
+      name: ENT_MAJOR_DANGER
+    #消防站
+    - key: fireStation
+      name: FIRE_STATION
+    #重点监管化工工艺(园区)
+    - key: dangerousChemical
+      name: DANGEROUS_CHEMICAL
+    #重点监管化学品(园区)
+    - key: keyHazardousChemicals
+      name: KEY_HAZARDOUS_CHEMICAL
+    #园区应急人员
+    - key: yqEmergencyCrem
+      name: YQ_EMERGENCY_CREW
+    #技术支持机构
+    - key: etsu
+      name: ETSU
+    #应急预案
+    - key: contingencyPlan
+      name: CONTINGENCY_PLAN
+    #环境
+    - key: environment
+      name: ENVIRONMENT
+    #总体指标
+    - key: theOverAllIndex
+      name: THE_OVERALL_INDEX
+    #例行检测
+    - key: routineTesting
+      name: ROUTINE_TESTING
+    #学校
+    - key: school
+      name: SCHOOL
+    #小区
+    - key: housing
+      name: HOUSING
+    #特种设备检验
+    - key:  specialDeviceIns
+      name: SPECIAL_DEVICE
+    #安全评价报告
+    - key:  hazop
+      name: HAZOP
+    # 政民互动常见问题
+    - key: interactqa
+      name: FREQUENTLY_QUESTIONS_INTERACTION
+    # 园区风险指数
+    - key: safetyChangeTrend
+      name: SAFETY_CHANGE_TREND
+    # 数据字典风险等级编码
+    - key: safetySupervisionAlarms
+      name: SAFETY_SUPERVISION_ALARMS
+    # 能耗使用趋势(园区)
+    - key: energyConsumptionTrend
+      name: ENERGY_CONSUMPTION_TREND
+    #以下为东来新项目测试，部署石家庄项目可以去掉
+    #服务区信息
+    - key: district
+      name: RES_ESD_DISTRICT_INFO
+    #服务区天气
+    - key: weather
+      name: RES_ESD_WEATHER
+    #车场
+    - key: park
+      name: RES_ESD_PARK
+    #车位
+    - key: parkPlace
+      name: RES_ESD_PARK_PLACE
+    #厕所
+    - key: toilet
+      name: RES_ESD_TOILET
+    #旅游信息
+    - key: tourist
+      name: RES_ESD_TOURIST
+    #入口信息屏
+    - key: screen
+      name: RES_ESD_SCREEN
+    #监测数据表
+    - key: monitorData
+      name: RES_ESD_MONITOR_DATA
+    #车场状态
+    - key: parkData
+      name: RES_ESD_PARK_DATA
+    #车位状态
+    - key: parkPlaceData
+      name: RES_ESD_PARK_PLACE_DATA
+    #厕所状态
+    - key: toiletData
+      name: RES_ESD_TOILET_DATA
+    #入口信息屏发布历史数据
+    - key: screenInfo
+      name: RES_ESD_SCREEN_INFO
+    #服务区登录日志
+    - key: esdLoginLog
+      name: RES_ESD_LOGIN_LOG
+    #服务区业务操作日志
+    - key: esdOperateLog
+      name: RES_ESD_OPERATE_LOG
+    #车检器
+    - key: vehicleDetector
+      name: RES_TM_VEHICLE_DETECTOR
+    #可变情报板
+    - key: cms
+      name: RES_TM_CMS
+    #路段
+    - key: roadSection
+      name: RES_TM_ROAD_SECTION
+    #实时交通
+    - key: rtTraffic
+      name: RES_TM_RT_TRAFFIC
+    #可变情报列表
+    - key: cmsData
+      name: RES_TM_CMS_DATA
+    #路段天气
+    - key: roadSectionWeather
+      name: RES_TM_ROAD_SECTION_WEATHER
+    #交通事件
+    - key: trafficIncident
+      name: RES_TM_TRAFFIC_INCIDENT
+    #交通登录日志
+    - key: tmLoginLog
+      name: RES_TM_LOGIN_LOG
+    #交通业务操作日志
+    - key: tmOperateLog
+      name: RES_TM_OPERATE_LOG
+    #车检器状态
+    - key: detectorState
+      name: RES_TM_DETECTOR_STATE
+    #直播设置
+    - key: webcastSetting
+      name: WEBCAST_SETTING
+    #企业能耗监控
+    - key: energyValue
+      name: ENERGY_VALUE
+    #危化工艺统计（企业信息的重点监管工艺）
+    - key: whgytj
+      name: WHGYTJ
+    #危化品统计（企业信息的重点监管危险化学品）
+    - key: whptj
+      name: WHPTJ
+resource:
+  dict-category: RESOURCE_ITEM
+
+hw:
+  host-and-port: https://119.3.217.8:1443

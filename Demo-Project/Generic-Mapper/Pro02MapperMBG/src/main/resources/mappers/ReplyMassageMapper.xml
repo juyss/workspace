@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.shop.mappers.ReplyMassageMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.shop.entities.ReplyMassage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="reply_type" property="replyType" jdbcType="INTEGER" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="reply_pic" property="replyPic" jdbcType="VARCHAR" />
+    <result column="reply_attachment" property="replyAttachment" jdbcType="VARCHAR" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT" />
+    <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-model="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="../static/axios.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="../static/vue.js"></script>
+
+<div id="app">
+    <div>{{items.title}}</div>
+    <label>
+        <input type="text" v-model:value="items.title"/>
+    </label>
+    <button v-on:click="searchInfo">搜索</button>
+    <br>
+    <a href="/">{{items.title}}</a>
+</div>
+
+<script type="text/javascript">
+    let app = new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {
+                    title: '',
+                    site: ''
+                },
+                {
+                    title: '',
+                    site: ''
+                }
+            ]
+        },
+        methods: {
+            searchInfo() {
+                $.getJSON('json/simple.json', data => {
+                    this.items = data;
+                });
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

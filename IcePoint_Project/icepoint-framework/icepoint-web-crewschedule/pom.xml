@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.icepoint.framework.boot</groupId>
+        <artifactId>icepoint-spring-boot-dependencies</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../icepoint-spring-boot-dependencies/pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.icepoint.framework</groupId>
+    <artifactId>icepoint-web-crewschedule</artifactId>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.icepoint.framework</groupId>
+            <artifactId>icepoint-web-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.icepoint.framework</groupId>
+            <artifactId>icepoint-web-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.icepoint.framework</groupId>
+            <artifactId>icepoint-plugin</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

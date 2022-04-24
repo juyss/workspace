@@ -1,0 +1,13 @@
+server:
+  port: 5673
+
+spring:
+  application:
+    name: rabbitmq-provider
+  # rabbitmq 配置
+  rabbitmq:
+    host: 192.168.112.133
+    port: 5672
+    username: user
+    password: 102850
+    virtual-host: /host-1

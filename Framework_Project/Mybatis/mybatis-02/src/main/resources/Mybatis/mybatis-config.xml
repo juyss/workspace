@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="Mybatis/db.properties"/>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <typeAliases>
+<!--        <typeAlias type="com.juyss.pojo.User" alias="User"/>-->
+        <!--        使用package属性可在实体类加注解@@Alias("alias")实现自定义别名-->
+                <package name="com.juyss.pojo"/>
+    </typeAliases>
+
+
+    <!--    环境配置-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--数据库配置信息-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    映射配置文件-->
+    <mappers>
+        <mapper resource="Mybatis/Mapper/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

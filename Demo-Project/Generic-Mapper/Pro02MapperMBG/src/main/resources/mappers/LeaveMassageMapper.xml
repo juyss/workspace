@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.shop.mappers.LeaveMassageMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.shop.entities.LeaveMassage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="internet_name" property="internetName" jdbcType="VARCHAR" />
+    <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
+    <result column="postal_code" property="postalCode" jdbcType="INTEGER" />
+    <result column="residential_address" property="residentialAddress" jdbcType="VARCHAR" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="message_theme" property="messageTheme" jdbcType="VARCHAR" />
+    <result column="message_pic" property="messagePic" jdbcType="VARCHAR" />
+    <result column="message_attachment" property="messageAttachment" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifier_id" property="modifierId" jdbcType="BIGINT" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="reply_status" property="replyStatus" jdbcType="INTEGER" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="message_content" property="messageContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

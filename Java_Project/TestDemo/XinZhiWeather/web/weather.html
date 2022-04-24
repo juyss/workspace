@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看天气</title>
+    <script src="js/jquery.min.js"></script>
+    <script>
+    // "https://api.seniverse.com/v3/weather/now.json?key=S2zymm_ymdywI-zHY&location=zhengzhou&language=zh-Hans&unit=c"
+    // {
+    //     "results": [{
+    //         "location": {
+    //             "id": "WW0V9QP93VS8",
+    //             "name": "郑州",
+    //             "country": "CN",
+    //             "path": "郑州,郑州,河南,中国",
+    //             "timezone": "Asia/Shanghai",
+    //             "timezone_offset": "+08:00"
+    //         },
+    //         "now": {
+    //             "text": "阴",
+    //             "code": "9",
+    //             "temperature": "25"
+    //         },
+    //         "last_update": "2020-09-16T22:50:00+08:00"
+    //     }]
+    // }
+        $(function () {
+            $("#query").click(function () {
+                alert("响应点击事件");
+                let url = "http://api.seniverse.com/v3/weather/now.json";
+                let args = {"key":"S2zymm_ymdywI-zHY","location":"zhengzhou","language":"zh-Hans","unit":"c"};
+                // $.get(url, args , function (data) {
+                //     let json = JSON.parse(data);
+                //     let temperature = (json.results)[1].now.temperature;
+                //     console.log(temperature);
+                // });
+                $.ajax({
+                    url:"https://api.seniverse.com/v3/weather/now.json?key=S2zymm_ymdywI-zHY&location=zhengzhou&language=zh-Hans&unit=c",
+                    dataType:"json",
+                    type:"GET",
+                    success:function (msg) {
+                        for (let i in msg.results) {
+                            let info =msg[i];
+                            alert(info.length);
+                        }
+                    }
+                });
+            });
+        });
+</script>
+</head>
+<body>
+<a href="http://api.seniverse.com/v3/weather/now.json?key=S2zymm_ymdywI-zHY&location=zhengzhou&language=zh-Hans&unit=c">查看天气</a>
+<button id="query">查看天气</button>
+</body>
+</html>

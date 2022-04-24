@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.sys.mapper.FileMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.objType as 'objType',
+            a.objId as 'objId',
+            a.bizCode as 'bizCode',
+            a.fileClass as 'fileClass',
+            a.folderId as 'folderId',
+            a.fileKey as 'fileKey',
+            a.name as 'name',
+            a.duration as 'duration',
+            a.fileSize as 'fileSize',
+            a.fileName as 'fileName',
+            a.filePxf as 'filePxf',
+            a.fileType as 'fileType',
+            a.width as 'width',
+            a.height as 'height',
+            a.thumbFile as 'thumbFile',
+            a.fileDesc as 'fileDesc',
+            a.status as 'status',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createUser as 'createUser',
+            a.createTime as 'createTime',
+            a.modifyUser as 'modifyUser',
+            a.modifyTime as 'modifyTime',
+            a.deleted as 'deleted'
+        FROM t_sys_file_logs a
+    </sql>
+
+    <insert id="save" parameterType="com.icepoint.base.web.sys.entity.File">
+        insert into t_sys_file_logs(
+            id,
+            objType,
+            objId,
+            bizCode,
+            fileClass,
+            folderId,
+            fileKey,
+            name,
+            duration,
+            fileSize,
+            fileName,
+            filePxf,
+            fileType,
+            width,
+            height,
+            thumbFile,
+            fileDesc,
+            status,
+            ownerId,
+            appId,
+            createUser,
+            createTime,
+            modifyUser,
+            modifyTime,
+            deleted
+        )
+        values(
+            #{id},
+            #{objType},
+            #{objId},
+            #{bizCode},
+            #{fileClass},
+            #{folderId},
+            #{fileKey},
+            #{name},
+            #{duration},
+            #{fileSize},
+            #{fileName},
+            #{filePxf},
+            #{fileType},
+            #{width},
+            #{height},
+            #{thumbFile},
+            #{fileDesc},
+            #{status},
+            #{ownerId},
+            #{appId},
+            #{createUser},
+            #{createTime},
+            #{modifyUser},
+            #{modifyTime},
+            #{deleted}
+        )
+    </insert>
+
+    <insert id="saveByMybatis" useGeneratedKeys="true" keyProperty="id">
+        insert into t_sys_file_logs(
+            id,
+            objType,
+            objId,
+            bizCode,
+            fileClass,
+            folderId,
+            fileKey,
+            name,
+            duration,
+            fileSize,
+            fileName,
+            filePxf,
+            fileType,
+            width,
+            height,
+            thumbFile,
+            fileDesc,
+            status,
+            ownerId,
+            appId,
+            createUser,
+            createTime,
+            modifyUser,
+            modifyTime,
+            deleted
+        )
+        values(
+            #{id},
+            #{objType},
+            #{objId},
+            #{bizCode},
+            #{fileClass},
+            #{folderId},
+            #{fileKey},
+            #{name},
+            #{duration},
+            #{fileSize},
+            #{fileName},
+            #{filePxf},
+            #{fileType},
+            #{width},
+            #{height},
+            #{thumbFile},
+            #{fileDesc},
+            #{status},
+            #{ownerId},
+            #{appId},
+            #{createUser},
+            #{createTime},
+            #{modifyUser},
+            #{modifyTime},
+            #{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.web.sys.entity.File">
+        update t_sys_file_logs
+        set
+            id = #{id},
+            objType = #{objType},
+            objId = #{objId},
+            bizCode = #{bizCode},
+            fileClass = #{fileClass},
+            folderId = #{folderId},
+            fileKey = #{fileKey},
+            name = #{name},
+            duration = #{duration},
+            fileSize = #{fileSize},
+            fileName = #{fileName},
+            filePxf = #{filePxf},
+            fileType = #{fileType},
+            width = #{width},
+            height = #{height},
+            thumbFile = #{thumbFile},
+            fileDesc = #{fileDesc},
+            status = #{status},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createUser = #{createUser},
+            createTime = #{createTime},
+            modifyUser = #{modifyUser},
+            modifyTime = #{modifyTime},
+            deleted = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from t_sys_file_logs
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.web.sys.entity.File">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.web.sys.entity.File">
+        <include refid="query"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.web.sys.entity.File">
+        <include refid="query"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="getFileList" resultType="java.lang.String">
+        SELECT value FROM t_tab_head
+        WHERE name = 'annex' AND docNo IN (
+        <foreach collection="list" item="docNo" separator=",">
+            #{docNo}
+        </foreach>
+        )
+    </select>
+
+    <select id="getOriginalName" resultType="java.lang.String">
+        SELECT value FROM t_tab_head a INNER JOIN (SELECT docNo FROM t_tab_head WHERE value = #{fileName}) b ON a.docNo = b.docNo WHERE a.name = 'name';
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.objType == null || entity.objType == '')">
+                    and objType = #{entity.objType}
+                </if>
+                <if test="!(entity.objId == null || entity.objId == '')">
+                    and objId = #{entity.objId}
+                </if>
+                <if test="!(entity.bizCode == null || entity.bizCode == '')">
+                    and bizCode = #{entity.bizCode}
+                </if>
+                <if test="!(entity.fileClass == null || entity.fileClass == '')">
+                    and fileClass = #{entity.fileClass}
+                </if>
+                <if test="!(entity.folderId == null || entity.folderId == '')">
+                    and folderId = #{entity.folderId}
+                </if>
+                <if test="!(entity.fileKey == null || entity.fileKey == '')">
+                    and fileKey = #{entity.fileKey}
+                </if>
+                <if test="!(entity.name == null || entity.name == '')">
+                    and name = #{entity.name}
+                </if>
+                <if test="!(entity.duration == null || entity.duration == '')">
+                    and duration = #{entity.duration}
+                </if>
+                <if test="!(entity.fileSize == null || entity.fileSize == '')">
+                    and fileSize = #{entity.fileSize}
+                </if>
+                <if test="!(entity.fileName == null || entity.fileName == '')">
+                    and fileName = #{entity.fileName}
+                </if>
+                <if test="!(entity.filePxf == null || entity.filePxf == '')">
+                    and filePxf = #{entity.filePxf}
+                </if>
+                <if test="!(entity.fileType == null || entity.fileType == '')">
+                    and fileType = #{entity.fileType}
+                </if>
+                <if test="!(entity.width == null || entity.width == '')">
+                    and width = #{entity.width}
+                </if>
+                <if test="!(entity.height == null || entity.height == '')">
+                    and height = #{entity.height}
+                </if>
+                <if test="!(entity.thumbFile == null || entity.thumbFile == '')">
+                    and thumbFile = #{entity.thumbFile}
+                </if>
+                <if test="!(entity.fileDesc == null || entity.fileDesc == '')">
+                    and fileDesc = #{entity.fileDesc}
+                </if>
+                <if test="!(entity.status == null || entity.status == '')">
+                    and status = #{entity.status}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.modifyUser == null || entity.modifyUser == '')">
+                    and modifyUser = #{entity.modifyUser}
+                </if>
+                <if test="!(entity.modifyTime == null || entity.modifyTime == '')">
+                    and modifyTime = #{entity.modifyTime}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

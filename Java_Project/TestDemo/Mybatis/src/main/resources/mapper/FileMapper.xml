@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juyss.mapper.FileMapper">
+<!--    查询所有数据-->
+    <select id="getAllFile" resultType="com.juyss.pojo.File">
+        select * from `mybatis`.`user`
+    </select>
+
+<!--    查询指定数据-->
+    <select id="getFileById" resultType="com.juyss.pojo.File" parameterType="int">
+        select * from `mybatis`.`user` where id=#{id}
+    </select>
+
+<!--    添加一条数据-->
+    <insert id="insertFile" parameterType="com.juyss.pojo.File">
+        insert into `mybatis`.`user` (`id`,`name`,`pwd`) values (#{id},#{name},#{path})
+    </insert>
+
+<!--    删除指定数据-->
+    <delete id="deleteFileById" parameterType="int">
+        delete from `mybatis`.`user` where `id`=#{id}
+    </delete>
+
+<!--    更新指定数据-->
+    <update id="updateFile" parameterType="com.juyss.pojo.File">
+        update `mybatis`.`user` set `id`=#{id}, `name`=#{name}, `pwd`=#{path} where id=#{id}
+    </update>
+</mapper>

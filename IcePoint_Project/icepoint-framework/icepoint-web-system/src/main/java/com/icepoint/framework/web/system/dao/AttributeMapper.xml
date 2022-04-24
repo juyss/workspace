@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icepoint.framework.web.system.dao.AttributeMapper">
+
+    <sql id="sys_attribute_fields">
+        id
+        , owner_id,obj_type,obj_id,name,value,group_id,attr_idx,status,app_id
+    </sql>
+
+    <sql id="sys_multi_attribute_fields">
+        id
+        , owner_id, obj_type, obj_id, name, value, multi_idx, app_id,attr_idx, status, group_id
+    </sql>
+
+    <sql id="sys_label_fields">
+        id
+        ,obj_type,obj_id,label_id,platform_id, owner_id, app_id, create_user, create_time, update_user, update_time, deleted
+    </sql>
+
+    <sql id="sys_label_def_fields">
+        id
+        ,category,type,name,describe,param,parent_id,platform_id, owner_id, app_id, create_user, create_time, update_user, update_time, deleted
+    </sql>
+
+    <insert id="addAttrs">
+        insert into sys_attribute(
+        <include refid="sys_attribute_fields"></include>
+        )
+        values
+        <foreach collection="attrs" item="attr" separator=",">
+            ( #{attr.ownerId},#{attr.objType},#{attr.objId},#{attr.name},#{attr.value},#{attr.groupId},#{attr.attrIdx},
+            #{attr.status},#{attr.appId} )
+        </foreach>
+    </insert>
+
+    <insert id="addMultiAttrs">
+        insert into sys_multi_attribute(
+        <include refid="sys_multi_attribute_fields"></include>
+        )
+        values
+        <foreach collection="multiAttrs" item="multiAttr" separator=",">
+            ( #{multiAttr.id},#{multiAttr.ownerId},#{multiAttr.objType},#{multiAttr.objId},#{multiAttr.name},
+            #{multiAttr.value},#{multiAttr.multiIdx},#{multiAttr.appId},#{multiAttr.attrIdx},#{multiAttr.status},
+            #{multiAttr.groupId} )
+        </foreach>
+    </insert>
+
+    <insert id="addObjLabels">
+        insert into sys_label (
+        <include refid="sys_label_fields"></include>
+        )
+        values
+        <foreach collection="labels" item="label" separator=",">
+            ( #{label.id},#{label.objType},#{label.objId},#{label.labelId},#{label.platformId}, #{label.ownerId},
+            #{label.appId}, #{label.createUser}, #{label.createTime}, #{label.updateUser}, #{label.updateTime},
+            #{label.deleted} )
+        </foreach>
+    </insert>
+
+</mapper>

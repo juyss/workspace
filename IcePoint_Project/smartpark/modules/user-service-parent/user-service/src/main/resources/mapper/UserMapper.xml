@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.user.mapper.UserMapper">
+    <resultMap id="userResultMap" type="com.github.tangyi.user.api.module.User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar_id" property="avatarId"/>
+        <result column="email" property="email"/>
+        <result column="sex" property="sex"/>
+        <result column="born" property="born" jdbcType="DATE" javaType="java.util.Date"/>
+        <result column="user_desc" property="userDesc"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="status" property="status"/>
+        <result column="parent_uid" property="parentUid"/>
+        <result column="street_id" property="streetId"/>
+        <result column="county_id" property="countyId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="login_time" property="loginTime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="lock_time" property="lockTime" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="wechat" property="wechat"/>
+        <result column="signature" property="signature"/>
+        <result column="family_role" property="familyRole"/>
+        <result column="creator" property="creator"/>
+        <result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_date" property="modifyDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="application_code" property="applicationCode"/>
+        <result column="tenant_code" property="tenantCode"/>
+    </resultMap>
+
+    <sql id="userColumns">
+        a.id,
+        a.name,
+        a.phone,
+        a.avatar_id,
+        a.email,
+        a.sex,
+        a.born,
+        a.user_desc,
+        a.dept_id,
+        a.status,
+        a.parent_uid,
+        a.street_id,
+        a.county_id,
+        a.city_id,
+        a.province_id,
+        a.login_time,
+        a.lock_time,
+        a.wechat,
+        a.signature,
+        a.family_role,
+        a.creator,
+        a.create_date,
+        a.modifier,
+        a.modify_date,
+        a.del_flag,
+        a.application_code,
+        a.tenant_code
+    </sql>
+
+    <!-- where 条件 -->
+    <sql id="whereColumnList">
+        <if test="parentUid != null and parentUid != ''">
+            and a.parent_uid = #{parentUid}
+        </if>
+        <if test="name != null and name != ''">
+            and (
+            a.name like CONCAT('%', #{name},'%')
+            or a.phone like CONCAT('%', #{name},'%')
+            or exists (select id from sys_user_auths where user_id=a.id and identifier like CONCAT('%', #{name},'%'))
+            )
+        </if>
+        <if test="born != null and born != '' ">
+            and a.born like #{born}
+        </if>
+        <if test="phone != null and phone != ''">
+            and a.phone like #{phone}
+        </if>
+        <if test="email != null and email != ''">
+            and a.email = #{email}
+        </if>
+        <if test="status != null and status != ''">
+            and a.status = #{status, jdbcType=INTEGER}
+        </if>
+        <if test="tenantCode != null and tenantCode != ''">
+            and a.tenant_code = #{tenantCode}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            and (exists (select id from sys_user_dept where user_id=a.id and dept_id in (select id from sys_dept where locate(#{deptName},dept_name )))
+            or a.dept_id in  (select id from sys_dept where locate(#{deptName},dept_name )))
+        </if>
+        <if test="deptId != null">
+            and exists (select id from sys_user_dept where user_id=a.id and dept_id=#{deptId})
+        </if>
+    </sql>
+
+    <select id="getById" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        FROM sys_user a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="get" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        FROM sys_user a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="userCount" resultType="Integer">
+        SELECT COUNT(1) FROM sys_user a
+        WHERE a.del_flag = 0 and a.tenant_code = #{tenantCode}
+    </select>
+
+    <select id="findList" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        ,case when (select count(ur.id) num from sys_user_role ur inner join sys_role r on r.id=ur.role_id and
+        r.del_flag=0 where ur.user_id=a.id)>0 then 1 else 0 end as num
+        FROM sys_user a
+        WHERE a.del_flag = 0
+        <include refid="whereColumnList"/>
+        order by num desc, id desc
+    </select>
+
+    <select id="findListById" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        FROM sys_user a
+        WHERE a.id IN
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by id desc
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="insert">
+        insert into sys_user (
+            id,
+            name,
+            phone,
+            avatar_id,
+            email,
+            sex,
+            born,
+            user_desc,
+            dept_id,
+            status,
+            parent_uid,
+            street_id,
+            county_id,
+            city_id,
+            province_id,
+            login_time,
+            lock_time,
+            wechat,
+            signature,
+            family_role,
+            creator,
+            create_date,
+            modifier,
+            modify_date,
+            del_flag,
+            application_code,
+            tenant_code
+        ) values (
+            #{id},
+            #{name},
+            #{phone},
+            #{avatarId},
+            #{email},
+            #{sex, jdbcType=INTEGER},
+            #{born, jdbcType=DATE, javaType=java.util.Date},
+            #{userDesc},
+            #{deptId},
+            #{status, jdbcType=INTEGER},
+            #{parentUid},
+            #{streetId},
+            #{countyId},
+            #{cityId},
+            #{provinceId},
+            #{loginTime, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{lockTime, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{wechat},
+            #{signature},
+            #{familyRole, jdbcType=INTEGER},
+            #{creator},
+            #{createDate, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{modifier},
+            #{modifyDate, jdbcType=TIMESTAMP, javaType=java.util.Date},
+            #{delFlag, jdbcType=INTEGER},
+            #{applicationCode},
+            #{tenantCode}
+        );
+    </insert>
+
+    <!-- 更新用户 -->
+    <update id="update">
+        update sys_user set
+        <if test="name != null">
+            name = #{name} ,
+        </if>
+        <if test="phone != null">
+            phone = #{phone} ,
+        </if>
+        <if test="avatarId != null">
+            avatar_id = #{avatarId} ,
+        </if>
+        <if test="email != null">
+            email = #{email} ,
+        </if>
+        <if test="sex != null">
+            sex = #{sex, jdbcType=INTEGER} ,
+        </if>
+        <if test="born != null">
+            born = #{born} ,
+        </if>
+        <if test="userDesc != null">
+            user_desc = #{userDesc} ,
+        </if>
+        <if test="deptId != null">
+            dept_id = #{deptId} ,
+        </if>
+        <if test="status != null">
+            status = #{status, jdbcType=INTEGER} ,
+        </if>
+        <if test="parentUid != null">
+            parent_uid = #{parentUid} ,
+        </if>
+        <if test="streetId != null">
+            street_id = #{streetId} ,
+        </if>
+        <if test="countyId != null">
+            county_id = #{countyId} ,
+        </if>
+        <if test="cityId != null">
+            city_id = #{cityId} ,
+        </if>
+        <if test="provinceId != null">
+            province_id = #{provinceId} ,
+        </if>
+        <if test="loginTime != null">
+            login_time = #{loginTime, jdbcType=TIMESTAMP, javaType=java.util.Date} ,
+        </if>
+        <if test="lockTime != null">
+            lock_time = #{lockTime, jdbcType=TIMESTAMP, javaType=java.util.Date} ,
+        </if>
+        <if test="wechat != null">
+            wechat = #{wechat} ,
+        </if>
+        <if test="signature != null">
+            signature = #{signature} ,
+        </if>
+        <if test="familyRole != null">
+            family_role = #{familyRole, jdbcType=INTEGER} ,
+        </if>
+        <if test="creator != null">
+            creator = #{creator} ,
+        </if>
+        <if test="createDate != null">
+            create_date = #{createDate, jdbcType=TIMESTAMP} ,
+        </if>
+        <if test="delFlag != null">
+            del_flag = #{delFlag, jdbcType=INTEGER} ,
+        </if>
+        <if test="applicationCode != null">
+            application_code = #{applicationCode} ,
+        </if>
+        <if test="modifier != null">
+            modifier = #{modifier} ,
+        </if>
+        modify_date = #{modifyDate, jdbcType=TIMESTAMP, javaType=java.util.Date}
+        where id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM sys_user WHERE id = #{id}
+    </update>
+
+    <delete id="deleteAll">
+        DELETE FROM sys_user
+        WHERE id in
+        <foreach item="item" index="index" collection="ids" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+    </delete>
+
+    <!-- 查询普通用户和统一认证用户 -->
+    <select id="roleUserUserList" parameterType="Map" resultType="Map">
+        select
+        concat(u.id,'') id,
+        ifnull(u.name,'') name,
+        ifnull(u.phone,'') phone,
+        u.login_time loginTime,
+        u.status,
+        ifnull(u.sex,0) sex,
+        if(d.parent_id>0,if(d.id is not null,concat(d.id,''),'' ),null) deptId,
+        if(d.parent_id>0,d.dept_name,'') deptName,
+        if(d.parent_id>0,d2.dept_name,d.dept_name) companyName,
+        if(d.parent_id>0,if(d2.id is not null,concat(d2.id,''),'' ),if(d.id is not null,concat(d.id,''),'' )) companyId,
+        ifnull(u.email,'') email
+        from sys_user u
+        <!-- 注释掉，可以关联统一认证用户 -->
+        <!--inner join sys_user_role ur on ur.user_id=u.id
+        inner join sys_role r on r.id=ur.role_id and r.role_code='role_user'and r.del_flag=0-->
+        left join sys_dept d on u.dept_id=d.id and d.del_flag=0
+        left join sys_dept d2 on d.parent_id=d2.id and d2.del_flag=0
+        where u.del_flag=0
+        and u.tenant_code = #{tenantCode}
+        <if test="name!=null and name!=''">
+            and LOCATE(#{name},u.name) >0
+        </if>
+        <if test="phone!=null and phone!=''">
+            and LOCATE(#{phone},u.phone) >0
+        </if>
+        <if test="companyName!=null and companyName!=''">
+            and (LOCATE(#{companyName},d.dept_name) >0 or LOCATE(#{companyName},d2.dept_name) >0)
+        </if>
+        <if test="startTime!=null and startTime!= ''">
+            and u.create_date &gt;= #{startTime}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and u.create_date &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and u.create_date &lt;= #{endTime}
+        </if>
+        <if test="excludeExaminationId!=null and excludeExaminationId !=0">
+            <!-- 二选一，上面语句配合前面解掉注释用来关联本系统用户，下面语句配合注释关联统一认证用户 -->
+            <!--AND ur.user_id NOT IN-->
+            AND u.id NOT IN
+            (
+            SELECT c.user_id from exam_examination_user_relation c
+            WHERE c.examination_id = #{excludeExaminationId}
+            )
+        </if>
+        order by ${sort} ${order}
+    </select>
+
+    <!-- 查询普通用户 -->
+    <select id="commonUserList" parameterType="Map" resultType="Map">
+        select
+        concat(u.id,'') id,
+        ifnull(u.name,'') name,
+        ifnull(u.phone,'') phone,
+        u.login_time loginTime,
+        u.status,
+        ifnull(u.sex,0) sex,
+        if(d.parent_id>0,if(d.id is not null,concat(d.id,''),'' ),null) deptId,
+        if(d.parent_id>0,d.dept_name,'') deptName,
+        if(d.parent_id>0,d2.dept_name,d.dept_name) companyName,
+        if(d.parent_id>0,if(d2.id is not null,concat(d2.id,''),'' ),if(d.id is not null,concat(d.id,''),'' )) companyId,
+        ifnull(u.email,'') email
+        from sys_user u
+        inner join sys_user_role ur on ur.user_id=u.id
+        inner join sys_role r on r.id=ur.role_id and r.role_code='role_user'and r.del_flag=0
+        left join sys_dept d on u.dept_id=d.id and d.del_flag=0
+        left join sys_dept d2 on d.parent_id=d2.id and d2.del_flag=0
+        where u.del_flag=0
+        and u.tenant_code = #{tenantCode}
+        <if test="name!=null and name!=''">
+            and LOCATE(#{name},u.name) >0
+        </if>
+        <if test="phone!=null and phone!=''">
+            and LOCATE(#{phone},u.phone) >0
+        </if>
+        <if test="companyName!=null and companyName!=''">
+            and (LOCATE(#{companyName},d.dept_name) >0 or LOCATE(#{companyName},d2.dept_name) >0)
+        </if>
+        <if test="startTime!=null and startTime!= ''">
+            and u.create_date &gt;= #{startTime}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and u.create_date &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and u.create_date &lt;= #{endTime}
+        </if>
+        order by ${sort} ${order}
+    </select>
+
+
+
+    <select id="getUserDeptList" resultType="com.github.tangyi.user.api.module.Dept">
+        SELECT d.id, d.dept_name AS deptName FROM sys_user_dept ud LEFT JOIN sys_dept d ON ud.dept_id = d.id WHERE ud.user_id = #{userId};
+    </select>
+
+
+</mapper>

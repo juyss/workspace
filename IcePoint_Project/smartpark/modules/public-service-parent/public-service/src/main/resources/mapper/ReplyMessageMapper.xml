@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.message.mapper.ReplyMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.github.tangyi.message.entity.ReplyMessage">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="message_id" property="messageId" jdbcType="BIGINT"/>
+        <result column="reply_type" property="replyType" jdbcType="INTEGER"/>
+        <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_pic" property="replyPic" jdbcType="VARCHAR"/>
+        <result column="reply_attachment" property="replyAttachment" jdbcType="VARCHAR"/>
+        <result column="reply_user_id" property="replyUserId" jdbcType="BIGINT"/>
+        <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+
+    <!--  全部字段  -->
+    <sql id="base_column">
+            id,
+            message_id,
+            reply_type,
+            reply_content,
+            reply_time,
+            reply_pic,
+            reply_attachment,
+            reply_user_id,
+            reply_user_name
+    </sql>
+
+    <!--  添加一条回复数据  -->
+    <insert id="insertReply">
+        insert into msg_message_reply
+        (
+        <include refid="base_column"/>
+        )
+        values
+        (
+        #{id},
+        #{messageId},
+        #{replyType},
+        #{replyContent},
+        #{replyTime},
+        #{replyPic},
+        #{replyAttachment},
+        #{replyUserId},
+        #{replyUserName}
+        )
+    </insert>
+
+    <!--  根据留言ID批量删除回复  -->
+    <delete id="deleteByMessageId">
+        delete
+        from msg_message_reply
+        where
+        message_id IN
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--  根据主键ID删除回复  -->
+    <delete id="deleteById">
+        delete
+        from msg_message_reply
+        where id=#{id}
+    </delete>
+
+    <!--  根据主键ID查询回复  -->
+    <select id="getReplyById" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from msg_message_reply
+        where id=#{id}
+        and del_flag=0
+    </select>
+
+    <!--  根据留言ID查询回复  -->
+    <select id="getReplyByMessageId" resultMap="BaseResultMap">
+        select
+        <include refid="base_column"/>
+        from msg_message_reply
+        where message_id=#{messageId}
+        and del_flag=0
+        order by reply_time;
+    </select>
+</mapper>

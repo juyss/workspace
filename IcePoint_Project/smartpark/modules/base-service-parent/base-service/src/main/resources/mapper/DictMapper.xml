@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.sys.mapper.DictMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.category as 'category',
+            a.categoryEn as 'categoryEn',
+            a.item as 'item',
+            a.itemEn as 'itemEn',
+            a.cval as 'cval',
+            a.cvalEn as 'cvalEn',
+            a.use_icon as 'use_icon',
+            a.icon as 'icon',
+            a.parentId as 'parentId',
+            a.level as 'level',
+            a.idx as 'idx',
+            a.note as 'note',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createUser as 'createUser',
+            a.createTime as 'createTime',
+            a.modifyUser as 'modifyUser',
+            a.modifyTime as 'modifyTime',
+            a.deleted as 'deleted'
+        FROM t_sys_dict a
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.icepoint.base.web.sys.entity.Dict">
+        insert into t_sys_dict(
+            id,
+            category,
+            categoryEn,
+            item,
+            itemEn,
+            cval,
+            cvalEn,
+            use_icon,
+            icon,
+            parentId,
+            level,
+            idx,
+            note,
+            ownerId,
+            appId,
+            createUser,
+            createTime,
+            modifyUser,
+            modifyTime,
+            deleted
+        )
+        values(
+            #{id},
+            #{category},
+            #{categoryEn},
+            #{item},
+            #{itemEn},
+            #{cval},
+            #{cvalEn},
+            #{use_icon},
+            #{icon},
+            #{parentId},
+            #{level},
+            #{idx},
+            #{note},
+            #{ownerId},
+            #{appId},
+            #{createUser},
+            #{createTime},
+            #{modifyUser},
+            #{modifyTime},
+            #{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.web.sys.entity.Dict">
+        update t_sys_dict
+        set
+            category = #{category},
+            categoryEn = #{categoryEn},
+            item = #{item},
+            itemEn = #{itemEn},
+            cval = #{cval},
+            cvalEn = #{cvalEn},
+            use_icon = #{use_icon},
+            icon = #{icon},
+            parentId = #{parentId},
+            level = #{level},
+            idx = #{idx},
+            note = #{note},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createUser = #{createUser},
+            createTime = #{createTime},
+            modifyUser = #{modifyUser},
+            modifyTime = #{modifyTime},
+            deleted = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from t_sys_dict
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.web.sys.entity.Dict">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.web.sys.entity.Dict">
+        <include refid="query" />
+        <include refid="where" />
+        ORDER BY a.idx ASC
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.web.sys.entity.Dict">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.category == null || entity.category == '')">
+                    and category = #{entity.category}
+                </if>
+                <if test="!(entity.categoryEn == null || entity.categoryEn == '')">
+                    and categoryEn = #{entity.categoryEn}
+                </if>
+                <if test="!(entity.item == null || entity.item == '')">
+                    and item = #{entity.item}
+                </if>
+                <if test="!(entity.itemEn == null || entity.itemEn == '')">
+                    and itemEn = #{entity.itemEn}
+                </if>
+                <if test="!(entity.cval == null || entity.cval == '')">
+                    and cval = #{entity.cval}
+                </if>
+                <if test="!(entity.cvalEn == null || entity.cvalEn == '')">
+                    and cvalEn = #{entity.cvalEn}
+                </if>
+                <if test="!(entity.use_icon == null || entity.use_icon == '')">
+                    and use_icon = #{entity.use_icon}
+                </if>
+                <if test="!(entity.icon == null || entity.icon == '')">
+                    and icon = #{entity.icon}
+                </if>
+                <if test="!(entity.parentId == null || entity.parentId == '')">
+                    and parentId = #{entity.parentId}
+                </if>
+                <if test="!(entity.level == null || entity.level == '')">
+                    and level = #{entity.level}
+                </if>
+                <if test="!(entity.idx == null || entity.idx == '')">
+                    and idx = #{entity.idx}
+                </if>
+                <if test="!(entity.note == null || entity.note == '')">
+                    and note = #{entity.note}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.modifyUser == null || entity.modifyUser == '')">
+                    and modifyUser = #{entity.modifyUser}
+                </if>
+                <if test="!(entity.modifyTime == null || entity.modifyTime == '')">
+                    and modifyTime = #{entity.modifyTime}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icepoint.framework.workorder.work.dao.AgileBpmMapper">
+
+    <select id="getTaskIdByObjectId" resultType="string">
+        SELECT main.task_id_
+        FROM <include refid="database"/>.bpm_task_identitylink AS main
+        LEFT JOIN <include refid="database"/>.bpm_bus_link AS link ON link.inst_id_ = main.inst_id_
+        WHERE link.biz_code_ = #{objectId}
+    </select>
+
+    <sql id="database">
+        ${agileBpmProperties.getDatabase()}
+    </sql>
+</mapper>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.office.mapper.OfficeMapper">
+    <sql id="columns">
+        id,
+        plate ,
+        termType ,
+        `name` ,
+        coverType,
+        picture,
+        video ,
+        coverParam,
+        summary,
+        jumpType,
+        target,
+        displayType,
+        `level`,
+        idx ,
+        parentId,
+        remarks,
+        platformId,
+        ownerId ,
+        appId ,
+        createUser,
+        createTime ,
+        updateUser ,
+        updateTime,
+        deleted
+    </sql>
+
+
+    <select id="officeList" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_cnt_link
+        where
+        deleted=0
+    </select>
+
+    <select id="getLinkById" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        SELECT
+       s1.*,s.name as parentName
+        from
+        sys_cnt_link s,sys_cnt_link s1
+        WHERE
+        s1.deleted = 0
+        AND
+        s1.parentID = #{id}
+        and
+        s.id = s1.parentId
+        <if test="name !=null and name != ''">
+            and s1.name like "%"#{name}"%"
+        </if>
+        order by s1.idx ASC,s1.updateTime desc
+    </select>
+
+    <update id="updateBySort">
+        UPDATE
+            sys_cnt_link
+        set name = #{name},
+            idx  = #{idx}
+            where
+                id = #{id}
+    </update>
+
+    <sql id="query">
+            <if test="info.plate !=null and info.plate !=''">
+                plate = #{info.plate}
+            </if>
+            <if test="info.termType !=null and info.termType !=''">
+                termType = #{info.termType}
+            </if>
+            <if test="info.name !=null and info.name !=''">
+                name = #{info.name}
+            </if>
+            <if test="info.id !=null and info.id !=''">
+                id = #{info.id}
+            </if>
+            <if test="info.coverType !=null and info.coverType !=''">
+                coverType = #{info.coverType}
+            </if>
+            <if test="info.picture !=null and info.picture !=''">
+                ipicture = #{info.picture}
+            </if>
+            <if test="info.video !=null and info.video !=''">
+                video = #{info.video}
+            </if>
+            <if test="info.coverParam !=null and info.coverParam !=''">
+                coverParam = #{info.coverParam}
+            </if>
+            <if test="info.summary !=null and info.summary !=''">
+                summary = #{info.summary}
+            </if>
+            <if test="info.jumpType !=null and info.jumpType !=''">
+                jumpType = #{info.jumpType}
+            </if>
+            <if test="info.target !=null and info.target !=''">
+                jumpType = #{info.jumpType}
+            </if>
+            <if test="info.displayType !=null and info.displayType !=''">
+                jumpType = #{info.displayType}
+            </if>
+            <if test="info.level !=null and info.level !=''">
+                `level` = #{info.level}
+            </if>
+            <if test="info.idx !=null and info.idx !=''">
+                idx = #{info.idx}
+            </if>
+            <if test="info.parentId !=null and info.parentId !=''">
+                parentId = #{info.parentId}
+            </if>
+            <if test="info.remarks !=null and info.remarks !=''">
+                remarks = #{info.remarks}
+            </if>
+            <if test="info.platformId !=null and info.platformId !=''">
+                platformId = #{info.platformId}
+            </if>
+            <if test="info.ownerId !=null and info.ownerId !=''">
+                ownerId = #{info.ownerId}
+            </if>
+            <if test="info.appId !=null and info.appId !=''">
+                appId = #{info.appId}
+            </if>
+            <if test="info.createUser !=null and info.createUser !=''">
+                createUser = #{info.createUser}
+            </if>
+            <if test="info.createTime !=null and info.createTime !=''">
+                createTime = #{info.createTime}
+            </if>
+            <if test="info.updateUser !=null and info.updateUser !=''">
+                updateUser = #{info.updateUser}
+            </if>
+            <if test="info.updateTime !=null and info.updateTime !=''">
+                updateTime = #{info.updateTime}
+            </if>
+    </sql>
+    <select id="queryChild" resultType="Long">
+        SELECT t3.id
+        FROM (
+                 SELECT t1.id,
+                        t1.parentId,
+                        t2.*,
+                        IF(FIND_IN_SET(t1.parentId, @pids) > 0, @pids := CONCAT(@pids, ',', t1.id), 0) AS isChild
+                 FROM (
+                          SELECT id, parentId FROM sys_cnt_link WHERE deleted = 0 ORDER BY parentId, id
+                      ) AS t1,
+                      (SELECT @pids := #{id}) AS t2
+             ) t3
+        WHERE t3.isChild != 0
+    </select>
+
+
+    <update id="deleteTree" parameterType="Integer">
+        UPDATE
+        sys_cnt_link
+        set
+        deleted = 1
+        where id in
+        <foreach item="item" index="index" collection="childs" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateByid" >
+        update
+            sys_cnt_link
+        set
+        <include refid="query"/>
+        where
+        id = #{id}
+    </update>
+    <insert id="addNode">
+        INSERT INTO
+        sys_cnt_link
+        (
+         <include refid="columns"/>
+        )
+        values
+        (
+         null,
+         #{info.plate},
+         #{info.termType},
+         #{info.name},
+         #{info.coverType},
+         #{info.picture},
+         #{info.video},
+         #{info.coverParam},
+         #{info.summary},
+         #{info.jumpType},
+         #{info.target},
+         #{info.displayType},
+         #{info.level},
+         #{info.idx},
+         #{id},
+         #{info.remarks},
+         #{info.platformId},
+         #{info.ownerId},
+         #{info.appId},
+         #{info.createUser},
+         sysdate(),
+         #{info.updateUser},
+         #{info.updateTime},
+         0
+         )
+
+    </insert>
+
+    <update id="UpdateNode" >
+        update
+        sys_cnt_link
+        set
+            plate = #{info.plate},
+            termType = #{info.termType},
+            `name` = #{info.name},
+            coverType = #{info.coverType},
+            picture = #{info.picture},
+            video = #{info.video},
+            coverParam = #{info.coverParam},
+            summary = #{info.summary},
+            jumpType = #{info.jumpType},
+            target = #{info.target},
+            displayType = #{info.displayType},
+            remarks = #{info.remarks},
+            platformId = #{info.platformId},
+            ownerId = #{info.ownerId},
+            appId = #{info.appId},
+            updateUser = #{info.updateUser},
+            updateTime = #{info.updateTime}
+            where
+            id = #{info.id}
+    </update>
+
+    <select id="query">
+        select
+        <include refid="columns"/>
+        from
+        sys_cnt_link
+    </select>
+
+    <select id="selectById" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        select
+        <include refid="columns"/>
+        from
+        sys_cnt_link
+        where
+        id = #{id}
+    </select>
+
+
+    <select id="selectByTop" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        select
+        <include refid="columns"/>
+        from
+        sys_cnt_link
+        WHERE
+        idx = (
+        SELECT
+        min(idx)
+        FROM
+        sys_cnt_link
+        WHERE
+        parentid = #{parentId}
+        )
+        AND parentid = #{parentId}
+        LIMIT 0,1
+    </select>
+
+
+    <select id="selectByFloor" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        select
+        <include refid="columns"/>
+        from
+        sys_cnt_link
+        WHERE
+        idx = (
+        SELECT
+        max(idx)
+        FROM
+        sys_cnt_link
+        WHERE
+        parentid = #{parentId}
+        )
+        AND parentid = #{parentId}
+        LIMIT 0,1
+    </select>
+
+    <select id="queryAllList" resultType="com.github.tangyi.pub.api.module.office.SysCntLink">
+        SELECT
+        <include refid="columns"/>
+        FROM
+            sys_cnt_link
+        WHERE
+            LEVEL >= 3
+          AND deleted = 0
+    </select>
+
+
+</mapper>

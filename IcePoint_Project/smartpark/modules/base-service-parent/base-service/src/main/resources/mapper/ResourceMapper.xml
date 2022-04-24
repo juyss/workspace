@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.ResourceMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.resName as 'resName',
+            a.resCode as 'resCode',
+            a.resDesc as 'resDesc',
+            a.resIcon as 'resIcon',
+            a.geometryType as 'geometryType',
+            a.resIdx as 'resIdx',
+            a.status as 'status',
+            a.parentId as 'parentId',
+            a.resType as 'resType',
+            a.metaTabId as 'metaTabId',
+            a.typeField as 'typeField',
+            a.dataType as 'dataType',
+            a.ownerId as 'ownerId',
+            a.appId as 'appId',
+            a.createTime as 'createTime',
+            a.createUser as 'createUser',
+            a.updateTime as 'updateTime',
+            a.updateUser as 'updateUser',
+            a.deleted as 'deleted'
+        FROM t_res_resource a
+    </sql>
+
+    <insert id="save" parameterType="com.icepoint.base.api.entity.Resource">
+        insert into t_res_resource(
+            id,
+            resName,
+            resCode,
+            resDesc,
+            resIcon,
+            geometryType,
+            resIdx,
+            status,
+            parentId,
+            resType,
+            metaTabId,
+            typeField,
+            dataType,
+            ownerId,
+            appId,
+            createTime,
+            createUser,
+            updateTime,
+            updateUser,
+            deleted
+        )
+        values(
+            #{id},
+            #{resName},
+            #{resCode},
+            #{resDesc},
+            #{resIcon},
+            #{geometryType},
+            #{resIdx},
+            #{status},
+            #{parentId},
+            #{resType},
+            #{metaTabId},
+            #{typeField},
+            #{dataType},
+            #{ownerId},
+            #{appId},
+            #{createTime},
+            #{createUser},
+            #{updateTime},
+            #{updateUser},
+            #{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.Resource">
+        update t_res_resource
+        set
+            id = #{id},
+            resName = #{resName},
+            resCode = #{resCode},
+            resDesc = #{resDesc},
+            resIcon = #{resIcon},
+            geometryType = #{geometryType},
+            resIdx = #{resIdx},
+            status = #{status},
+            parentId = #{parentId},
+            resType = #{resType},
+            metaTabId = #{metaTabId},
+            typeField = #{typeField},
+            dataType = #{dataType},
+            ownerId = #{ownerId},
+            appId = #{appId},
+            createTime = #{createTime},
+            createUser = #{createUser},
+            updateTime = #{updateTime},
+            updateUser = #{updateUser},
+            deleted = #{deleted}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from t_res_resource
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.Resource">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.Resource">
+        <include refid="query" />
+        <include refid="where" />
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.Resource">
+        <include refid="query"/>
+        <include refid="where" />
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.resName == null || entity.resName == '')">
+                    and resName = #{entity.resName}
+                </if>
+                <if test="!(entity.resCode == null || entity.resCode == '')">
+                    and resCode = #{entity.resCode}
+                </if>
+                <if test="!(entity.resDesc == null || entity.resDesc == '')">
+                    and resDesc = #{entity.resDesc}
+                </if>
+                <if test="!(entity.resIcon == null || entity.resIcon == '')">
+                    and resIcon = #{entity.resIcon}
+                </if>
+                <if test="!(entity.bizCode == null || entity.bizCode == '')">
+                    and bizCode = #{entity.bizCode}
+                </if>
+                <if test="!(entity.geometryType == null || entity.geometryType == '')">
+                    and geometryType = #{entity.geometryType}
+                </if>
+                <if test="!(entity.resIdx == null || entity.resIdx == '')">
+                    and resIdx = #{entity.resIdx}
+                </if>
+                <if test="!(entity.status == null || entity.status == '')">
+                    and status = #{entity.status}
+                </if>
+                <if test="!(entity.parentId == null || entity.parentId == '')">
+                    and parentId = #{entity.parentId}
+                </if>
+                <if test="!(entity.resType == null || entity.resType == '')">
+                    and resType = #{entity.resType}
+                </if>
+                <if test="!(entity.metaTabId == null || entity.metaTabId == '')">
+                    and metaTabId = #{entity.metaTabId}
+                </if>
+                <if test="!(entity.typeField == null || entity.typeField == '')">
+                    and typeField = #{entity.typeField}
+                </if>
+                <if test="!(entity.dataType == null || entity.dataType == '')">
+                    and dataType = #{entity.dataType}
+                </if>
+                <if test="!(entity.ownerId == null || entity.ownerId == '')">
+                    and ownerId = #{entity.ownerId}
+                </if>
+                <if test="!(entity.appId == null || entity.appId == '')">
+                    and appId = #{entity.appId}
+                </if>
+                <if test="!(entity.createTime == null || entity.createTime == '')">
+                    and createTime = #{entity.createTime}
+                </if>
+                <if test="!(entity.createUser == null || entity.createUser == '')">
+                    and createUser = #{entity.createUser}
+                </if>
+                <if test="!(entity.updateTime == null || entity.updateTime == '')">
+                    and updateTime = #{entity.updateTime}
+                </if>
+                <if test="!(entity.updateUser == null || entity.updateUser == '')">
+                    and updateUser = #{entity.updateUser}
+                </if>
+                <if test="!(entity.deleted == null || entity.deleted == '')">
+                    and deleted = #{entity.deleted}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

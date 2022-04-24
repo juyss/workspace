@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.icepoint.framework.boot</groupId>
+    <artifactId>icepoint-framework</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>icepoint-core</module>
+        <module>icepoint-data</module>
+        <module>icepoint-plugin</module>
+        <module>icepoint-restdoc</module>
+        <module>icepoint-restdoc-maven-plugin</module>
+        <module>icepoint-spring-boot-autoconfigure</module>
+        <module>icepoint-spring-boot-dependencies</module>
+        <module>icepoint-web-core</module>
+        <module>icepoint-web-file</module>
+        <module>icepoint-web-security</module>
+        <module>icepoint-web-system</module>
+        <module>icepoint-web-code</module>
+        <module>icepoint-web-ui</module>
+        <module>icepoint-workflow-core</module>
+        <module>icepoint-plugin-workflow-agilebpm</module>
+        <module>icepoint-web-crewschedule</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-data</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-parent</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web-file</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web-security</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web-system</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web-ui</module>
+        <module>icepoint-spring-boot-starters/spring-boot-starter-icepoint-web-crewschedule</module>
+    </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>${maven-deploy-server}/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>${maven-deploy-server}/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- 要将源码放上去，需要加入这个插件 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

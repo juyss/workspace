@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.pub.mapper.FolderMapper">
+
+    <resultMap id="baseResultMap" type="entity.TreeFolder">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+    <sql id="baseColumnList">
+        id, `name`, parent_id, deleted, `type`
+    </sql>
+
+    <select id="folderService" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnList" />
+        from sys_tree_folder
+        <if test ="name !=null and name != '' ">
+            where name like "%"#{name}"%"
+        </if>
+
+    </select>
+
+
+</mapper>

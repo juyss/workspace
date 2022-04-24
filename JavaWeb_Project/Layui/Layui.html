@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Layui</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js" type="text/javascript"></script>
+</head>
+<body>
+    <script>
+        //一般直接写在一个js文件中
+        layui.use(['layer'], function(){
+            let layer = layui.layer;
+            layer.msg('Hello World');
+
+        });
+        $("#ios , #android ,#windows").onclick(function () {
+            layer.msg(this.id+"被点击了!");
+        });
+        //
+    </script>
+    <div class="layui-icon layui-icon-ios" id="ios" style="font-size: 50px"> ios</div>
+    <br>
+    <div class="layui-icon layui-icon-android" id="android" style="font-size: 50px">android</div>
+    <br>
+    <div class="layui-icon layui-icon-windows" id="windows" style="font-size: 50px">windows</div>
+    <br>
+</body>
+</html>

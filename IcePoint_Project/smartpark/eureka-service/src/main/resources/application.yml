@@ -1,0 +1,23 @@
+server:
+  port: 7641
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://park:654321@localhost:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+spring:
+  application:
+    name: eureka-server
+  security:
+    basic:
+      # 开启基于http basic的安全认证
+      enabled: true
+    # 设置安全认证用户名 密码
+    user:
+      password: 654321
+      name: park

@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.TriggersMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.Triggers" >
+    <result column="TRIGGER_CATALOG" property="triggerCatalog" jdbcType="VARCHAR" />
+    <result column="TRIGGER_SCHEMA" property="triggerSchema" jdbcType="VARCHAR" />
+    <result column="TRIGGER_NAME" property="triggerName" jdbcType="VARCHAR" />
+    <result column="EVENT_MANIPULATION" property="eventManipulation" jdbcType="CHAR" />
+    <result column="EVENT_OBJECT_CATALOG" property="eventObjectCatalog" jdbcType="VARCHAR" />
+    <result column="EVENT_OBJECT_SCHEMA" property="eventObjectSchema" jdbcType="VARCHAR" />
+    <result column="EVENT_OBJECT_TABLE" property="eventObjectTable" jdbcType="VARCHAR" />
+    <result column="ACTION_ORDER" property="actionOrder" jdbcType="INTEGER" />
+    <result column="ACTION_ORIENTATION" property="actionOrientation" jdbcType="VARCHAR" />
+    <result column="ACTION_TIMING" property="actionTiming" jdbcType="CHAR" />
+    <result column="ACTION_REFERENCE_OLD_ROW" property="actionReferenceOldRow" jdbcType="VARCHAR" />
+    <result column="ACTION_REFERENCE_NEW_ROW" property="actionReferenceNewRow" jdbcType="VARCHAR" />
+    <result column="CREATED" property="created" jdbcType="TIMESTAMP" />
+    <result column="SQL_MODE" property="sqlMode" jdbcType="CHAR" />
+    <result column="DEFINER" property="definer" jdbcType="VARCHAR" />
+    <result column="CHARACTER_SET_CLIENT" property="characterSetClient" jdbcType="VARCHAR" />
+    <result column="COLLATION_CONNECTION" property="collationConnection" jdbcType="VARCHAR" />
+    <result column="DATABASE_COLLATION" property="databaseCollation" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.juyss.bean.TriggersWithBLOBs" extends="BaseResultMap" >
+    <result column="ACTION_CONDITION" property="actionCondition" jdbcType="BINARY" />
+    <result column="ACTION_STATEMENT" property="actionStatement" jdbcType="LONGVARCHAR" />
+    <result column="ACTION_REFERENCE_OLD_TABLE" property="actionReferenceOldTable" jdbcType="BINARY" />
+    <result column="ACTION_REFERENCE_NEW_TABLE" property="actionReferenceNewTable" jdbcType="BINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TRIGGER_CATALOG, TRIGGER_SCHEMA, TRIGGER_NAME, EVENT_MANIPULATION, EVENT_OBJECT_CATALOG, 
+    EVENT_OBJECT_SCHEMA, EVENT_OBJECT_TABLE, ACTION_ORDER, ACTION_ORIENTATION, ACTION_TIMING, 
+    ACTION_REFERENCE_OLD_ROW, ACTION_REFERENCE_NEW_ROW, CREATED, SQL_MODE, DEFINER, CHARACTER_SET_CLIENT, 
+    COLLATION_CONNECTION, DATABASE_COLLATION
+  </sql>
+  <sql id="Blob_Column_List" >
+    ACTION_CONDITION, ACTION_STATEMENT, ACTION_REFERENCE_OLD_TABLE, ACTION_REFERENCE_NEW_TABLE
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.juyss.bean.TriggersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TRIGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.TriggersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TRIGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.TriggersExample" >
+    delete from TRIGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.TriggersWithBLOBs" >
+    insert into TRIGGERS (TRIGGER_CATALOG, TRIGGER_SCHEMA, TRIGGER_NAME, 
+      EVENT_MANIPULATION, EVENT_OBJECT_CATALOG, EVENT_OBJECT_SCHEMA, 
+      EVENT_OBJECT_TABLE, ACTION_ORDER, ACTION_ORIENTATION, 
+      ACTION_TIMING, ACTION_REFERENCE_OLD_ROW, ACTION_REFERENCE_NEW_ROW, 
+      CREATED, SQL_MODE, DEFINER, 
+      CHARACTER_SET_CLIENT, COLLATION_CONNECTION, 
+      DATABASE_COLLATION, ACTION_CONDITION, ACTION_STATEMENT, 
+      ACTION_REFERENCE_OLD_TABLE, ACTION_REFERENCE_NEW_TABLE
+      )
+    values (#{triggerCatalog,jdbcType=VARCHAR}, #{triggerSchema,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, 
+      #{eventManipulation,jdbcType=CHAR}, #{eventObjectCatalog,jdbcType=VARCHAR}, #{eventObjectSchema,jdbcType=VARCHAR}, 
+      #{eventObjectTable,jdbcType=VARCHAR}, #{actionOrder,jdbcType=INTEGER}, #{actionOrientation,jdbcType=VARCHAR}, 
+      #{actionTiming,jdbcType=CHAR}, #{actionReferenceOldRow,jdbcType=VARCHAR}, #{actionReferenceNewRow,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{sqlMode,jdbcType=CHAR}, #{definer,jdbcType=VARCHAR}, 
+      #{characterSetClient,jdbcType=VARCHAR}, #{collationConnection,jdbcType=VARCHAR}, 
+      #{databaseCollation,jdbcType=VARCHAR}, #{actionCondition,jdbcType=BINARY}, #{actionStatement,jdbcType=LONGVARCHAR}, 
+      #{actionReferenceOldTable,jdbcType=BINARY}, #{actionReferenceNewTable,jdbcType=BINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.TriggersWithBLOBs" >
+    insert into TRIGGERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="triggerCatalog != null" >
+        TRIGGER_CATALOG,
+      </if>
+      <if test="triggerSchema != null" >
+        TRIGGER_SCHEMA,
+      </if>
+      <if test="triggerName != null" >
+        TRIGGER_NAME,
+      </if>
+      <if test="eventManipulation != null" >
+        EVENT_MANIPULATION,
+      </if>
+      <if test="eventObjectCatalog != null" >
+        EVENT_OBJECT_CATALOG,
+      </if>
+      <if test="eventObjectSchema != null" >
+        EVENT_OBJECT_SCHEMA,
+      </if>
+      <if test="eventObjectTable != null" >
+        EVENT_OBJECT_TABLE,
+      </if>
+      <if test="actionOrder != null" >
+        ACTION_ORDER,
+      </if>
+      <if test="actionOrientation != null" >
+        ACTION_ORIENTATION,
+      </if>
+      <if test="actionTiming != null" >
+        ACTION_TIMING,
+      </if>
+      <if test="actionReferenceOldRow != null" >
+        ACTION_REFERENCE_OLD_ROW,
+      </if>
+      <if test="actionReferenceNewRow != null" >
+        ACTION_REFERENCE_NEW_ROW,
+      </if>
+      <if test="created != null" >
+        CREATED,
+      </if>
+      <if test="sqlMode != null" >
+        SQL_MODE,
+      </if>
+      <if test="definer != null" >
+        DEFINER,
+      </if>
+      <if test="characterSetClient != null" >
+        CHARACTER_SET_CLIENT,
+      </if>
+      <if test="collationConnection != null" >
+        COLLATION_CONNECTION,
+      </if>
+      <if test="databaseCollation != null" >
+        DATABASE_COLLATION,
+      </if>
+      <if test="actionCondition != null" >
+        ACTION_CONDITION,
+      </if>
+      <if test="actionStatement != null" >
+        ACTION_STATEMENT,
+      </if>
+      <if test="actionReferenceOldTable != null" >
+        ACTION_REFERENCE_OLD_TABLE,
+      </if>
+      <if test="actionReferenceNewTable != null" >
+        ACTION_REFERENCE_NEW_TABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="triggerCatalog != null" >
+        #{triggerCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerSchema != null" >
+        #{triggerSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerName != null" >
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="eventManipulation != null" >
+        #{eventManipulation,jdbcType=CHAR},
+      </if>
+      <if test="eventObjectCatalog != null" >
+        #{eventObjectCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="eventObjectSchema != null" >
+        #{eventObjectSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="eventObjectTable != null" >
+        #{eventObjectTable,jdbcType=VARCHAR},
+      </if>
+      <if test="actionOrder != null" >
+        #{actionOrder,jdbcType=INTEGER},
+      </if>
+      <if test="actionOrientation != null" >
+        #{actionOrientation,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTiming != null" >
+        #{actionTiming,jdbcType=CHAR},
+      </if>
+      <if test="actionReferenceOldRow != null" >
+        #{actionReferenceOldRow,jdbcType=VARCHAR},
+      </if>
+      <if test="actionReferenceNewRow != null" >
+        #{actionReferenceNewRow,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlMode != null" >
+        #{sqlMode,jdbcType=CHAR},
+      </if>
+      <if test="definer != null" >
+        #{definer,jdbcType=VARCHAR},
+      </if>
+      <if test="characterSetClient != null" >
+        #{characterSetClient,jdbcType=VARCHAR},
+      </if>
+      <if test="collationConnection != null" >
+        #{collationConnection,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseCollation != null" >
+        #{databaseCollation,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCondition != null" >
+        #{actionCondition,jdbcType=BINARY},
+      </if>
+      <if test="actionStatement != null" >
+        #{actionStatement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="actionReferenceOldTable != null" >
+        #{actionReferenceOldTable,jdbcType=BINARY},
+      </if>
+      <if test="actionReferenceNewTable != null" >
+        #{actionReferenceNewTable,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.TriggersExample" resultType="java.lang.Integer" >
+    select count(*) from TRIGGERS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TRIGGERS
+    <set >
+      <if test="record.triggerCatalog != null" >
+        TRIGGER_CATALOG = #{record.triggerCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerSchema != null" >
+        TRIGGER_SCHEMA = #{record.triggerSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerName != null" >
+        TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventManipulation != null" >
+        EVENT_MANIPULATION = #{record.eventManipulation,jdbcType=CHAR},
+      </if>
+      <if test="record.eventObjectCatalog != null" >
+        EVENT_OBJECT_CATALOG = #{record.eventObjectCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventObjectSchema != null" >
+        EVENT_OBJECT_SCHEMA = #{record.eventObjectSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventObjectTable != null" >
+        EVENT_OBJECT_TABLE = #{record.eventObjectTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionOrder != null" >
+        ACTION_ORDER = #{record.actionOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.actionOrientation != null" >
+        ACTION_ORIENTATION = #{record.actionOrientation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionTiming != null" >
+        ACTION_TIMING = #{record.actionTiming,jdbcType=CHAR},
+      </if>
+      <if test="record.actionReferenceOldRow != null" >
+        ACTION_REFERENCE_OLD_ROW = #{record.actionReferenceOldRow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionReferenceNewRow != null" >
+        ACTION_REFERENCE_NEW_ROW = #{record.actionReferenceNewRow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        CREATED = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sqlMode != null" >
+        SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      </if>
+      <if test="record.definer != null" >
+        DEFINER = #{record.definer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characterSetClient != null" >
+        CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collationConnection != null" >
+        COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databaseCollation != null" >
+        DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionCondition != null" >
+        ACTION_CONDITION = #{record.actionCondition,jdbcType=BINARY},
+      </if>
+      <if test="record.actionStatement != null" >
+        ACTION_STATEMENT = #{record.actionStatement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.actionReferenceOldTable != null" >
+        ACTION_REFERENCE_OLD_TABLE = #{record.actionReferenceOldTable,jdbcType=BINARY},
+      </if>
+      <if test="record.actionReferenceNewTable != null" >
+        ACTION_REFERENCE_NEW_TABLE = #{record.actionReferenceNewTable,jdbcType=BINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update TRIGGERS
+    set TRIGGER_CATALOG = #{record.triggerCatalog,jdbcType=VARCHAR},
+      TRIGGER_SCHEMA = #{record.triggerSchema,jdbcType=VARCHAR},
+      TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      EVENT_MANIPULATION = #{record.eventManipulation,jdbcType=CHAR},
+      EVENT_OBJECT_CATALOG = #{record.eventObjectCatalog,jdbcType=VARCHAR},
+      EVENT_OBJECT_SCHEMA = #{record.eventObjectSchema,jdbcType=VARCHAR},
+      EVENT_OBJECT_TABLE = #{record.eventObjectTable,jdbcType=VARCHAR},
+      ACTION_ORDER = #{record.actionOrder,jdbcType=INTEGER},
+      ACTION_ORIENTATION = #{record.actionOrientation,jdbcType=VARCHAR},
+      ACTION_TIMING = #{record.actionTiming,jdbcType=CHAR},
+      ACTION_REFERENCE_OLD_ROW = #{record.actionReferenceOldRow,jdbcType=VARCHAR},
+      ACTION_REFERENCE_NEW_ROW = #{record.actionReferenceNewRow,jdbcType=VARCHAR},
+      CREATED = #{record.created,jdbcType=TIMESTAMP},
+      SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      DEFINER = #{record.definer,jdbcType=VARCHAR},
+      CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR},
+      ACTION_CONDITION = #{record.actionCondition,jdbcType=BINARY},
+      ACTION_STATEMENT = #{record.actionStatement,jdbcType=LONGVARCHAR},
+      ACTION_REFERENCE_OLD_TABLE = #{record.actionReferenceOldTable,jdbcType=BINARY},
+      ACTION_REFERENCE_NEW_TABLE = #{record.actionReferenceNewTable,jdbcType=BINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TRIGGERS
+    set TRIGGER_CATALOG = #{record.triggerCatalog,jdbcType=VARCHAR},
+      TRIGGER_SCHEMA = #{record.triggerSchema,jdbcType=VARCHAR},
+      TRIGGER_NAME = #{record.triggerName,jdbcType=VARCHAR},
+      EVENT_MANIPULATION = #{record.eventManipulation,jdbcType=CHAR},
+      EVENT_OBJECT_CATALOG = #{record.eventObjectCatalog,jdbcType=VARCHAR},
+      EVENT_OBJECT_SCHEMA = #{record.eventObjectSchema,jdbcType=VARCHAR},
+      EVENT_OBJECT_TABLE = #{record.eventObjectTable,jdbcType=VARCHAR},
+      ACTION_ORDER = #{record.actionOrder,jdbcType=INTEGER},
+      ACTION_ORIENTATION = #{record.actionOrientation,jdbcType=VARCHAR},
+      ACTION_TIMING = #{record.actionTiming,jdbcType=CHAR},
+      ACTION_REFERENCE_OLD_ROW = #{record.actionReferenceOldRow,jdbcType=VARCHAR},
+      ACTION_REFERENCE_NEW_ROW = #{record.actionReferenceNewRow,jdbcType=VARCHAR},
+      CREATED = #{record.created,jdbcType=TIMESTAMP},
+      SQL_MODE = #{record.sqlMode,jdbcType=CHAR},
+      DEFINER = #{record.definer,jdbcType=VARCHAR},
+      CHARACTER_SET_CLIENT = #{record.characterSetClient,jdbcType=VARCHAR},
+      COLLATION_CONNECTION = #{record.collationConnection,jdbcType=VARCHAR},
+      DATABASE_COLLATION = #{record.databaseCollation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

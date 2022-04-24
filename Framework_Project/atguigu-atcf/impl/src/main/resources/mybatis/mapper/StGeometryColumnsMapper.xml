@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juyss.mapper.StGeometryColumnsMapper" >
+  <resultMap id="BaseResultMap" type="com.juyss.bean.StGeometryColumns" >
+    <result column="TABLE_CATALOG" property="tableCatalog" jdbcType="VARCHAR" />
+    <result column="TABLE_SCHEMA" property="tableSchema" jdbcType="VARCHAR" />
+    <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+    <result column="COLUMN_NAME" property="columnName" jdbcType="VARCHAR" />
+    <result column="SRS_NAME" property="srsName" jdbcType="VARCHAR" />
+    <result column="SRS_ID" property="srsId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.juyss.bean.StGeometryColumns" extends="BaseResultMap" >
+    <result column="GEOMETRY_TYPE_NAME" property="geometryTypeName" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, SRS_NAME, SRS_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    GEOMETRY_TYPE_NAME
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.juyss.bean.StGeometryColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ST_GEOMETRY_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.juyss.bean.StGeometryColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ST_GEOMETRY_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.juyss.bean.StGeometryColumnsExample" >
+    delete from ST_GEOMETRY_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.juyss.bean.StGeometryColumns" >
+    insert into ST_GEOMETRY_COLUMNS (TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, 
+      COLUMN_NAME, SRS_NAME, SRS_ID, 
+      GEOMETRY_TYPE_NAME)
+    values (#{tableCatalog,jdbcType=VARCHAR}, #{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+      #{columnName,jdbcType=VARCHAR}, #{srsName,jdbcType=VARCHAR}, #{srsId,jdbcType=INTEGER}, 
+      #{geometryTypeName,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.juyss.bean.StGeometryColumns" >
+    insert into ST_GEOMETRY_COLUMNS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tableCatalog != null" >
+        TABLE_CATALOG,
+      </if>
+      <if test="tableSchema != null" >
+        TABLE_SCHEMA,
+      </if>
+      <if test="tableName != null" >
+        TABLE_NAME,
+      </if>
+      <if test="columnName != null" >
+        COLUMN_NAME,
+      </if>
+      <if test="srsName != null" >
+        SRS_NAME,
+      </if>
+      <if test="srsId != null" >
+        SRS_ID,
+      </if>
+      <if test="geometryTypeName != null" >
+        GEOMETRY_TYPE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tableCatalog != null" >
+        #{tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="tableSchema != null" >
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null" >
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="srsName != null" >
+        #{srsName,jdbcType=VARCHAR},
+      </if>
+      <if test="srsId != null" >
+        #{srsId,jdbcType=INTEGER},
+      </if>
+      <if test="geometryTypeName != null" >
+        #{geometryTypeName,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.juyss.bean.StGeometryColumnsExample" resultType="java.lang.Integer" >
+    select count(*) from ST_GEOMETRY_COLUMNS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ST_GEOMETRY_COLUMNS
+    <set >
+      <if test="record.tableCatalog != null" >
+        TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableSchema != null" >
+        TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null" >
+        TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnName != null" >
+        COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srsName != null" >
+        SRS_NAME = #{record.srsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srsId != null" >
+        SRS_ID = #{record.srsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.geometryTypeName != null" >
+        GEOMETRY_TYPE_NAME = #{record.geometryTypeName,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ST_GEOMETRY_COLUMNS
+    set TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      SRS_NAME = #{record.srsName,jdbcType=VARCHAR},
+      SRS_ID = #{record.srsId,jdbcType=INTEGER},
+      GEOMETRY_TYPE_NAME = #{record.geometryTypeName,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ST_GEOMETRY_COLUMNS
+    set TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      SRS_NAME = #{record.srsName,jdbcType=VARCHAR},
+      SRS_ID = #{record.srsId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

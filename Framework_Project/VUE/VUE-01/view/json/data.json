@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "location": {
+        "id": "WW0V9QP93VS8",
+        "name": "郑州",
+        "country": "CN",
+        "path": "郑州,郑州,河南,中国",
+        "timezone": "Asia/Shanghai",
+        "timezone_offset": "+08:00"
+      },
+      "now": {
+        "text": "晴",
+        "code": "1",
+        "temperature": "16"
+      },
+      "last_update": "2020-10-09T23:20:00+08:00"
+    }
+  ],
+  "items": [
+    {
+      "title": "尚硅谷",
+      "site": "http://www.atguigu.com"
+    },
+    {
+      "title": "心知天气",
+      "site": "https://api.seniverse.com/v3/weather/now.json?key=S2zymm_ymdywI-zHY&location=zhengzhou&language=zh-Hans&unit=c"
+    }
+  ]
+}

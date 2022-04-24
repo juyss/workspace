@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.ApprovalMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+            a.tabId as 'tabId',
+            a.dataId as 'dataId',
+            a.operateTime as 'operateTime',
+            a.operator as 'operator',
+            a.operate as 'operate',
+            a.auditOpinion as 'auditOpinion'
+        FROM ent_approval a
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.icepoint.base.api.entity.Approval">
+        insert into ent_approval(
+            tabId,
+            dataId,
+            operateTime,
+            operator,
+            operate,
+            auditOpinion
+        )
+        values(
+            #{tabId},
+            #{dataId},
+            #{operateTime},
+            #{operator},
+            #{operate},
+            #{auditOpinion}
+        )
+    </insert>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.icepoint.base.api.entity.Approval">
+        insert into ent_approval(
+            tabId,
+            dataId,
+            operateTime,
+            operator,
+            operate,
+            auditOpinion
+        )
+        values(
+            #{tabId},
+            #{dataId},
+            #{operateTime},
+            #{operator},
+            #{operate},
+            #{auditOpinion}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.Approval">
+        update ent_approval
+        set
+            tabId = #{tabId},
+            dataId = #{dataId},
+            operateTime = #{operateTime},
+            operator = #{operator},
+            operate = #{operate},
+            auditOpinion = #{auditOpinion}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from ent_approval
+        where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.Approval">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.Approval">
+        <include refid="query"/>
+        <include refid="where"/>
+        ORDER BY a.id ASC
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.Approval">
+        <include refid="query"/>
+        <include refid="where"/>
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+                <if test="!(entity.tabId == null || entity.tabId == '')">
+                    and tabId = #{entity.tabId}
+                </if>
+                <if test="!(entity.dataId == null || entity.dataId == '')">
+                    and dataId = #{entity.dataId}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

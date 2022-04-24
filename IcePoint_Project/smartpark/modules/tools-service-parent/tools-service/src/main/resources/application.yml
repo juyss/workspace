@@ -1,0 +1,102 @@
+MYSQL_HOST: 39.100.11.213
+MYSQL_PORT: 3306
+MYSQL_USERNAME: root
+MYSQL_PASSWORD: BDhY4VUITOtp4iuD0GGq
+DB_AUTH: exam
+DB_USER: exam
+DB_EXAM: exam
+DB_GATEWAY: exam
+server:
+  port: 9191
+spring:
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBITMQ_DEFAULT_USER:guest}
+    password: ${RABBITMQ_DEFAULT_PASS:guest}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${DB_USER:microservice-user}?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CTT&characterEncoding=UTF-8
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:BDhY4VUITOtp4iuD0GGq}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+  # sleuth 配置
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+
+  # feign相关配置
+  feign:
+    httpclient:
+      enabled: false
+    okhttp:
+      enabled: true
+    hystrix:
+      enabled:  true
+
+  # hystrix配置
+  hystrix:
+    shareSecurityContext: true
+    command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 60000
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+    endpoint:
+      health:
+        show-details: ALWAYS
+  # mybatis配置
+  mybatis:
+    configuration:
+      # 驼峰转换
+      map-underscore-to-camel-case: true
+      # 延迟加载
+      lazy-loading-enabled: true
+    mapper-locations: classpath:mapper/*.xml
+  pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+  ignore:
+    urls:
+      - /
+      - /error
+      - /favicon.ico
+      - /**/*swagger*/**
+      - /v2/api-docs
+      - /csrf
+      - /actuator/**
+      - /hystrix.sender
+      - /v1/sms/**
+      - /**/*.css
+      - /**/*.js
+      - /info
+      - /health
+      - /metrics/**
+      - /loggers/**
+      - /v1/sms/**
+
+  # 集群ID生成配置
+cluster:
+  workId: ${CLUSTER_WORKID:1}
+  dataCenterId: ${CLUSTER_DATA_CENTER_ID:1}
+
+# wx开发者账号配置
+wx_appid: wx6657b10e4ca6b0c9
+wx_appsecret: a5a6695dcffd2df0a5dba0d26373d73d

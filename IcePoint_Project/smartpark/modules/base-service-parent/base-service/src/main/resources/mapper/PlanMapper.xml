@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icepoint.base.web.resource.mapper.PlanMapper">
+
+    <sql id="query">
+        SELECT
+            a.id as 'id',
+	a.docNo as 'docNo',
+	a.fileName as 'fileName',
+	a.regulator as 'regulator',
+	a.source as 'source',
+	a.approver as 'approver',
+	a.intelligence as 'intelligence',
+	a.fileType as 'fileType',
+	a.planMap as 'planMap',
+	a.realityMap as 'realityMap',
+	a.environprocess as 'environprocess',
+	a.ownerId as 'ownerId',
+	a.appId as 'appId',
+	a.annex as 'annex',
+	a.annexName as 'annexName',
+	a.planMapName as 'planMapName',
+	a.realityMapName as 'realityMapName',
+	a.deptId as 'deptId',
+	a.createUser as 'createUser',
+	a.createTime as 'createTime',
+	a.updateUser as 'updateUser',
+	a.updateTime as 'updateTime',
+	a.deleted as 'deleted'
+        FROM pk_plan a
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.icepoint.base.api.entity.Plan">
+        insert into pk_plan(
+            docNo,
+	fileName,
+	regulator,
+	source,
+	approver,
+	intelligence,
+	fileType,
+	planMap,
+	realityMap,
+	environprocess,
+	ownerId,
+	appId,
+	annex,
+	annexName,
+	planMapName,
+	realityMapName,
+	deptId,
+	createUser,
+	createTime,
+	updateUser,
+	updateTime,
+	deleted
+         )
+        values(
+ 	#{docNo},
+	#{fileName},
+	#{regulator},
+	#{source},
+	#{approver},
+	#{intelligence},
+	#{fileType},
+	#{planMap},
+	#{realityMap},
+	#{environprocess},
+	#{ownerId},
+	#{appId},
+	#{annex},
+	#{annexName},
+	#{planMapName},
+	#{realityMapName},
+	#{deptId},
+	#{createUser},
+	#{createTime},
+	#{updateUser},
+	#{updateTime},
+	#{deleted}
+        )
+    </insert>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.icepoint.base.api.entity.Plan">
+                insert into pk_plan(
+            docNo,
+	fileName,
+	regulator,
+	source,
+	approver,
+	intelligence,
+	fileType,
+	planMap,
+	realityMap,
+	environprocess,
+	ownerId,
+	appId,
+	annex,
+	annexName,
+	planMapName,
+	realityMapName,
+	deptId,
+	createUser,
+	createTime,
+	updateUser,
+	updateTime,
+	deleted
+         )
+        values(
+ 	#{docNo},
+	#{fileName},
+	#{regulator},
+	#{source},
+	#{approver},
+	#{intelligence},
+	#{fileType},
+	#{planMap},
+	#{realityMap},
+	#{environprocess},
+	#{ownerId},
+	#{appId},
+	#{annex},
+	#{annexName},
+	#{planMapName},
+	#{realityMapName},
+	#{deptId},
+	#{createUser},
+	#{createTime},
+	#{updateUser},
+	#{updateTime},
+	#{deleted}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.icepoint.base.api.entity.Plan">
+        update pk_plan
+        set
+            tabId = #{tabId},
+            dataId = #{dataId},
+            operateTime = #{operateTime},
+            operator = #{operator},
+            operate = #{operate},
+            auditOpinion = #{auditOpinion}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from pk_plan
+        where id = #{id}
+    </delete>
+
+    <update id="deleteByIdList">
+        UPDATE pk_plan SET deleted = 1
+        WHERE id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="com.icepoint.base.api.entity.Plan">
+        <include refid="query"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.icepoint.base.api.entity.Plan">
+        <include refid="query"/>
+        <include refid="where"/>
+        ORDER BY a.version DESC
+    </select>
+
+    <select id="find" resultType="com.icepoint.base.api.entity.Plan">
+        <include refid="query"/>
+        <include refid="where"/>
+    </select>
+
+    <select id="pageByHelper" resultType="com.icepoint.base.api.entity.Plan">
+        SELECT
+        a.id as 'id',
+        a.docNo as 'docNo',
+        a.fileName as 'fileName',
+        a.regulator as 'regulator',
+        a.source as 'source',
+        a.approver as 'approver',
+        a.intelligence as 'intelligence',
+        a.fileType as 'fileType',
+        a.planMap as 'planMap',
+        a.realityMap as 'realityMap',
+        a.environprocess as 'environprocess',
+        a.ownerId as 'ownerId',
+        a.appId as 'appId',
+        a.annex as 'annex',
+        a.annexName as 'annexName',
+        a.planMapName as 'planMapName',
+        a.realityMapName as 'realityMapName',
+        a.deptId as 'deptId',
+        a.createUser as 'createUser',
+        a.createTime as 'createTime',
+        a.updateUser as 'updateUser',
+        a.updateTime as 'updateTime',
+        a.deleted as 'deleted'
+        FROM pk_plan a
+        WHERE deleted = 0
+        <if test="fileName != null and fileName != ''">
+            AND a.fileName LIKE "%"#{fileName}"%"
+        </if>
+        <if test="intelligence != null and intelligence !=''">
+            AND a.intelligence = #{intelligence}
+        </if>
+        <if test="deptIdList != null and deptIdList.size() > 0">
+            AND (
+            <foreach collection="deptIdList" item="deptId" separator="OR">
+                FIND_IN_SET(a.deptId,getDeptChildren(#{deptId}))
+            </foreach>
+            )
+        </if>
+    </select>
+
+    <select id="listByIdList" resultType="com.icepoint.base.api.entity.Plan">
+        <include refid="query"/>
+        <if test="list != null and list.size() > 0">
+            WHERE id IN
+            <foreach collection="list" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="entity != null">
+                <if test="!(entity.id == null || entity.id == '')">
+                    and id = #{entity.id}
+                </if>
+            </if>
+        </where>
+    </sql>
+</mapper>

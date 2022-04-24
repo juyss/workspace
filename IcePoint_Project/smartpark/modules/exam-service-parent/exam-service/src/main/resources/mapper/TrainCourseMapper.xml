@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.tangyi.exam.mapper.TrainCourseMapper">
+
+    <select id="getRelationList" resultType="java.util.Map">
+        SELECT
+        t1.train_course_id trainCourseId,
+        if(t1.create_date is null ,'', DATE_FORMAT(t1.create_date,'%Y-%m-%d %H:%i:%S')) createDate,
+        t1.user_id userId,
+        t1.is_sign_in isSignIn,
+        if(t1.sign_in_time is null ,'', DATE_FORMAT(t1.sign_in_time,'%Y-%m-%d %H:%i:%S')) signInTime,
+        ifnull(t2.name,(select identifier from sys_user_auths where user_id=t2.id limit 1)) name,
+        if(t2.sex=1,'女','男' ) sex
+        ,CASE
+        WHEN ( SELECT parent_id FROM sys_dept WHERE id = t2.dept_id  ) =- 1 THEN
+        ( SELECT dept_name FROM sys_dept WHERE id = t2.dept_id  )
+        WHEN ( SELECT parent_id FROM sys_dept WHERE id = t2.dept_id  ) IS NULL THEN
+        '' ELSE ( SELECT dept_name FROM sys_dept WHERE id = ( SELECT parent_id FROM sys_dept WHERE id =t2.dept_id ) )
+        END as companyName
+        ,(select dept_name from sys_dept where id=t2.dept_id) deptName
+        FROM
+        train_user_relation t1
+        INNER JOIN sys_user t2 ON t1.user_id = t2.id
+        where t1.train_course_id = #{id}
+        <if test='dto.kw!=null and dto.kw!=""'>and  LOCATE(#{dto.kw},t2.name) &gt;0</if>
+        <if test='dto.startTime!=null'> and  t1.create_date &gt;=#{dto.startTime}</if>
+        <if test='dto.endTime!=null'> and  t1.create_date &lt;=#{dto.endTime}</if>
+        order by t1.${sort} ${order}
+    </select>
+
+
+</mapper>

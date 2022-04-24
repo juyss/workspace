@@ -1,0 +1,49 @@
+package <%=module%>.model;
+<% if (useBase === 'Y') { %>
+import <%=module%>.common.core.persistence.BaseEntity;<% } %>
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Column;<% if (keyAuto === 'Y') { %>
+import javax.persistence.GeneratedValue;<% } %>
+import javax.persistence.Id;
+import javax.persistence.Table;<% if (useBase === 'N') { %>
+import java.io.Serializable;<% } for(var p in imports) { %>
+import <%=p%>;<% } %>
+
+/**
+ * <%=name%> <%=nameCN%>
+ *
+ * @author <%=author%>
+ * @since <%=date%>
+ */
+@Table(name = "<%=name%>")
+public class <%=className%> <% if (useBase === 'Y') { %>extends BaseEntity<<%=className%>><% } else { %>implements Serializable<% } %> {
+
+    private static final long serialVersionUID = 1L;
+<% fields.forEach(function(field) { if (useBase === 'N' || useBase === 'Y' && field.ignore === 'N') { %>
+	/**
+	 * <%=field.alias%><% if (field.comment) { %> <%=field.comment%><% } %>
+	 */<% if (field.isPrimary === 'Y') { %>
+	@Id<% } if (field.isAuto === 'Y') { %>
+	@GeneratedValue(generator = "JDBC")<% } %>
+	@Column(name = "<%=field.alias%>") <% if (field.javaType === 'Date') { %>
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8") <% } %>
+	protected <%=field.javaType%> <%=field.name%>;
+<% }})
+	fields.forEach(function(field) { if (useBase === 'N' || useBase === 'Y' && field.ignore === 'N') { %>
+	public <%=field.javaType%> get<%=field.fnName%>() {
+		return <%=field.name%>;
+	}
+
+	public void set<%=field.fnName%>(<%=field.javaType%> <%=field.name%>) {
+		this.<%=field.name%> = <%=field.name%>;
+	}
+<% }}) %>
+    @Override
+    public String toString() {
+        return "<%=name%>{" +<% for(var i = 0; i < fields.length; i++) { var field = fields[i]; %>
+                "<% if (i > 0) { %>, <% } %><%=field.name%>=" + <%=field.name%> +<% } %>
+                '}';
+    }
+
+}

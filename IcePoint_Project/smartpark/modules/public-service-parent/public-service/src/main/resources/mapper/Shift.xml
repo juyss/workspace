@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.tangyi.pub.mapper.ShiftMapper">
+
+
+    <!--班次管理-->
+    <select id="findShiftsPage" resultType="entity.Shifts">
+        SELECT
+          id as id ,
+          shifts_name as shiftsName,
+          start_time as startTime,
+          end_time as endTime,
+          color as color,
+          order_no as orderNo,
+          note as note,
+          create_time as createTime,
+          creator as creator,
+          del_flag as delFlag
+        FROM
+        tool_shifts
+        where del_flag = 1
+        ORDER BY order_no
+     </select>
+
+    <select id="findShiftsById" resultType="entity.Shifts">
+        SELECT
+            id as id ,
+            shifts_name as shiftsName,
+            start_time as startTime,
+            end_time as endTime,
+            color as color,
+            order_no as orderNo,
+            note as note,
+            create_time as createTime,
+            creator as creator,
+            del_flag as delFlag
+        FROM
+            tool_shifts
+        where id = #{id} and del_flag = 1
+    </select>
+
+    <update id="deleteShifts" parameterType="ArrayList">
+        UPDATE tool_shifts
+        set del_flag = -1
+        WHERE id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="getShiftsUser" parameterType="HashMap" resultType="Integer">
+        SELECT COUNT(1)
+        FROM tool_shifts s
+        LEFT JOIN tool_user_shifts us on s.id = us.shifts_id
+        WHERE s.id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and us.work_day > #{today}
+    </select>
+
+
+    <insert id="addShifts">
+        INSERT into tool_shifts
+        (shifts_name,start_time,end_time,color,order_no,note,create_time,creator,company_id)
+        VALUES
+        (#{shiftsName},#{startTime},#{endTime},#{color},#{orderNo},#{note},#{createTime},#{creator},#{companyId})
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+
+    <update id="updateShifts">
+        UPDATE tool_shifts
+        set
+            shifts_name = #{shiftsName},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            color = #{color},
+            order_no = #{orderNo},
+            note = #{note},
+            company_id = #{companyId}
+        WHERE id = #{id}
+    </update>
+
+    <!--人员排班-->
+
+    <select id="findUser" resultType="entity.UserSchedule">
+        SELECT
+        u.id as userId,
+        u.name as userName,
+        role.roleIds as roleIds,
+        role.roleName as roleNames,
+        d.id as deptId,
+        d.dept_name as deptName
+        FROM
+        sys_user u
+        LEFT JOIN (
+        SELECT
+        urole.user_id,
+        GROUP_CONCAT(role_id) AS roleIds,
+        GROUP_CONCAT(role_name) AS roleName
+        FROM
+        sys_user_role urole,
+        sys_role role
+        WHERE
+        urole.role_id = role.id
+        GROUP BY
+        urole.user_id
+        ) role ON u.id = role.user_id
+
+
+        LEFT JOIN sys_dept d ON u.dept_id = d.id
+        AND d.del_flag = 0
+        WHERE
+        u.del_flag = 0
+        <if test="roleId!=null and roleId !=''">
+            AND FIND_IN_SET(#{roleId},role.roleIds)
+        </if>
+        <if test="userName!= null and userName != ''">
+            AND u.name like "%"#{userName}"%"
+        </if>
+        <if test="deptIds!=null and  deptIds.size()>0 ">
+            AND d.id in
+            <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
+                #{deptId}
+            </foreach>
+        </if>
+        ORDER BY u.dept_id DESC
+    </select>
+
+
+    <resultMap type="entity.Schedule" id="schedulesMapNew">
+        <result column="user_id" property="userId"/>
+        <result column="work_day" property="workDay"/>
+        <collection property="shifts" ofType="entity.Shifts">
+            <result column="shiftsName" property="shiftsName"/>
+            <result column="order_no" property="orderNo"/>
+            <result column="color" property="color"/>
+            <result column="id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="schedulesList" resultMap="schedulesMapNew">
+        SELECT us.user_id,us.work_day
+        ,s.id as shiftsId,s.shifts_name as shiftsName ,s.order_no,s.color,s.id as id
+        FROM tool_user_shifts us LEFT JOIN tool_shifts s ON us.shifts_id=s.id
+        where s.del_flag=1
+        <if test="week != null and week.size() != 0">
+            AND us.work_day IN
+            <foreach collection="week" item="day" open="(" separator="," close=")">
+                #{day}
+            </foreach>
+        </if>
+        ORDER BY us.user_id,us.work_day
+    </select>
+
+
+    <insert id="addSchedule" parameterType="HashMap">
+        INSERT into tool_user_shifts
+        (user_id,shifts_id,work_day)
+        VALUES
+        <foreach item="shiftsId" collection="shiftsIds" separator=",">
+            (#{userId},#{shiftsId},#{workDay})
+        </foreach>
+    </insert>
+
+
+    <delete id="deleteSchedule">
+        DELETE
+        FROM tool_user_shifts
+        WHERE user_id = #{userId}
+          and work_day = #{workDay}
+    </delete>
+
+
+    <resultMap type="entity.UserSchedule" id="scheduleListMap">
+        <result column="uId" property="userId"/>
+        <result column="userScheduleId" property="userScheduleId"/>
+        <result column="userName" property="userName"/>
+
+        <collection property="schedules" ofType="entity.Schedule">
+            <result column="workDay" property="workDay"/>
+            <collection property="shifts" ofType="entity.Shifts">
+                <id column="sId" property="id"/>
+                <result column="shiftsName" property="shiftsName"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findPeriodSchedule" resultMap="scheduleListMap">
+        SELECT
+        u.id as uId,
+        u.name as userName,
+        us.id as userScheduleId,
+        us.work_day as workDay,
+        s.id sId,s.shifts_name as shiftsName,
+        role.roleIds as roleIds,
+        role.roleName as roleNames,
+        d.id as deptId,
+        d.dept_name as deptName
+        FROM
+        sys_user u
+        LEFT JOIN (
+        SELECT
+        urole.user_id,
+        GROUP_CONCAT(role_id) AS roleIds,
+        GROUP_CONCAT(role_name) AS roleName
+        FROM
+        sys_user_role urole,
+        sys_role role
+        WHERE
+        urole.role_id = role.id
+        GROUP BY
+        urole.user_id
+        ) role ON u.id = role.user_id
+
+
+        LEFT JOIN sys_dept d ON u.dept_id = d.id AND d.del_flag = 0
+        LEFT JOIN tool_user_shifts us ON u.id = us.user_id
+        LEFT JOIN tool_shifts s ON us.shifts_id = s.id
+        WHERE
+        u.del_flag = 0 AND u.del_flag = 0 AND s.del_flag = 1
+        AND us.work_day BETWEEN #{startDate} AND #{endDate}
+        <if test="userName!= null and userName != ''">
+            AND u.name like "%"#{userName}"%"
+        </if>
+        <if test="roleId!=null and roleId !=''">
+            AND FIND_IN_SET(#{roleId},role.roleIds)
+        </if>
+        <if test="deptIds!=null and deptIds.size()>0">
+            AND d.id in
+            <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
+                #{deptId}
+            </foreach>
+        </if>
+        ORDER BY us.work_day ASC
+    </select>
+
+    <delete id="deleteWeekSchedule" parameterType="HashMap">
+        DELETE
+        FROM tool_user_shifts
+        WHERE
+        work_day BETWEEN #{startTime} and #{endTime}
+        <if test="list != null and list.size() > 0">
+            AND user_id IN
+            <foreach item="userId" collection="list" separator="," open="(" close=")">
+                #{userId}
+            </foreach>
+        </if>
+    </delete>
+
+    <insert id="addNewSchedule" parameterType="HashMap">
+        INSERT into tool_user_shifts
+        (user_id,shifts_id,work_day)
+        VALUES
+        <foreach item="shiftsId" collection="shiftsIds" separator=",">
+            (#{userId},#{shiftsId},#{workDay})
+        </foreach>
+    </insert>
+
+
+    <select id="findSchedulePageForCheck2" resultType="bean.ScheduleTableBean">
+        SELECT
+        IF(GROUP_CONCAT(us.work_day) IS NULL, NULL, GROUP_CONCAT(CONCAT('{', CONCAT_WS(',', pu.id, us.work_day,
+        pu.name), '}') SEPARATOR '|')) AS daysStr,
+        d.id as deptId,
+        d.dept_name as deptName
+        FROM
+        sys_dept as d
+        left join sys_user AS pu ON pu.dept_id = d.id
+
+        LEFT JOIN tool_user_shifts AS us ON us.user_id = pu.id AND us.work_day BETWEEN #{param.startDate} AND
+        #{param.endDate} AND pu.del_flag = 0
+
+        WHERE d.del_flag = 0
+
+        <if test="param.userName != null and param.userName != ''">
+            and pu.name LIKE "%"#{param.userName}"%"
+        </if>
+
+        <if test="param.deptIds != null and param.deptIds.size() > 0">
+            AND d.id IN
+            <foreach collection="param.deptIds" item="deptId" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+        GROUP BY d.dept_name,d.id
+    </select>
+
+    <select id="findScheduleTable" resultType="bean.ScheduleTableListBean">
+        SELECT
+        d.id AS deptId,
+        d.dept_name AS deptName,
+        us.work_day AS workDay,
+        GROUP_CONCAT(pu.name) AS name
+        FROM sys_user AS pu
+
+        LEFT JOIN sys_dept AS d ON pu.dept_id = d.id
+
+        LEFT JOIN tool_user_shifts AS us ON us.user_id = pu.id AND us.work_day BETWEEN #{param.startDate} AND
+        #{param.endDate} AND pu.del_flag = 0
+
+        WHERE us.work_day IS NOT NULL AND pu.del_flag = 0
+        <if test="param.userName != null and param.userName != ''">
+            and pu.name LIKE "%"#{param.userName}"%"
+        </if>
+
+        <if test="param.deptIds != null and param.deptIds.size() > 0">
+            AND d.id IN
+            <foreach collection="param.deptIds" item="deptId" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+
+        GROUP BY d.dept_name,d.id,us.work_day
+        ORDER BY d.id,us.work_day
+    </select>
+</mapper>

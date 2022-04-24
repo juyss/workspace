@@ -1,0 +1,174 @@
+= Web核心模块
+:toc:
+
+== 0. 概述
+
+web核心主要包含MVC的辅助API、通用接口、前端返回值规范定义、前端信息返回定、数据字典。
+
+== 1. 依赖
+.Maven依赖
+====
+[source, xml]
+----
+<dependency>
+    <groupId>com.icepoint.framework</groupId>
+    <artifactId>icepoint-web-core</artifactId>
+    <version>0.1-SNAPSHOT</version>
+</dependency>
+----
+====
+
+== 2. 前端返回值定义
+
+=== 2.1 顶层接口：Response<T>
+
+`Response` 是前端返回对象的顶层接口，反序列化后，会包含4个字段：
+
+- `code`：信息码，辨别请求处理状态和结果的标识
+- `data`：返回数据
+- `message`：返回信息
+- `empty`：布尔值，表示该返回是否包含数据，true代表不包含。
+
+根据常见的业务场景，框架本身提供了多种 `Response` 的子类，方便使用：
+
+- `Response<T>`：最基础的返回对象，`T` 就是返回数据的类型
+- `CollectionResponse<T>`：返回集合类型数据可以使用，`T` 是集合内元素的类型，相当于 `Response<Collection<T>>`
+- `PageResponse<T>`：返回分页数据时可以使用，`T` 是分页数据元素类型，相当于 `Response<Page<T>>`
+- `MapResponse<K, V>`：返回 `Map` 对象时可以使用，`K` 是键的类型， `V` 是值的类型，相当于 `Response<Map<K, V>>`
+- `UnsafeResponse`：没有泛型类型的返回对象，如果返回对象类型不确定的时候可以使用。
+
+=== 2.2 ResponseBuilder
+返回值对象构建会有一点复杂，这个 `ResponseBuilder` 是为了方便构建 `Response` 而设计的，使用了建造者模式。
+
+.ResponseBuilder
+====
+[source]
+----
+ResponseBuilder.any(data) <1>
+    .code("200")
+    .message("成功")
+    .build();
+
+ResponseBuilder.configure(response) <2>
+    .code("404")
+    .message("找不到数据")
+    .build();
+
+ResponseBuilder.justOk("没有数据"); <3>
+----
+<1> 构建一个包含 `data` 数据的 `Response`
+<2> 传入已有的 `Response`，对该对象进行再配置
+<3> 构建一个表示请求处理成功的 `Response`，并且返回信息 `"没有数据"`
+====
+
+=== 2.3 ResponseUtils
+`ResponseUtils` 是根据常见的业务场景，对 `ResponseBuilder` 做进一步封装，增加对不同数据的情况下，对 `Response` 做业务逻辑相关处理。
+
+.ResponseUtils
+====
+[source]
+----
+ResponseUtils.any(data); <1>
+
+ResponseUtils.one(data); <2>
+
+ResponseUtils.many(collection); <3>
+
+ResponseUtils.map(map); <4>
+
+ResponseUtils.page(page); <5>
+
+ResponseUtils.operate(boolean, "500"); <6>
+----
+<1> 构建 `Response` 对象，`data` 允许是任何值，一定会返回请求处理成功
+<2> 构建 `Response` 对象，`data` 为null时会返回前端找不到数据的信息码
+<3> 构建 `Response` 对象，`data` 必须是 `Collection` 类型或者子类，若为 `null` 或者没有元素，会返回前端找不到数据的信息码
+<4> 构建 `Response` 对象，`data` 必须是 `Map` 类型或者子类，若为 `null` 或者没有元素，会返回前端找不到数据的信息码
+<5> 构建 `Response` 对象，`data` 必须是 `Page` 类型或者子类，若为 `null` 或者没有元素，会返回前端找不到数据的信息码
+<6> 构建 `Response` 对象，`data` 必须是 `boolean` 类型，当为 `false` 时会以第二个参数作为信息码返回
+====
+
+=== 2.4 ResponseProcessor
+返回对象处理器，允许在 `Response` 对象反序列化之前做处理或替换返回值数据等操作。
+
+.ResponseProcessor
+====
+[source, java]
+----
+public class MyResponseProcessor implements ResponseProcessor {
+    @Override
+    public Response<?> process(Response<?> body, ServerHttpRequest request,
+        ServerHttpResponse response) { <1>
+
+        body.setCode(CoreMessage.NOT_FOUND.getCode());
+        return body;
+    }
+
+    @Override
+    public boolean supports(Class<?> type) { <2>
+        return Response.class.isAssignableFrom(type);
+    }
+}
+----
+<1> 对返回对象 `Response` 做处理，允许返回新的对象。
+<2> 传入的对象是目前正在处理的 `Response` 的类型，这个方法返回 `true` 才会执行 `process()` 方法
+====
+
+=== 2.5 HATEOAS支持
+待完善
+
+== 3. 前端消息系统
+
+所有的信息以信息码作为标识进行查找，目前信息会存储在数据库表 `sys_response_message`。
+
+=== 3.1 顶层接口 Message
+
+通过信息码和异常类型的绑定，当应用允许的时候抛出被绑定的异常类型后，会通过异常类型绑定的信息码，去查找对应的信息。
+
+.Message
+====
+[source,java]
+----
+public interface Message {
+
+    String getCode(); <1>
+
+    @Nullable
+    Class<?>[] getExTypes(); <2>
+}
+----
+<1> 返回值会作为绑定的信息码
+<2> 返回值会作为绑定的异常类型
+====
+
+=== 3.2 动态信息
+数据库存储的信息允许含有占位符 `\{paramName}`，在解析信息的时候，会从异常类调用对应的Getter方法，如果没有则会填充 `"null"`
+
+.动态信息
+====
+[source]
+----
+// some code...
+throws new IllegalArgumentException("参数不正确");
+
+// 绑定的信息
+"参数异常: {message}"
+
+// 解析后的信息
+"参数异常: 参数不正确"
+----
+====
+
+=== 3.3 MessageException
+`MessageException` 是异常类型的顶层父类，预设了以下几个异常类型：
+
+- `CodedMessageException`：构建该异常需要传入参数 `code`，解析时会根据 `code` 值查找信息。
+- `ReasonableMessageException`：继承自 `CodedMessageException`，多增加了一个字段 `reason`
+- `RootCauseMessageException`：继承自 `ReasonableMessageException`，构造方法需要传入一个 `Throwable` 对象，会递归查找最底层的异常信息，作为 `reason` 字段的值。
+- `NullArgumentMessageException`：空参数异常，当参数为空时可以抛出，需要传入空对象的名称
+- `DataNotFoundMessageException`：数据找不到时抛出，可以不需要参数构造该异常
+
+== 4. 增强API
+
+=== 4.1 应用初始化器：ApplicationInitializer
+实现这个接口，应用会在启动的时候运行其中的 `initialize()` 方法，如果验证不通过可以抛出异常终止程序启动。

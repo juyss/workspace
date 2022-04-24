@@ -1,0 +1,96 @@
+MYSQL_HOST: 39.100.11.213
+MYSQL_PORT: 3306
+MYSQL_USERNAME: root
+MYSQL_PASSWORD: BDhY4VUITOtp4iuD0GGq
+DB_EXAM: icepoint_framework
+
+server:
+  port: 9991
+spring:
+  application:
+    name: icepoint-web-code
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+  aop:
+    proxy-target-class: true
+    auto: true
+  web:
+    resources:
+      # smart-doc静态文档
+      add-mappings: true
+  datasource:
+    druid:
+      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${DB_EXAM:base}?useSSL=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+      username: ${MYSQL_USERNAME:root}
+      password: ${MYSQL_PASSWORD:root}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 15
+      max-active: 100
+      min-idle: 15
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+      validation-query-timeout: 1000
+      keep-alive: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+      log-abandoned: true
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,slf4j
+      use-global-data-source-stat: true
+      maxOpenPreparedStatements: 100
+      connect-properties.mergeSql: true
+      connect-properties.slowSqlMillis: 5000
+      # DruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # EDruidStatViewServlet
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        allow: 127.0.0.1
+        reset-enable: false
+        login-username: admin
+        login-password: 102850
+        enabled: true
+# Mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.icepoint.framework.code.*.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    lazy-loading-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      db-type: mysql
+      refresh: false
+    configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+# PageHelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+icepoint:
+  web:
+    security:
+      ignore-paths:
+        - /doc/**

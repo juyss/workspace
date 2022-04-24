@@ -1,0 +1,20 @@
+{
+  "results": [
+    {
+      "location": {
+        "id": "WW0V9QP93VS8",
+        "name": "郑州",
+        "country": "CN",
+        "path": "郑州,郑州,河南,中国",
+        "timezone": "Asia/Shanghai",
+        "timezone_offset": "+08:00"
+      },
+      "now": {
+        "text": "晴",
+        "code": "1",
+        "temperature": "24"
+      },
+      "last_update": "2020-09-20T00:30:00+08:00"
+    }
+  ]
+}

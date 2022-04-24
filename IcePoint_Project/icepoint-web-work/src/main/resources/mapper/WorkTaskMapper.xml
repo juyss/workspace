@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icepoint.framework.workorder.work.dao.WorkPlanTemplateMapper">
+    <sql id="work_order_plan_template_fields">
+        id
+        , type ,code,name,note,platform_id,owner_id, app_id,create_user,create_time,update_user,update_time, deleted
+    </sql>
+    <sql id="work_order_plan_template_detail_fields">
+        id
+        , work_obj_asset_def_id, template_id, work_obj, work_root_obj, start_time, end_time, send_time, content,
+        cost, note, platform_id, owner_id, app_id, create_user, create_time, update_user, update_time, deleted
+    </sql>
+
+    <insert id="addTemplate" parameterType="com.icepoint.framework.workorder.work.entity.WorkPlanTemplate">
+        insert into work_order_work_template(
+        <include refid="work_order_plan_template_fields"></include>
+        )values(#{id},#{type},#{code},#{name},#{platformId},#{ownerId},#{appId},#{createUser},#{createTime},#{updateUser},#{updateTime},#{deleted})
+    </insert>
+
+    <update id="updateTemplate"
+            parameterType="com.icepoint.framework.workorder.work.entity.WorkPlanTemplate">
+        update work_order_work_template
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id != null and id.length()>0">id = #{id},</if>
+            <if test="type != null and type.length()>0">type = #{type},</if>
+            <if test="code != null and code.length()>0">code = #{code},</if>
+            <if test="name != null and name.length()>0">name = #{name},</if>
+            <if test="platformId != null and platformId.length()>0">platformId = #{platformId},</if>
+            <if test="ownerId != null and ownerId.length()>0">ownerId = #{ownerId},</if>
+            <if test="appId != null and appId.length()>0">appId = #{appId},</if>
+            <if test="createUser != null and createUser.length()>0">createUser = #{createUser},</if>
+            <if test="createTime != null and createTime.length()>0">createTime = #{createTime},</if>
+            <if test="updateUser != null and updateUser.length()>0">updateUser = #{updateUser},</if>
+            <if test="updateTime != null and updateTime.length()>0">updateTime = #{updateTime},</if>
+            <if test="deleted != null and deleted.length()>0">deleted = #{deleted},</if>
+        </trim>
+        where id = #{id}
+        <!--        <trim prefix="where" prefixOverrides="and|or">-->
+        <!--            <if test="id != null and id.length()>0">and id = #{id}</if>-->
+        <!--            <if test="type != null and type.length()>0">and type = #{type}</if>-->
+        <!--            <if test="code != null and code.length()>0">and code = #{code}</if>-->
+        <!--            <if test="name != null and name.length()>0">and name = #{name}</if>-->
+        <!--            <if test="platformId != null and platformId.length()>0">and platformId = #{platformId}</if>-->
+        <!--            <if test="ownerId != null and ownerId.length()>0">and ownerId = #{ownerId}</if>-->
+        <!--            <if test="appId != null and appId.length()>0">and appId = #{appId}</if>-->
+        <!--            <if test="createUser != null and createUser.length()>0">and createUser = #{createUser}</if>-->
+        <!--            <if test="createTime != null and createTime.length()>0">and createTime = #{createTime}</if>-->
+        <!--            <if test="updateUser != null and updateUser.length()>0">and updateUser = #{updateUser}</if>-->
+        <!--            <if test="updateTime != null and updateTime.length()>0">and updateTime = #{updateTime}</if>-->
+        <!--            <if test="deleted != null and deleted.length()>0">and deleted = #{deleted}</if>-->
+        <!--        </trim>-->
+    </update>
+
+    <insert id="addTemplateDetail"
+            parameterType="com.icepoint.framework.workorder.work.entity.WorkPlanTemplateDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into work_order_work_template_detail(
+        <include refid="work_order_plan_template_detail_fields" />
+        )values
+        <foreach collection="templates" item="template" separator=",">
+            (
+            #{template.id}, #{template.templateId}, #{template.workObj},#{template.workRootObj}, #{template.startTime},
+            #{template.endTime}, #{template.sendTime},#{template.content}, #{template.cost}, #{template.note},
+            #{template.platformId}, #{template.ownerId}, #{template.appId}, #{template.createUser},
+            #{template.createTime}, #{template.updateUser}, #{template.updateTime}, #{template.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deletePlnTemplateDetail" parameterType="java.lang.Long">
+        update work_order_work_template_detail
+        set deleted = 1
+        where template_id = #{templateId}
+    </delete>
+
+    <delete id="deleteTemplate" parameterType="java.lang.Long">
+        update work_order_work_template
+        set deleted = 1
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTemplates" parameterType="List">
+        update work_order_plan_template
+        set deleted = 1
+        where id in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <delete id="deleteTemplateDetail">
+        update work_order_work_template_detail
+        set deleted = 1
+        where id in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+</mapper>

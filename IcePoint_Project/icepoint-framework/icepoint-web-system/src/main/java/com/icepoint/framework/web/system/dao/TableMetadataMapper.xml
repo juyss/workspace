@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icepoint.framework.web.system.dao.TableMetadataMapper">
+
+    <select id="findAllByProjectId" resultType="com.icepoint.framework.web.system.entity.TableMetadata">
+        SELECT ${tableInfo.getAllSqlSelect('main')}
+        FROM sys_table_metadata AS main
+                 LEFT JOIN sys_module AS m ON m.id = main.module_id
+                 LEFT JOIN sys_project AS p ON p.id = m.project_id
+        WHERE p.id = #{projectId}
+          AND main.deleted = 0
+    </select>
+
+</mapper>

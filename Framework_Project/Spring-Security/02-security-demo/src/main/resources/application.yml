@@ -1,0 +1,11 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: security-demo
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.3.9:3306/test_db?useSSL=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: 102850

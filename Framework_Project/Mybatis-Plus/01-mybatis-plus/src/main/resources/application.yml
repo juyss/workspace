@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: mybatis-plus
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.112.133:3306/mybatis_plus?useSSL=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: 102850
+logging:
+  level:
+    root: info
+    com.juyss.mapper: debug
