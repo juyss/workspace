@@ -22,7 +22,8 @@ public class MyAspect {
     public void myBefore(JoinPoint joinPoint){
         Signature signature = joinPoint.getSignature();
         String methodName = signature.getName();
-        System.out.println("Before Aspect:" + methodName);
+        String className = joinPoint.getThis().getClass().getName();
+        System.out.println("Before Aspect:" + className +":"+ methodName);
     }
 
 }

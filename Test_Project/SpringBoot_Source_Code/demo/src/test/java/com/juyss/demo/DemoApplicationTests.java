@@ -21,7 +21,8 @@ class DemoApplicationTests {
 
     @Test
     public void testAop(){
-//        userService.test1();
+        userService.test1();
+        System.out.println("=================");
         orderService.test1();
     }
 }
