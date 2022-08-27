@@ -23,7 +23,6 @@ SSD1306Wire display(0x3c, D1 , D2);
 
 void startSSD1306() {
     display.init();
-    display.flipScreenVertically();
     display.clear();
     display.display();
 }
@@ -86,33 +85,21 @@ void getInfo() {
     DynamicJsonDocument doc(capacity);
     deserializeJson(doc, http.getStream(), DeserializationOption::NestingLimit(12));
     //CPU
-    String cpuName = doc["Children"][0]["Children"][0]["Text"];
-    String cpuTemp = doc["Children"][0]["Children"][0]["Children"][1]["Children"][0]["Value"];
+    String cpuName = doc["Children"][0]["Children"][1]["Text"];
+    String cpuTemp = doc["Children"][0]["Children"][0]["Children"][0]["Children"][1]["Children"][0]["Value"];
     cpuTemp = cpuTemp.substring(0,4);
-    String cpuLoad = doc["Children"][0]["Children"][0]["Children"][2]["Children"][0]["Value"];
+    String cpuLoad = doc["Children"][0]["Children"][1]["Children"][0]["Children"][0]["Value"];
     cpuLoad.replace(" %","");
     //GPU
-    String gpuName = doc["Children"][0]["Children"][2]["Text"];
-    //NVIDIA
-    String logo = gpuName.substring(0,6);
-    //GTX 1650
-    String model = gpuName.substring(22);
-    String gpuTemp = doc["Children"][0]["Children"][2]["Children"][1]["Children"][0]["Value"];
+    String gpuName = doc["Children"][0]["Children"][3]["Text"];
+    String gpuTemp = doc["Children"][0]["Children"][3]["Children"][2]["Children"][0]["Value"];
     gpuTemp = gpuTemp.substring(0, 4);
-    String gpuLoad = doc["Children"][0]["Children"][2]["Children"][2]["Children"][0]["Value"];
+    String gpuLoad = doc["Children"][0]["Children"][3]["Children"][3]["Children"][0]["Value"];
     gpuLoad.replace(" %","");
     //RAM
-    String loadRAM = doc["Children"][0]["Children"][1]["Children"][0]["Children"][0]["Value"];
+    String loadRAM = doc["Children"][0]["Children"][2]["Children"][0]["Children"][0]["Value"];
     loadRAM.replace(" %","");
     int process = loadRAM.toInt();
-
-//    CPU: AMD Ryzen 5 4600H
-//    CPU Temp: 50.5
-//    CPU Load: 5.2 %
-//    GPU Name: NVIDIA GTX 1650
-//    GPU Temp: 38.0
-//    GPU Load: 1.0 %
-//    RAM Load: 54.4 %
 
     // Console Log
     Serial.print("\n\n\n\nCPU: ");
@@ -122,7 +109,7 @@ void getInfo() {
     Serial.print("CPU Load: ");
     Serial.println(cpuLoad);
     Serial.print("GPU Name: ");
-    Serial.println(logo +" "+ model);
+    Serial.println(gpuName);
     Serial.print("GPU Temp: ");
     Serial.println(gpuTemp);
     Serial.print("GPU Load: ");
@@ -133,10 +120,9 @@ void getInfo() {
     // Text on Display 1
     display.clear();
 
-    // CPU
-    // CPU - Name
     display.setTextAlignment(TEXT_ALIGN_LEFT);
     display.setFont(ArialMT_Plain_10);
+    // CPU - Name
     display.drawString(0 , 0 , cpuName);
 
     // CPU - Temperature and Load
@@ -152,7 +138,7 @@ void getInfo() {
     // GPU - Name
     display.setFont(ArialMT_Plain_10);
     display.setTextAlignment(TEXT_ALIGN_LEFT);
-    display.drawString(0, 27, logo + ' ' + model);
+    display.drawString(0, 27, gpuName);
 
     // GPU - Temperature
     display.setFont(ArialMT_Plain_16);
